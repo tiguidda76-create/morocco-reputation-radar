@@ -106,6 +106,17 @@ Hassan Tiguidda — Morocco Radar Agency
 Phone/WhatsApp: +212 632 155 430 | Email: ${AGENCY_METADATA.email}`
   };
 
+  const currentPitch = pitches[lang];
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(currentPitch);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2500);
+  };
+
+  const whatsappUrl = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(currentPitch)}`;
+  const mailtoUrl = `mailto:${venue.email}?subject=${encodeURIComponent(`Audit E-Réputation & Fuite de Réservations : ${venue.name}`)}&body=${encodeURIComponent(currentPitch)}`;
+
   const handleSendViaMetaApi = async () => {
     setIsSendingMeta(true);
     setMetaSendSuccess(null);

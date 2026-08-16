@@ -6,17 +6,14 @@ import {
   CheckCircle2, 
   Edit3, 
   XCircle, 
-  MessageSquare, 
-  Send, 
   Star, 
   Globe2, 
   Volume2, 
   Copy, 
   Check, 
-  Layers, 
   RefreshCw,
-  ThumbsUp,
-  AlertCircle
+  Play,
+  Square
 } from 'lucide-react';
 import { SAMPLE_SIMULATOR_REVIEWS } from '../../data/mockData';
 import { ReviewItem } from '../../types';
@@ -39,10 +36,10 @@ export const TabReviewRescue: React.FC<TabReviewRescueProps> = ({
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [copied, setCopied] = useState<boolean>(false);
   const [actionNotice, setActionNotice] = useState<string | null>(null);
+  const [isPlayingAudio, setIsPlayingAudio] = useState<boolean>(false);
 
   const currentReview = reviews.find((r) => r.id === selectedReviewId) || reviews[0];
 
-  // Trigger celebration confetti
   const triggerConfetti = () => {
     confetti({
       particleCount: 70,
@@ -52,7 +49,24 @@ export const TabReviewRescue: React.FC<TabReviewRescueProps> = ({
     });
   };
 
-  // Simulate Live AI Regeneration with chosen Tone and Language
+  const handleSpeakText = (text: string) => {
+    if ('speechSynthesis' in window) {
+      if (isPlayingAudio) {
+        window.speechSynthesis.cancel();
+        setIsPlayingAudio(false);
+        return;
+      }
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = selectedLang === 'EN' ? 'en-US' : selectedLang === 'ES' ? 'es-ES' : 'fr-FR';
+      utterance.rate = 0.95;
+      utterance.onend = () => setIsPlayingAudio(false);
+      utterance.onerror = () => setIsPlayingAudio(false);
+      setIsPlayingAudio(true);
+      window.speechSynthesis.speak(utterance);
+    }
+  };
+
   const handleRegenerate = () => {
     setIsGenerating(true);
     setIsEditing(false);
@@ -71,7 +85,6 @@ export const TabReviewRescue: React.FC<TabReviewRescueProps> = ({
         content = `Estimado/a ${currentReview.author}, Muchas gracias por compartir su experiencia en ${currentReview.venueName}. Lamentamos profundamente no haber cumplido con sus expectativas. La calidez y la legendaria hospitalidad marroquí son nuestro mayor compromiso. Hemos tomado medidas inmediatas con nuestro equipo para garantizar una estancia perfecta en su próxima visita. Saludos muy cordiales.`;
         keywords = ['hospitalidad marroquí', 'riad con encanto en la medina', 'estancia inolvidable Marrakech'];
       } else {
-        // FR
         if (selectedTone === 'Royal Palace') {
           content = `Chère / Cher ${currentReview.author}, Nous vous exprimons nos regrets les plus sincères pour ce manquement indigne des standards d'excellence de ${currentReview.venueName}. La grandeur de l'hospitalité de palace exige une perfection absolue. Notre Direction Générale prend personnellement en charge votre dossier pour vous assurer une considération royale lors de votre prochaine escale. Très respectueusement.`;
         } else if (selectedTone === 'Warm Riad') {
@@ -144,7 +157,7 @@ export const TabReviewRescue: React.FC<TabReviewRescueProps> = ({
   return (
     <div className="space-y-6">
       
-      {/* Top Banner: Dual Mode Explanation & Switcher */}
+      {/* Top Banner */}
       <div className="glass-panel p-5 rounded-2xl flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2">
@@ -180,7 +193,7 @@ export const TabReviewRescue: React.FC<TabReviewRescueProps> = ({
       </div>
 
       {actionNotice && (
-        <div className="p-3.5 bg-emerald-950/80 border border-emerald-500/50 text-emerald-300 rounded-xl text-xs font-medium flex items-center gap-2 animate-fadeIn">
+        <div className="p-3.5 bg-emerald-950/80 border border-emerald-500/50 text-emerald-300 rounded-xl text-xs font-medium flex items-center gap-2">
           <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
           <span>{actionNotice}</span>
         </div>
@@ -189,7 +202,7 @@ export const TabReviewRescue: React.FC<TabReviewRescueProps> = ({
       {/* Main Studio Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         
-        {/* Left Column: Review Queue Selector (4 cols) */}
+        {/* Left Column (4 cols) */}
         <div className="lg:col-span-4 space-y-3">
           <div className="flex items-center justify-between px-1">
             <span className="text-xs font-bold text-slate-300 uppercase tracking-wider">
@@ -249,7 +262,7 @@ export const TabReviewRescue: React.FC<TabReviewRescueProps> = ({
           </div>
         </div>
 
-        {/* Right Column: Interactive AI Studio & Live Calibration (8 cols) */}
+        {/* Right Column (8 cols) */}
         <div className="lg:col-span-8 space-y-4">
           
           {/* Review Details Card */}
@@ -283,11 +296,11 @@ export const TabReviewRescue: React.FC<TabReviewRescueProps> = ({
             </div>
           </div>
 
-          {/* Tone & Language Selector Controls */}
+          {/* Tone & Language Selector */}
           <div className="glass-panel p-4 rounded-2xl border border-slate-800 space-y-3">
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
               
-              {/* Tone dropdown */}
+              {/* Tone */}
               <div className="flex items-center gap-2">
                 <Volume2 className="w-4 h-4 text-amber-400 shrink-0" />
                 <span className="text-xs text-slate-400">Ton :</span>
@@ -303,7 +316,7 @@ export const TabReviewRescue: React.FC<TabReviewRescueProps> = ({
                 </select>
               </div>
 
-              {/* Language Pills */}
+              {/* Languages */}
               <div className="flex items-center gap-1 bg-slate-950 p-1 rounded-xl border border-slate-800 text-xs">
                 {(['FR', 'DARIJA', 'EN', 'ES'] as const).map((lang) => (
                   <button
@@ -334,7 +347,7 @@ export const TabReviewRescue: React.FC<TabReviewRescueProps> = ({
             </div>
           </div>
 
-          {/* AI Response Output Card with QC Score */}
+          {/* AI Response Output Card */}
           <div className="glass-panel p-5 rounded-2xl border border-emerald-800/40 bg-gradient-to-br from-slate-900 via-slate-900 to-emerald-950/20 space-y-4">
             
             <div className="flex items-center justify-between">
@@ -367,13 +380,22 @@ export const TabReviewRescue: React.FC<TabReviewRescueProps> = ({
               <div className="p-4 bg-slate-950/90 rounded-xl border border-slate-800 text-xs text-slate-100 leading-relaxed relative group">
                 <p>{activeDraft?.content || 'En attente de génération...'}</p>
                 {activeDraft && (
-                  <button
-                    onClick={() => handleCopy(activeDraft.content)}
-                    className="absolute top-2.5 right-2.5 p-1.5 bg-slate-800 hover:bg-slate-700 rounded-lg text-slate-400 hover:text-white transition-colors opacity-0 group-hover:opacity-100"
-                    title="Copier la réponse"
-                  >
-                    {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
-                  </button>
+                  <div className="absolute top-2.5 right-2.5 flex items-center gap-1">
+                    <button
+                      onClick={() => handleSpeakText(activeDraft.content)}
+                      className="p-1.5 bg-slate-800 hover:bg-slate-700 rounded-lg text-emerald-400 transition-colors"
+                      title={isPlayingAudio ? 'Arrêter la lecture' : 'Écouter la réponse vocalement'}
+                    >
+                      {isPlayingAudio ? <Square className="w-3.5 h-3.5 fill-current" /> : <Play className="w-3.5 h-3.5 fill-current" />}
+                    </button>
+                    <button
+                      onClick={() => handleCopy(activeDraft.content)}
+                      className="p-1.5 bg-slate-800 hover:bg-slate-700 rounded-lg text-slate-400 hover:text-white transition-colors"
+                      title="Copier la réponse"
+                    >
+                      {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+                    </button>
+                  </div>
                 )}
               </div>
             )}

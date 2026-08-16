@@ -11,10 +11,11 @@ import { AuditModal } from './components/modals/AuditModal';
 import { PitchModal } from './components/modals/PitchModal';
 import { LegalNoticeModal } from './components/modals/LegalNoticeModal';
 import { CertificateModal } from './components/modals/CertificateModal';
+import { AddVenueModal } from './components/modals/AddVenueModal';
+import { QRStandModal } from './components/modals/QRStandModal';
 
-import { INITIAL_VENUES, INITIAL_DEFAMATION_CASES, AGENCY_METADATA } from './data/mockData';
+import { INITIAL_VENUES, AGENCY_METADATA } from './data/mockData';
 import { Venue, DefamationCase, PricingPlan } from './types';
-import { ShieldCheck, Heart, Sparkles, Building, PhoneCall } from 'lucide-react';
 
 export function App() {
   const [activeTab, setActiveTab] = useState<string>('leads');
@@ -26,6 +27,8 @@ export function App() {
   const [pitchVenue, setPitchVenue] = useState<Venue | null>(null);
   const [legalCase, setLegalCase] = useState<DefamationCase | null>(null);
   const [certificateVenue, setCertificateVenue] = useState<Venue | null>(null);
+  const [qrVenue, setQrVenue] = useState<Venue | null>(null);
+  const [isAddVenueOpen, setIsAddVenueOpen] = useState<boolean>(false);
   const [planForInvoice, setPlanForInvoice] = useState<PricingPlan | null>(null);
 
   const handleOpenAudit = (venue: Venue) => {
@@ -48,15 +51,23 @@ export function App() {
     setCertificateVenue(venue);
   };
 
+  const handleOpenQRStand = (venue: Venue) => {
+    setQrVenue(venue);
+  };
+
   const handleSelectPlanForInvoice = (plan: PricingPlan) => {
     setPlanForInvoice(plan);
     setActiveTab('billing');
   };
 
+  const handleAddVenue = (newVenue: Venue) => {
+    setVenues((prev) => [newVenue, ...prev]);
+  };
+
   return (
     <div className="min-h-screen bg-[#020617] text-slate-100 flex flex-col selection:bg-emerald-500/30 selection:text-emerald-200 radial-bg moroccan-pattern">
       
-      {/* Top Fixed / Sticky Navigation Bar */}
+      {/* Top Sticky Navigation Bar */}
       <Navbar
         activeTab={activeTab}
         setActiveTab={setActiveTab}
@@ -65,7 +76,7 @@ export function App() {
         onOpenNewInvoice={() => setActiveTab('billing')}
       />
 
-      {/* Main App Content Viewport */}
+      {/* Main App Content */}
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {activeTab === 'leads' && (
           <TabLeadEngine
@@ -74,6 +85,8 @@ export function App() {
             onDispatchPitch={handleDispatchPitch}
             onLaunchAutoReviews={handleLaunchAutoReviews}
             onOpenCertificate={handleOpenCertificate}
+            onOpenAddVenue={() => setIsAddVenueOpen(true)}
+            onOpenQRStand={handleOpenQRStand}
           />
         )}
 
@@ -130,6 +143,18 @@ export function App() {
         venue={certificateVenue}
         isOpen={!!certificateVenue}
         onClose={() => setCertificateVenue(null)}
+      />
+
+      <QRStandModal
+        venue={qrVenue}
+        isOpen={!!qrVenue}
+        onClose={() => setQrVenue(null)}
+      />
+
+      <AddVenueModal
+        isOpen={isAddVenueOpen}
+        onClose={() => setIsAddVenueOpen(false)}
+        onAddVenue={handleAddVenue}
       />
 
       {/* Footer */}

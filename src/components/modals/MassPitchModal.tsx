@@ -1,23 +1,16 @@
 import React, { useState } from 'react';
 import { 
   X, 
-  Send, 
+  Send,
   Sparkles, 
-  MessageCircle, 
-  CheckCircle2, 
-  RefreshCw, 
-  Layers, 
-  Bot, 
-  ShieldCheck, 
-  Clock, 
-  Building, 
-  ExternalLink,
-  Zap,
+  CheckCircle2,
+  RefreshCw,
+  Layers,
+  Bot,
   Check,
   Megaphone
 } from 'lucide-react';
 import { Venue, OutreachStage } from '../../types';
-import { AGENCY_METADATA } from '../../data/mockData';
 
 interface MassPitchModalProps {
   venues: Venue[];

@@ -35,6 +35,13 @@ export interface PlatformScore {
   url?: string;
 }
 
+export type OutreachStage = 
+  | 'A_PROSPECTER' 
+  | 'PITCH_ENVOYE' 
+  | 'EN_DISCUSSION' 
+  | 'ACCES_DELEGUE' 
+  | 'CLIENT_ACTIF';
+
 export interface Venue {
   id: string;
   name: string;
@@ -54,6 +61,9 @@ export interface Venue {
   platforms: Record<PlatformType, PlatformScore>;
   recentReviews: ReviewItem[];
   competitorIds: string[];
+  outreachStage?: OutreachStage;
+  outreachNotes?: string;
+  lastContactDate?: string;
 }
 
 export interface ReviewItem {

@@ -79,9 +79,9 @@ export const TabAgentFleet: React.FC = () => {
           ag.id === 'agent-dispatcher'
             ? {
                 ...ag,
-                status: 'ONLINE',
+                status: 'ACTIVE',
                 tasksCompleted: ag.tasksCompleted + 54,
-                currentTask: 'Terminé avec succès : 54 établissements notifiés • Prêt pour le prochain créneau horaire.',
+                currentTask: 'Actif • 54 établissements notifiés avec succès • Prêt pour le prochain créneau.',
               }
             : ag
         )
@@ -115,6 +115,13 @@ export const TabAgentFleet: React.FC = () => {
     // Step 1: Planner
     setTimeout(() => {
       setActiveStep(1);
+      setAgents((prev) =>
+        prev.map((ag) =>
+          ag.id === 'agent-planner'
+            ? { ...ag, status: 'PROCESSING', currentTask: '🧠 Analyse de la file : Déclenchement mission Tanger & Fès...' }
+            : ag
+        )
+      );
       setLogs((prev) => [
         {
           id: 'sim-log-' + Date.now(),
@@ -132,6 +139,13 @@ export const TabAgentFleet: React.FC = () => {
     // Step 2: Auditor
     setTimeout(() => {
       setActiveStep(2);
+      setAgents((prev) =>
+        prev.map((ag) => {
+          if (ag.id === 'agent-planner') return { ...ag, status: 'ACTIVE', tasksCompleted: ag.tasksCompleted + 1 };
+          if (ag.id === 'agent-auditor') return { ...ag, status: 'PROCESSING', currentTask: '🔍 Scraping furtif Google Maps & TripAdvisor (Riad Kasbah)...' };
+          return ag;
+        })
+      );
       setLogs((prev) => [
         {
           id: 'sim-log-' + Date.now(),
@@ -149,6 +163,13 @@ export const TabAgentFleet: React.FC = () => {
     // Step 3: Reply Rescue
     setTimeout(() => {
       setActiveStep(3);
+      setAgents((prev) =>
+        prev.map((ag) => {
+          if (ag.id === 'agent-auditor') return { ...ag, status: 'ACTIVE', tasksCompleted: ag.tasksCompleted + 1 };
+          if (ag.id === 'agent-responder') return { ...ag, status: 'PROCESSING', currentTask: '🛡️ Rédaction réponse Darija & Français avec tags SEO locaux...' };
+          return ag;
+        })
+      );
       setLogs((prev) => [
         {
           id: 'sim-log-' + Date.now(),
@@ -166,6 +187,13 @@ export const TabAgentFleet: React.FC = () => {
     // Step 4: QC Reviewer
     setTimeout(() => {
       setActiveStep(4);
+      setAgents((prev) =>
+        prev.map((ag) => {
+          if (ag.id === 'agent-responder') return { ...ag, status: 'ACTIVE', tasksCompleted: ag.tasksCompleted + 1 };
+          if (ag.id === 'agent-qc') return { ...ag, status: 'PROCESSING', currentTask: '⚖️ Audit de conformité de ton & safety guardrails (Seuil > 98.4%)...' };
+          return ag;
+        })
+      );
       setLogs((prev) => [
         {
           id: 'sim-log-' + Date.now(),
@@ -180,9 +208,16 @@ export const TabAgentFleet: React.FC = () => {
       ]);
     }, 3300);
 
-    // Step 5: Dispatcher / Closer
+    // Step 5: Dispatcher
     setTimeout(() => {
       setActiveStep(5);
+      setAgents((prev) =>
+        prev.map((ag) => {
+          if (ag.id === 'agent-qc') return { ...ag, status: 'ACTIVE', tasksCompleted: ag.tasksCompleted + 1 };
+          if (ag.id === 'agent-dispatcher') return { ...ag, status: 'PROCESSING', currentTask: '🚀 Publication directe API GBP & notification WhatsApp à Si Mohamed...' };
+          return ag;
+        })
+      );
       setLogs((prev) => [
         {
           id: 'sim-log-' + Date.now(),
@@ -195,9 +230,26 @@ export const TabAgentFleet: React.FC = () => {
         },
         ...prev,
       ]);
+    }, 4200);
+
+    // Step 6: Completion & Reset to Active
+    setTimeout(() => {
+      setAgents((prev) =>
+        prev.map((ag) => {
+          if (ag.id === 'agent-dispatcher') {
+            return {
+              ...ag,
+              status: 'ACTIVE',
+              tasksCompleted: ag.tasksCompleted + 1,
+              currentTask: 'Actif • Monitoring des webhooks WhatsApp & quotas API (Tanger & Casablanca)',
+            };
+          }
+          return ag;
+        })
+      );
       setIsSimulating(false);
       setActiveStep(0);
-    }, 4200);
+    }, 5200);
   };
 
   const filteredLogs = logs.filter((log) => {

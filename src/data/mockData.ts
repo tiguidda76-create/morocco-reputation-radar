@@ -45,6 +45,9 @@ export const INITIAL_VENUES: Venue[] = [
       yelp: { platform: 'yelp', score: 4.5, totalReviews: 200, unrepliedCount: 2, negativeUnreplied: 1, lastReviewDate: 'Il y a 2j' },
     },
     competitorIds: ['venue-3', 'venue-6'],
+    outreachStage: 'CLIENT_ACTIF',
+    outreachNotes: 'Contrat VIP annuel validé. Délégation Google & Booking accordée.',
+    lastContactDate: 'Aujourd\'hui',
     recentReviews: [
       {
         id: 'rev-101',
@@ -98,6 +101,9 @@ export const INITIAL_VENUES: Venue[] = [
       yelp: { platform: 'yelp', score: 3.8, totalReviews: 20, unrepliedCount: 0, negativeUnreplied: 0, lastReviewDate: 'Il y a 1sem' },
     },
     competitorIds: ['venue-7', 'venue-10'],
+    outreachStage: 'PITCH_ENVOYE',
+    outreachNotes: 'Pitch Darija WhatsApp envoyé à Si Mohamed. En attente de validation audit.',
+    lastContactDate: 'Hier',
     recentReviews: [
       {
         id: 'rev-102',
@@ -151,6 +157,9 @@ export const INITIAL_VENUES: Venue[] = [
       yelp: { platform: 'yelp', score: 4.0, totalReviews: 10, unrepliedCount: 0, negativeUnreplied: 0, lastReviewDate: 'Il y a 2sem' },
     },
     competitorIds: ['venue-8'],
+    outreachStage: 'EN_DISCUSSION',
+    outreachNotes: 'Youssef intéressé par le pack Starter (700 MAD/mois). Envoi devis Pro-Forma BMCE.',
+    lastContactDate: 'Il y a 2j',
     recentReviews: [
       {
         id: 'rev-103',
@@ -204,6 +213,9 @@ export const INITIAL_VENUES: Venue[] = [
       yelp: { platform: 'yelp', score: 4.2, totalReviews: 200, unrepliedCount: 4, negativeUnreplied: 1, lastReviewDate: 'Il y a 3j' },
     },
     competitorIds: ['venue-9'],
+    outreachStage: 'A_PROSPECTER',
+    outreachNotes: '45 avis non répondus dont 9 critiques 1★. Perte estimée 420K MAD. À contacter par WhatsApp.',
+    lastContactDate: '-',
     recentReviews: [
       {
         id: 'rev-104',
@@ -257,6 +269,9 @@ export const INITIAL_VENUES: Venue[] = [
       yelp: { platform: 'yelp', score: 3.5, totalReviews: 40, unrepliedCount: 2, negativeUnreplied: 1, lastReviewDate: 'Il y a 4j' },
     },
     competitorIds: [],
+    outreachStage: 'A_PROSPECTER',
+    outreachNotes: 'Haj Bouchaib joignable par WhatsApp direct.',
+    lastContactDate: '-',
     recentReviews: []
   },
   {
@@ -283,6 +298,9 @@ export const INITIAL_VENUES: Venue[] = [
       yelp: { platform: 'yelp', score: 4.5, totalReviews: 100, unrepliedCount: 0, negativeUnreplied: 0, lastReviewDate: 'Il y a 1sem' },
     },
     competitorIds: ['venue-1'],
+    outreachStage: 'ACCES_DELEGUE',
+    outreachNotes: 'Accès gestionnaire Google My Business reçu. Audit initial complété.',
+    lastContactDate: 'Il y a 3j',
     recentReviews: []
   },
   {
@@ -309,6 +327,9 @@ export const INITIAL_VENUES: Venue[] = [
       yelp: { platform: 'yelp', score: 0, totalReviews: 0, unrepliedCount: 0, negativeUnreplied: 0, lastReviewDate: '-' },
     },
     competitorIds: ['venue-2'],
+    outreachStage: 'CLIENT_ACTIF',
+    outreachNotes: 'Client sous gestion IA 100%. Réputation excellente (4.9/5).',
+    lastContactDate: 'Il y a 1sem',
     recentReviews: []
   },
   {
@@ -335,6 +356,9 @@ export const INITIAL_VENUES: Venue[] = [
       yelp: { platform: 'yelp', score: 4.0, totalReviews: 50, unrepliedCount: 1, negativeUnreplied: 0, lastReviewDate: 'Il y a 1sem' },
     },
     competitorIds: [],
+    outreachStage: 'PITCH_ENVOYE',
+    outreachNotes: 'Audit 5-Plateformes envoyé par WhatsApp à Yassine Belkacem.',
+    lastContactDate: 'Hier',
     recentReviews: []
   }
 ];
@@ -416,9 +440,9 @@ export const FLEET_AGENTS: AgentInfo[] = [
     role: 'Bulk Regional Campaign & Publishing Orchestrator',
     framework: 'CrewAI',
     icon: 'Megaphone',
-    status: 'STANDBY',
+    status: 'ACTIVE',
     tasksCompleted: 6120,
-    currentTask: 'Idle - Ready for bulk dispatch across Tanger & Casablanca regions',
+    currentTask: 'Actif • Monitoring des webhooks WhatsApp & quotas API (Tanger & Casablanca)',
     avgLatencyMs: 310,
     tokenCount: 380000,
     accuracy: 99.7,

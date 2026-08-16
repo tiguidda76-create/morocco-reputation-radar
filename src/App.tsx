@@ -13,9 +13,11 @@ import { LegalNoticeModal } from './components/modals/LegalNoticeModal';
 import { CertificateModal } from './components/modals/CertificateModal';
 import { AddVenueModal } from './components/modals/AddVenueModal';
 import { QRStandModal } from './components/modals/QRStandModal';
+import { ShareableAuditModal } from './components/modals/ShareableAuditModal';
+import { MassPitchModal } from './components/modals/MassPitchModal';
 
 import { INITIAL_VENUES, AGENCY_METADATA } from './data/mockData';
-import { Venue, DefamationCase, PricingPlan } from './types';
+import { Venue, DefamationCase, PricingPlan, OutreachStage } from './types';
 
 export function App() {
   const [activeTab, setActiveTab] = useState<string>('leads');
@@ -24,7 +26,9 @@ export function App() {
 
   // Modals state
   const [auditVenue, setAuditVenue] = useState<Venue | null>(null);
+  const [shareableAuditVenue, setShareableAuditVenue] = useState<Venue | null>(null);
   const [pitchVenue, setPitchVenue] = useState<Venue | null>(null);
+  const [isMassPitchOpen, setIsMassPitchOpen] = useState<boolean>(false);
   const [legalCase, setLegalCase] = useState<DefamationCase | null>(null);
   const [certificateVenue, setCertificateVenue] = useState<Venue | null>(null);
   const [qrVenue, setQrVenue] = useState<Venue | null>(null);
@@ -35,8 +39,24 @@ export function App() {
     setAuditVenue(venue);
   };
 
+  const handleOpenShareableAudit = (venue: Venue) => {
+    setShareableAuditVenue(venue);
+  };
+
   const handleDispatchPitch = (venue: Venue) => {
     setPitchVenue(venue);
+  };
+
+  const handleUpdateOutreachStage = (venueId: string, stage: OutreachStage) => {
+    setVenues((prev) =>
+      prev.map((v) => (v.id === venueId ? { ...v, outreachStage: stage, lastContactDate: 'Aujourd\'hui' } : v))
+    );
+  };
+
+  const handleBatchUpdateStage = (venueIds: string[], stage: OutreachStage) => {
+    setVenues((prev) =>
+      prev.map((v) => (venueIds.includes(v.id) ? { ...v, outreachStage: stage, lastContactDate: 'Aujourd\'hui' } : v))
+    );
   };
 
   const handleLaunchAutoReviews = (venue: Venue) => {
@@ -87,6 +107,9 @@ export function App() {
             onOpenCertificate={handleOpenCertificate}
             onOpenAddVenue={() => setIsAddVenueOpen(true)}
             onOpenQRStand={handleOpenQRStand}
+            onOpenShareableAudit={handleOpenShareableAudit}
+            onUpdateOutreachStage={handleUpdateOutreachStage}
+            onOpenMassPitch={() => setIsMassPitchOpen(true)}
           />
         )}
 
@@ -119,6 +142,20 @@ export function App() {
       </main>
 
       {/* Persistent Modals */}
+      <MassPitchModal
+        venues={venues}
+        isOpen={isMassPitchOpen}
+        onClose={() => setIsMassPitchOpen(false)}
+        onBatchUpdateStage={handleBatchUpdateStage}
+      />
+
+      <ShareableAuditModal
+        venue={shareableAuditVenue}
+        isOpen={!!shareableAuditVenue}
+        onClose={() => setShareableAuditVenue(null)}
+        onDispatchPitch={handleDispatchPitch}
+      />
+
       <AuditModal
         venue={auditVenue}
         isOpen={!!auditVenue}
@@ -131,6 +168,8 @@ export function App() {
         venue={pitchVenue}
         isOpen={!!pitchVenue}
         onClose={() => setPitchVenue(null)}
+        onUpdateStage={handleUpdateOutreachStage}
+        onOpenShareableAudit={handleOpenShareableAudit}
       />
 
       <LegalNoticeModal

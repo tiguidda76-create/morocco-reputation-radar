@@ -9,18 +9,28 @@ import {
   Sparkles, 
   PhoneCall, 
   TrendingDown,
-  Building
+  Building,
+  ExternalLink,
+  CheckCircle2
 } from 'lucide-react';
-import { Venue } from '../../types';
+import { Venue, OutreachStage } from '../../types';
 import { AGENCY_METADATA } from '../../data/mockData';
 
 interface PitchModalProps {
   venue: Venue | null;
   isOpen: boolean;
   onClose: () => void;
+  onUpdateStage?: (venueId: string, stage: OutreachStage) => void;
+  onOpenShareableAudit?: (venue: Venue) => void;
 }
 
-export const PitchModal: React.FC<PitchModalProps> = ({ venue, isOpen, onClose }) => {
+export const PitchModal: React.FC<PitchModalProps> = ({ 
+  venue, 
+  isOpen, 
+  onClose,
+  onUpdateStage,
+  onOpenShareableAudit
+}) => {
   const [lang, setLang] = useState<'DARIJA' | 'FR' | 'EN'>('DARIJA');
   const [copied, setCopied] = useState(false);
 
@@ -29,8 +39,9 @@ export const PitchModal: React.FC<PitchModalProps> = ({ venue, isOpen, onClose }
   // Format clean phone for WhatsApp link
   const rawPhone = venue.phone.replace(/[^0-9]/g, '');
   const cleanPhone = rawPhone.startsWith('0') ? '212' + rawPhone.slice(1) : rawPhone;
+  const auditPublicUrl = `${window.location.origin}/audit/${venue.id}`;
 
-  // Dynamic customized pitches
+  // Dynamic customized pitches with Audit Link
   const pitches = {
     DARIJA: `Salam Si/Lalla ${venue.contactPerson || 'Gérant'} 👋,
 
@@ -40,10 +51,12 @@ Khedemna audit rapide 3la l-profil dyal "${venue.name}" f ${venue.city} :
 🔴 L9ina 9rib ${venue.unrepliedReviews} avis bla jawb (khousoussan f Google Maps & Booking).
 📉 Had l-retard kay-dya3 lik ta9riban ${venue.annualLossMAD.toLocaleString()} MAD f l-3am dyal les réservations directes l-competiteurs.
 
-Kan-werriw l-les Riads w Palaces kifach n-jawbou f a9al men 2 d-swaye3 b l-Français, Darija, Anglais w Espagnol b n-nabra dyal l-diyafa l-maghribia 🇲🇦 w l-mots clés SEO.
+📊 Chof l-audit dial l-etablissement dyalk f had l-lien :
+👉 ${auditPublicUrl}
+
+Kan-werriw l-les Riads w Palaces kifach n-jawbou f a9al men 2 d-swaye3 b l-Français, Darija, Anglais w Espagnol b n-nabra dyal l-diyafa l-maghribia 🇲🇦 w l-mots clés SEO (bla ma t-3tina aucun mot de passe).
 
 N-9der n-werik un exemple gratuit f WhatsApp ?
-🔗 WhatsApp Direct : https://wa.me/212632155430
 📞 Tél : 0632155430 | Hassan Tiguidda`,
 
     FR: `Bonjour ${venue.contactPerson || 'Madame, Monsieur la Direction'},
@@ -54,7 +67,10 @@ Nous venons de réaliser un audit de réputation sur "${venue.name}" à ${venue.
 ⚠️ ${venue.unrepliedReviews} avis récents sont actuellement sans réponse (temps moyen constaté : ${venue.avgResponseTimeHours}h).
 📉 Manque à gagner estimé : ~${venue.annualLossMAD.toLocaleString()} MAD/an en réservations directes perdues au profit d'établissements concurrents.
 
-Notre flotte IA répond en moins de 2h sur 5 plateformes (Google, Booking, TripAdvisor, Airbnb, Yelp) avec la chaleur de l'hospitalité marocaine et un score QC > 98.4%.
+📊 Consultez votre rapport d'audit chiffré complet ici :
+👉 ${auditPublicUrl}
+
+Notre flotte IA répond en moins de 2h sur 5 plateformes (Google, Booking, TripAdvisor, Airbnb, Yelp) avec la chaleur de l'hospitalité marocaine et un score QC > 98.4% (par simple accès gestionnaire invité, 0 mot de passe requis).
 
 Seriez-vous disponible pour un court échange de 5 min ou pour recevoir un exemple de réponse gratuit pour votre établissement ?
 
@@ -70,7 +86,10 @@ We just conducted a 5-platform reputation audit for "${venue.name}" in ${venue.c
 ⚠️ ${venue.unrepliedReviews} reviews remain unreplied with an average lag of ${venue.avgResponseTimeHours} hours.
 📉 Estimated revenue leakage: ~${venue.annualLossMAD.toLocaleString()} MAD/year in lost direct bookings.
 
-Our autonomous AI fleet rescues and crafts empathetic, SEO-rich responses in French, Darija, English, and Spanish in < 2 hours with >98.4% QC accuracy.
+📊 Access your full live reputation audit here:
+👉 ${auditPublicUrl}
+
+Our autonomous AI fleet rescues and crafts empathetic, SEO-rich responses in French, Darija, English, and Spanish in < 2 hours with >98.4% QC accuracy (simple guest delegation, zero password sharing).
 
 May I send you a free sample response tailored to your venue via WhatsApp?
 
@@ -183,6 +202,25 @@ Phone/WhatsApp: +212 632 155 430 | Email: ${AGENCY_METADATA.email}`
             </button>
           </div>
 
+          {/* Quick link to shareable audit */}
+          {onOpenShareableAudit && (
+            <div className="flex items-center justify-between p-3 rounded-xl bg-slate-950/80 border border-slate-800 text-xs">
+              <span className="text-slate-400 flex items-center gap-1.5">
+                <ExternalLink className="w-3.5 h-3.5 text-emerald-400" />
+                Lien public intégré dans le pitch : <code className="text-emerald-300 font-mono text-[10px]">/audit/{venue.id}</code>
+              </span>
+              <button
+                onClick={() => {
+                  onClose();
+                  onOpenShareableAudit(venue);
+                }}
+                className="text-emerald-400 hover:text-emerald-300 font-semibold underline text-xs transition-colors"
+              >
+                Prévisualiser le Rapport Partageable ➔
+              </button>
+            </div>
+          )}
+
         </div>
 
         {/* Footer Actions */}
@@ -197,19 +235,25 @@ Phone/WhatsApp: +212 632 155 430 | Email: ${AGENCY_METADATA.email}`
               href={mailtoUrl}
               target="_blank"
               rel="noreferrer"
-              className="flex items-center gap-1.5 px-3.5 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-lg text-xs font-medium transition-colors border border-slate-700"
+              className="flex items-center gap-1.5 px-3 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-lg text-xs font-medium transition-colors border border-slate-700"
             >
               <Mail className="w-3.5 h-3.5 text-sky-400" />
-              Envoyer par Email
+              Email
             </a>
+
             <a
               href={whatsappUrl}
               target="_blank"
               rel="noreferrer"
+              onClick={() => {
+                if (onUpdateStage) {
+                  onUpdateStage(venue.id, 'PITCH_ENVOYE');
+                }
+              }}
               className="flex items-center gap-1.5 px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-xs font-bold transition-colors shadow-lg shadow-emerald-950/50"
             >
               <MessageCircle className="w-4 h-4" />
-              Ouvrir WhatsApp ({cleanPhone})
+              Ouvrir WhatsApp &amp; Marquer Envoyé
             </a>
           </div>
         </div>

@@ -2,22 +2,18 @@ import React, { useState } from 'react';
 import { 
   Bot, 
   Play, 
-  Sparkles, 
   Terminal, 
   CheckCircle2, 
-  Clock, 
-  Cpu, 
   Brain, 
   Search, 
   MessageSquare, 
   ShieldCheck, 
   Megaphone, 
   Handshake, 
-  Filter,
   RefreshCw,
   Zap,
-  ArrowRight,
-  Layers
+  Layers,
+  Send
 } from 'lucide-react';
 import { FLEET_AGENTS, INITIAL_LOGS } from '../../data/mockData';
 import { AgentInfo, AgentLog } from '../../types';
@@ -28,6 +24,7 @@ export const TabAgentFleet: React.FC = () => {
   const [logFilter, setLogFilter] = useState<'ALL' | 'info' | 'success' | 'warning'>('ALL');
   const [isSimulating, setIsSimulating] = useState(false);
   const [activeStep, setActiveStep] = useState<number>(0);
+  const [isDispatchingBulk, setIsDispatchingBulk] = useState(false);
 
   // Icon mapping helper
   const renderAgentIcon = (iconName: string) => {
@@ -41,6 +38,70 @@ export const TabAgentFleet: React.FC = () => {
       case 'Handshake': return <Handshake className="w-5 h-5" />;
       default: return <Bot className="w-5 h-5" />;
     }
+  };
+
+  // Trigger Mass Dispatcher Bulk Action
+  const handleTriggerBulkDispatch = () => {
+    if (isDispatchingBulk) return;
+    setIsDispatchingBulk(true);
+
+    const timeNow = () => new Date().toLocaleTimeString();
+
+    // Set dispatcher to PROCESSING
+    setAgents((prev) =>
+      prev.map((ag) =>
+        ag.id === 'agent-dispatcher'
+          ? {
+              ...ag,
+              status: 'PROCESSING',
+              currentTask: '🚀 Envoi groupé en cours : 54 campagnes WhatsApp & API vers Riads Tanger & Casablanca...',
+            }
+          : ag
+      )
+    );
+
+    setLogs((prev) => [
+      {
+        id: 'bulk-log-1-' + Date.now(),
+        timestamp: timeNow(),
+        agentId: 'agent-dispatcher',
+        agentName: 'Mass Regional Dispatcher',
+        state: 'EXECUTED',
+        message: '📢 [Mass Regional Dispatcher] Campaign triggered: Dispatched 54 bulk audits with rate-limiting (20 req/min max) across Tanger & Casablanca.',
+        level: 'warning',
+      },
+      ...prev,
+    ]);
+
+    setTimeout(() => {
+      setAgents((prev) =>
+        prev.map((ag) =>
+          ag.id === 'agent-dispatcher'
+            ? {
+                ...ag,
+                status: 'ONLINE',
+                tasksCompleted: ag.tasksCompleted + 54,
+                currentTask: 'Terminé avec succès : 54 établissements notifiés • Prêt pour le prochain créneau horaire.',
+              }
+            : ag
+        )
+      );
+
+      setLogs((prev) => [
+        {
+          id: 'bulk-log-2-' + Date.now(),
+          timestamp: timeNow(),
+          agentId: 'agent-dispatcher',
+          agentName: 'Mass Regional Dispatcher',
+          state: 'EXECUTED',
+          message: '✅ [Mass Regional Dispatcher] Bulk delivery confirmed: 54 WhatsApp pitches delivered with 0 webhook drops.',
+          level: 'success',
+        },
+        ...prev,
+      ]);
+
+      setIsDispatchingBulk(false);
+    }, 2800);
   };
 
   // Trigger interactive multi-agent pipeline simulation
@@ -283,9 +344,11 @@ export const TabAgentFleet: React.FC = () => {
           const statusBadge = {
             ONLINE: 'bg-emerald-950 text-emerald-300 border-emerald-800',
             ACTIVE: 'bg-emerald-950 text-emerald-400 border-emerald-700 animate-pulse',
-            PROCESSING: 'bg-amber-950 text-amber-300 border-amber-800',
+            PROCESSING: 'bg-amber-950 text-amber-300 border-amber-800 animate-pulse',
             STANDBY: 'bg-slate-800 text-slate-400 border-slate-700',
           }[agent.status];
+
+          const isDispatcher = agent.id === 'agent-dispatcher';
 
           return (
             <div
@@ -319,6 +382,29 @@ export const TabAgentFleet: React.FC = () => {
                   {agent.description}
                 </p>
               </div>
+
+              {/* Special Action Button for Mass Regional Dispatcher */}
+              {isDispatcher && (
+                <div className="pt-2">
+                  <button
+                    onClick={handleTriggerBulkDispatch}
+                    disabled={isDispatchingBulk}
+                    className="w-full py-1.5 px-2 bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400 text-slate-950 rounded-lg text-[10px] font-bold transition-all shadow flex items-center justify-center gap-1.5 disabled:opacity-50"
+                  >
+                    {isDispatchingBulk ? (
+                      <>
+                        <RefreshCw className="w-3 h-3 animate-spin" />
+                        <span>Dispatch en cours (Tanger/Casa)...</span>
+                      </>
+                    ) : (
+                      <>
+                        <Send className="w-3 h-3" />
+                        <span>Déclencher Dispatch Régional (54 Riads)</span>
+                      </>
+                    )}
+                  </button>
+                </div>
+              )}
 
               {/* Live Task & Metrics */}
               <div className="pt-2 border-t border-slate-800/80 space-y-2 text-xs">

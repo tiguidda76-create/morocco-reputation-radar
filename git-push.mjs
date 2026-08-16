@@ -25,8 +25,8 @@ async function pushToGitHub() {
     remoteRef: 'main',
     force: true,
     onAuth: () => ({
-      username: token,
-      password: '',
+      username: 'tiguidda76-create',
+      password: token,
     }),
   });
 

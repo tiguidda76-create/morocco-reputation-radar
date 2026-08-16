@@ -11,10 +11,13 @@ import {
   TrendingDown,
   Building,
   ExternalLink,
-  CheckCircle2
+  CheckCircle2,
+  RefreshCw,
+  Zap
 } from 'lucide-react';
 import { Venue, OutreachStage } from '../../types';
 import { AGENCY_METADATA } from '../../data/mockData';
+import { sendWhatsAppMessage, isMetaWhatsAppConfigured } from '../../services/whatsappService';
 
 interface PitchModalProps {
   venue: Venue | null;
@@ -33,8 +36,13 @@ export const PitchModal: React.FC<PitchModalProps> = ({
 }) => {
   const [lang, setLang] = useState<'DARIJA' | 'FR' | 'EN'>('DARIJA');
   const [copied, setCopied] = useState(false);
+  const [isSendingMeta, setIsSendingMeta] = useState(false);
+  const [metaSendSuccess, setMetaSendSuccess] = useState<string | null>(null);
+  const [metaSendError, setMetaSendError] = useState<string | null>(null);
 
   if (!isOpen || !venue) return null;
+
+  const isMetaReady = isMetaWhatsAppConfigured();
 
   // Format clean phone for WhatsApp link
   const rawPhone = venue.phone.replace(/[^0-9]/g, '');
@@ -98,16 +106,23 @@ Hassan Tiguidda — Morocco Radar Agency
 Phone/WhatsApp: +212 632 155 430 | Email: ${AGENCY_METADATA.email}`
   };
 
-  const currentPitch = pitches[lang];
+  const handleSendViaMetaApi = async () => {
+    setIsSendingMeta(true);
+    setMetaSendSuccess(null);
+    setMetaSendError(null);
 
-  const handleCopy = () => {
-    navigator.clipboard.writeText(currentPitch);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2500);
+    const result = await sendWhatsAppMessage(venue.phone, currentPitch);
+    setIsSendingMeta(false);
+
+    if (result.success && result.mode === 'META_CLOUD_API') {
+      setMetaSendSuccess(`Message WhatsApp délivré avec succès via Meta API (ID: ${result.messageId})`);
+      if (onUpdateStage) {
+        onUpdateStage(venue.id, 'PITCH_ENVOYE');
+      }
+    } else if (!result.success) {
+      setMetaSendError(result.error || 'Erreur lors de l\'envoi Meta API');
+    }
   };
-
-  const whatsappUrl = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(currentPitch)}`;
-  const mailtoUrl = `mailto:${venue.email}?subject=${encodeURIComponent(`Audit E-Réputation & Fuite de Réservations : ${venue.name}`)}&body=${encodeURIComponent(currentPitch)}`;
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md overflow-y-auto">
@@ -120,10 +135,22 @@ Phone/WhatsApp: +212 632 155 430 | Email: ${AGENCY_METADATA.email}`
               <Send className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="text-base font-bold text-white font-display">
-                Générateur de Pitch 1-Clic WhatsApp & Email
-              </h3>
-              <p className="text-xs text-slate-400">
+              <div className="flex items-center gap-2">
+                <h3 className="text-base font-bold text-white font-display">
+                  Générateur de Pitch WhatsApp &amp; Meta Cloud API
+                </h3>
+                {isMetaReady ? (
+                  <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-emerald-950 text-emerald-400 border border-emerald-800 flex items-center gap-1">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                    Meta API Connectée
+                  </span>
+                ) : (
+                  <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-400 border border-slate-700">
+                    Mode Web Intent
+                  </span>
+                )}
+              </div>
+              <p className="text-xs text-slate-400 mt-0.5">
                 Cible : <strong className="text-white">{venue.name}</strong> ({venue.city}) — Contact : {venue.contactPerson}
               </p>
             </div>
@@ -150,6 +177,20 @@ Phone/WhatsApp: +212 632 155 430 | Email: ${AGENCY_METADATA.email}`
               <span className="text-amber-400 font-mono font-bold">-{venue.annualLossMAD.toLocaleString()} MAD/an</span>
             </div>
           </div>
+
+          {/* Success / Error Alerts */}
+          {metaSendSuccess && (
+            <div className="p-3 bg-emerald-950/60 border border-emerald-500/50 rounded-xl text-xs text-emerald-300 flex items-center gap-2 font-mono">
+              <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+              <span>{metaSendSuccess}</span>
+            </div>
+          )}
+
+          {metaSendError && (
+            <div className="p-3 bg-rose-950/60 border border-rose-500/50 rounded-xl text-xs text-rose-300 flex items-center gap-2">
+              <span>⚠️ {metaSendError}</span>
+            </div>
+          )}
 
           {/* Language Selector */}
           <div className="flex items-center justify-between">
@@ -227,7 +268,7 @@ Phone/WhatsApp: +212 632 155 430 | Email: ${AGENCY_METADATA.email}`
         <div className="px-6 py-4 bg-slate-950 border-t border-slate-800 flex flex-wrap items-center justify-between gap-3">
           <div className="text-xs text-slate-400 flex items-center gap-1">
             <PhoneCall className="w-3.5 h-3.5 text-emerald-400" />
-            Numéro détecté : <span className="text-slate-200 font-mono">{venue.phone}</span>
+            Numéro : <span className="text-slate-200 font-mono">{cleanPhone}</span>
           </div>
 
           <div className="flex items-center gap-2">
@@ -241,6 +282,28 @@ Phone/WhatsApp: +212 632 155 430 | Email: ${AGENCY_METADATA.email}`
               Email
             </a>
 
+            {/* Direct Meta Cloud API Send Button (If configured) */}
+            {isMetaReady && (
+              <button
+                onClick={handleSendViaMetaApi}
+                disabled={isSendingMeta}
+                className="flex items-center gap-1.5 px-4 py-2 bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400 text-slate-950 rounded-lg text-xs font-bold transition-all shadow-md disabled:opacity-50"
+              >
+                {isSendingMeta ? (
+                  <>
+                    <RefreshCw className="w-3.5 h-3.5 animate-spin" />
+                    <span>Envoi Meta API...</span>
+                  </>
+                ) : (
+                  <>
+                    <Zap className="w-3.5 h-3.5" />
+                    <span>Envoyer via Meta API (Réseau)</span>
+                  </>
+                )}
+              </button>
+            )}
+
+            {/* Fallback Web Intent WhatsApp Button */}
             <a
               href={whatsappUrl}
               target="_blank"
@@ -253,7 +316,7 @@ Phone/WhatsApp: +212 632 155 430 | Email: ${AGENCY_METADATA.email}`
               className="flex items-center gap-1.5 px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-xs font-bold transition-colors shadow-lg shadow-emerald-950/50"
             >
               <MessageCircle className="w-4 h-4" />
-              Ouvrir WhatsApp &amp; Marquer Envoyé
+              <span>{isMetaReady ? 'Ouvrir WhatsApp Web' : 'Ouvrir WhatsApp & Marquer Envoyé'}</span>
             </a>
           </div>
         </div>

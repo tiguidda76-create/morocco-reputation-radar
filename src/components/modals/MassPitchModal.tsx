@@ -11,6 +11,7 @@ import {
   Megaphone
 } from 'lucide-react';
 import { Venue, OutreachStage } from '../../types';
+import { sendWhatsAppMessage, isMetaWhatsAppConfigured } from '../../services/whatsappService';
 
 interface MassPitchModalProps {
   venues: Venue[];
@@ -39,6 +40,7 @@ export const MassPitchModal: React.FC<MassPitchModalProps> = ({
 
   if (!isOpen) return null;
 
+  const isMetaReady = isMetaWhatsAppConfigured();
   const targetVenues = venues.filter((v) => selectedIds.includes(v.id));
   const totalLossMAD = targetVenues.reduce((acc, v) => acc + v.annualLossMAD, 0);
 
@@ -58,7 +60,7 @@ export const MassPitchModal: React.FC<MassPitchModalProps> = ({
     }
   };
 
-  const handleLaunchMassOutreach = () => {
+  const handleLaunchMassOutreach = async () => {
     if (selectedIds.length === 0 || isDispatching) return;
     setIsDispatching(true);
     setProgress(0);
@@ -67,47 +69,64 @@ export const MassPitchModal: React.FC<MassPitchModalProps> = ({
     setIsCompleted(false);
 
     const queue = [...targetVenues];
-    let currentIndex = 0;
-
     const timeNow = () => new Date().toLocaleTimeString();
 
     setLogs((prev) => [
       `📢 [Mass Regional Dispatcher] Initialisation du pool d'envoi groupé pour ${queue.length} établissements...`,
-      `⚙️ [CrewAI Engine] Rate-limiting activé (20 msg/min max) • Protection Webhook WhatsApp Cloud active.`,
+      isMetaReady 
+        ? `🌐 [Meta Cloud API] Mode Réseau Actif • Transmission directe vers les serveurs Meta.`
+        : `⚙️ [CrewAI Engine] Mode Simulation/Intent • Rate-limiting activé (20 msg/min max).`,
       ...prev,
     ]);
 
-    const interval = setInterval(() => {
-      if (currentIndex < queue.length) {
-        const venue = queue[currentIndex];
-        const rawPhone = venue.phone.replace(/[^0-9]/g, '');
-        const cleanPhone = rawPhone.startsWith('0') ? '+212 ' + rawPhone.slice(1) : '+' + rawPhone;
+    for (let i = 0; i < queue.length; i++) {
+      const venue = queue[i];
+      const rawPhone = venue.phone.replace(/[^0-9]/g, '');
+      const cleanPhone = rawPhone.startsWith('0') ? '+212 ' + rawPhone.slice(1) : '+' + rawPhone;
+      const auditUrl = `${window.location.origin}/audit/${venue.id}`;
 
-        setDispatchedIds((prev) => [...prev, venue.id]);
-        setProgress(Math.round(((currentIndex + 1) / queue.length) * 100));
+      const pitchText = lang === 'DARIJA'
+        ? `Salam Si/Lalla ${venue.contactPerson || 'Gérant'} 👋,\nM3ak Hassan Tiguidda men Agence Morocco Radar.\nAudit ${venue.name} (${venue.city}) : ${venue.unrepliedReviews} avis non répondus (${venue.annualLossMAD.toLocaleString()} MAD/an de perte).\nConsultez l'audit ici : ${auditUrl}`
+        : `Bonjour ${venue.contactPerson || 'la Direction'},\nAudit E-Réputation pour ${venue.name} (${venue.city}) : ${venue.unrepliedReviews} avis sans réponse (~${venue.annualLossMAD.toLocaleString()} MAD/an de perte).\nConsultez votre rapport chiffré : ${auditUrl}`;
 
+      // Call API if configured
+      if (isMetaReady) {
+        const sendRes = await sendWhatsAppMessage(venue.phone, pitchText);
+        if (sendRes.success) {
+          setLogs((prev) => [
+            `✅ [${timeNow()}] [Meta API wamid: ${sendRes.messageId?.slice(0, 16)}...] Livré avec succès à ${venue.name} (${cleanPhone}).`,
+            ...prev,
+          ]);
+        } else {
+          setLogs((prev) => [
+            `⚠️ [${timeNow()}] [Meta API Erreur] Échec pour ${venue.name} : ${sendRes.error}`,
+            ...prev,
+          ]);
+        }
+      } else {
         setLogs((prev) => [
           `🚀 [${timeNow()}] Pitch ${lang} + Mini-Audit généré pour "${venue.name}" (${venue.city}) ➔ Transmis à ${venue.contactPerson} (${cleanPhone}) • Perte: ${venue.annualLossMAD.toLocaleString()} MAD.`,
           ...prev,
         ]);
-
-        currentIndex++;
-      } else {
-        clearInterval(interval);
-        setTimeout(() => {
-          setIsDispatching(false);
-          setIsCompleted(true);
-          setLogs((prev) => [
-            `✅ [${timeNow()}] Campagne terminée avec succès : ${queue.length}/${queue.length} établissements notifiés avec 0 drop webhook.`,
-            `🎯 [CRM Auto-Sync] Tous les ${queue.length} leads ont été basculés à l'étape "Pitch WhatsApp Envoyé".`,
-            ...prev,
-          ]);
-
-          // Update CRM Stages
-          onBatchUpdateStage(selectedIds, 'PITCH_ENVOYE');
-        }, 600);
       }
-    }, 900);
+
+      setDispatchedIds((prev) => [...prev, venue.id]);
+      setProgress(Math.round(((i + 1) / queue.length) * 100));
+
+      // Small delay between sends (respects rate limits)
+      await new Promise((resolve) => setTimeout(resolve, 800));
+    }
+
+    setIsDispatching(false);
+    setIsCompleted(true);
+    setLogs((prev) => [
+      `✅ [${timeNow()}] Campagne terminée avec succès : ${queue.length}/${queue.length} établissements traités.`,
+      `🎯 [CRM Auto-Sync] Tous les ${queue.length} leads ont été basculés à l'étape "Pitch WhatsApp Envoyé".`,
+      ...prev,
+    ]);
+
+    // Update CRM Stages
+    onBatchUpdateStage(selectedIds, 'PITCH_ENVOYE');
   };
 
   return (

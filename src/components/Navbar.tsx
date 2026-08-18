@@ -9,7 +9,8 @@ import {
   Clock, 
   Zap,
   Globe2,
-  FileText
+  FileText,
+  LogOut
 } from 'lucide-react';
 import { AGENCY_METADATA } from '../data/mockData';
 
@@ -19,6 +20,7 @@ interface NavbarProps {
   isAutoPilot: boolean;
   setIsAutoPilot: (val: boolean) => void;
   onOpenNewInvoice?: () => void;
+  onLogout?: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
@@ -26,7 +28,8 @@ export const Navbar: React.FC<NavbarProps> = ({
   setActiveTab,
   isAutoPilot,
   setIsAutoPilot,
-  onOpenNewInvoice
+  onOpenNewInvoice,
+  onLogout
 }) => {
   const tabs = [
     { id: 'leads', label: '1. Lead Engine & Radar', icon: Globe2, badge: '45.2K' },
@@ -143,6 +146,17 @@ export const Navbar: React.FC<NavbarProps> = ({
               </div>
               <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-500 border-2 border-slate-950 rounded-full"></span>
             </div>
+
+            {/* Logout Button */}
+            {onLogout && (
+              <button
+                onClick={onLogout}
+                title="Verrouiller / Se déconnecter"
+                className="p-2 rounded-lg bg-slate-900/80 border border-slate-800 text-slate-400 hover:text-red-400 hover:bg-red-950/30 hover:border-red-800/50 transition-colors ml-1"
+              >
+                <LogOut className="w-4 h-4" />
+              </button>
+            )}
           </div>
         </div>
 

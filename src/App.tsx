@@ -15,11 +15,22 @@ import { AddVenueModal } from './components/modals/AddVenueModal';
 import { QRStandModal } from './components/modals/QRStandModal';
 import { ShareableAuditModal } from './components/modals/ShareableAuditModal';
 import { MassPitchModal } from './components/modals/MassPitchModal';
+import { AuthLockScreen } from './components/auth/AuthLockScreen';
 
 import { INITIAL_VENUES, AGENCY_METADATA } from './data/mockData';
 import { Venue, DefamationCase, PricingPlan, OutreachStage } from './types';
 
+const AUTH_STORAGE_KEY = 'mrr_auth_session';
+
 export function App() {
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => {
+    // Check if user has an active session in localStorage or sessionStorage
+    return (
+      localStorage.getItem(AUTH_STORAGE_KEY) === 'true' ||
+      sessionStorage.getItem(AUTH_STORAGE_KEY) === 'true'
+    );
+  });
+
   const [activeTab, setActiveTab] = useState<string>('leads');
   const [isAutoPilot, setIsAutoPilot] = useState<boolean>(false);
   const [venues, setVenues] = useState<Venue[]>(INITIAL_VENUES);
@@ -84,6 +95,26 @@ export function App() {
     setVenues((prev) => [newVenue, ...prev]);
   };
 
+  const handleLoginSuccess = (remember: boolean) => {
+    setIsAuthenticated(true);
+    if (remember) {
+      localStorage.setItem(AUTH_STORAGE_KEY, 'true');
+    } else {
+      sessionStorage.setItem(AUTH_STORAGE_KEY, 'true');
+    }
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem(AUTH_STORAGE_KEY);
+    sessionStorage.removeItem(AUTH_STORAGE_KEY);
+    setIsAuthenticated(false);
+  };
+
+  // If not authenticated, render the secure lock screen
+  if (!isAuthenticated) {
+    return <AuthLockScreen onSuccess={handleLoginSuccess} />;
+  }
+
   return (
     <div className="min-h-screen bg-[#020617] text-slate-100 flex flex-col selection:bg-emerald-500/30 selection:text-emerald-200 radial-bg moroccan-pattern">
       
@@ -94,6 +125,7 @@ export function App() {
         isAutoPilot={isAutoPilot}
         setIsAutoPilot={setIsAutoPilot}
         onOpenNewInvoice={() => setActiveTab('billing')}
+        onLogout={handleLogout}
       />
 
       {/* Main App Content */}

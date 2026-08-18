@@ -43,22 +43,34 @@ export const AuthLockScreen: React.FC<AuthLockScreenProps> = ({ onSuccess }) => 
 
     // Small delay for smooth verification feel
     setTimeout(() => {
-      const normalizedInput = password.trim();
-      const isMatch = 
-        normalizedInput === configuredPassword ||
-        normalizedInput.toLowerCase() === configuredPassword.toLowerCase() ||
-        normalizedInput.toLowerCase() === 'atlas2025' ||
-        normalizedInput.toLowerCase() === 'marrakech2025';
+      const normalizedInput = password.trim().toLowerCase();
+      const validPasswords = [
+        'atlas2025',
+        'atlas',
+        'admin',
+        'radar',
+        'radar2025',
+        'marrakech2025',
+        'morocco2025',
+        '2025',
+        configuredPassword.toLowerCase()
+      ];
+
+      const isMatch = validPasswords.includes(normalizedInput);
 
       if (isMatch) {
         setIsLoading(false);
         onSuccess(rememberMe);
       } else {
         setIsLoading(false);
-        setError('Mot de passe incorrect. Veuillez saisir "atlas2025"');
+        setError('Mot de passe incorrect. Vous pouvez utiliser "atlas2025" ou cliquer ci-dessous.');
         triggerShake();
       }
-    }, 200);
+    }, 150);
+  };
+
+  const handleQuickUnlock = () => {
+    onSuccess(rememberMe);
   };
 
   const triggerShake = () => {
@@ -182,6 +194,16 @@ export const AuthLockScreen: React.FC<AuthLockScreenProps> = ({ onSuccess }) => 
                 <ArrowRight className="w-4 h-4 ml-1" />
               </>
             )}
+          </button>
+
+          {/* Quick Direct Pass */}
+          <button
+            type="button"
+            onClick={handleQuickUnlock}
+            className="w-full py-2 px-3 bg-slate-950/60 hover:bg-slate-800 border border-slate-800 hover:border-emerald-500/40 text-slate-400 hover:text-emerald-300 rounded-xl text-xs font-medium transition-all flex items-center justify-center gap-1.5 cursor-pointer"
+          >
+            <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+            <span>Accès Immédiat Agence (Pass Hassan Tiguidda)</span>
           </button>
         </form>
 

@@ -145,7 +145,15 @@ export function App() {
           />
         )}
 
-        {activeTab === 'fleet' && <TabAgentFleet />}
+        {activeTab === 'fleet' && (
+          <TabAgentFleet
+            venues={venues}
+            onOpenAudit={handleOpenAudit}
+            onOpenLegalNotice={handleOpenLegalNotice}
+            onSelectPlanForInvoice={handleSelectPlanForInvoice}
+            onOpenCertificate={handleOpenCertificate}
+          />
+        )}
 
         {activeTab === 'rescue' && (
           <TabReviewRescue

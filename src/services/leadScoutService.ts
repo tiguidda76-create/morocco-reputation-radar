@@ -213,7 +213,7 @@ export const runAutonomousLeadScout = async (
         yelp: { platform: 'yelp', score: 4.0, totalReviews: 12, unrepliedCount: 0, negativeUnreplied: 0, lastReviewDate: '-' },
       },
       competitorIds: [],
-      outreachStage: 'NON_CONTACTE',
+      outreachStage: 'A_PROSPECTER',
       outreachNotes: `Découvert automatiquement par Scout IA. Manque à gagner estimé à ${(annualLossMAD / 1000).toFixed(0)}k MAD/an.`,
       lastContactDate: 'Jamais contacté',
       recentReviews: [

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { 
   X, 
   Send,
@@ -8,7 +8,11 @@ import {
   Layers,
   Bot,
   Check,
-  Megaphone
+  Megaphone,
+  Search,
+  Filter,
+  Building2,
+  MapPin
 } from 'lucide-react';
 import { Venue, OutreachStage } from '../../types';
 import { sendWhatsAppMessage, isMetaWhatsAppConfigured } from '../../services/whatsappService';
@@ -26,17 +30,46 @@ export const MassPitchModal: React.FC<MassPitchModalProps> = ({
   onClose,
   onBatchUpdateStage,
 }) => {
-  // Filter venues that are in 'A_PROSPECTER' by default or all if none
-  const defaultTargets = venues.filter((v) => (v.outreachStage || 'A_PROSPECTER') === 'A_PROSPECTER');
-  const initialTargets = defaultTargets.length > 0 ? defaultTargets : venues;
-
-  const [selectedIds, setSelectedIds] = useState<string[]>(initialTargets.map((v) => v.id));
+  const [filterMode, setFilterMode] = useState<'UNCONTACTED' | 'ALL'>('ALL');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const [lang, setLang] = useState<'DARIJA' | 'FR' | 'EN'>('DARIJA');
   const [isDispatching, setIsDispatching] = useState(false);
   const [progress, setProgress] = useState(0);
   const [dispatchedIds, setDispatchedIds] = useState<string[]>([]);
   const [logs, setLogs] = useState<string[]>([]);
   const [isCompleted, setIsCompleted] = useState(false);
+
+  // Compute eligible pool
+  const eligibleVenues = useMemo(() => {
+    return venues.filter((v) => {
+      const matchStage =
+        filterMode === 'ALL' ||
+        !v.outreachStage ||
+        v.outreachStage === 'A_PROSPECTER' ||
+        (v.outreachStage as any) === 'NON_CONTACTE';
+      
+      const matchSearch =
+        searchQuery === '' ||
+        v.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        v.city.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        v.contactPerson.toLowerCase().includes(searchQuery.toLowerCase());
+
+      return matchStage && matchSearch;
+    });
+  }, [venues, filterMode, searchQuery]);
+
+  // Synchronize selection whenever the modal opens or the pool changes
+  useEffect(() => {
+    if (isOpen) {
+      // By default select all currently eligible venues
+      setSelectedIds(eligibleVenues.map((v) => v.id));
+      setIsCompleted(false);
+      setProgress(0);
+      setDispatchedIds([]);
+      setLogs([]);
+    }
+  }, [isOpen, filterMode, venues.length]);
 
   if (!isOpen) return null;
 
@@ -45,10 +78,10 @@ export const MassPitchModal: React.FC<MassPitchModalProps> = ({
   const totalLossMAD = targetVenues.reduce((acc, v) => acc + v.annualLossMAD, 0);
 
   const toggleSelectAll = () => {
-    if (selectedIds.length === initialTargets.length) {
+    if (selectedIds.length === eligibleVenues.length) {
       setSelectedIds([]);
     } else {
-      setSelectedIds(initialTargets.map((v) => v.id));
+      setSelectedIds(eligibleVenues.map((v) => v.id));
     }
   };
 
@@ -114,7 +147,7 @@ export const MassPitchModal: React.FC<MassPitchModalProps> = ({
       setProgress(Math.round(((i + 1) / queue.length) * 100));
 
       // Small delay between sends (respects rate limits)
-      await new Promise((resolve) => setTimeout(resolve, 800));
+      await new Promise((resolve) => setTimeout(resolve, 600));
     }
 
     setIsDispatching(false);
@@ -131,7 +164,7 @@ export const MassPitchModal: React.FC<MassPitchModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/85 backdrop-blur-md overflow-y-auto">
-      <div className="relative w-full max-w-3xl bg-slate-900 border border-slate-700/90 rounded-2xl sm:rounded-3xl shadow-2xl overflow-hidden my-6 flex flex-col">
+      <div className="relative w-full max-w-4xl bg-slate-900 border border-slate-700/90 rounded-2xl sm:rounded-3xl shadow-2xl overflow-hidden my-6 flex flex-col">
         
         {/* Header */}
         <div className="px-6 py-5 bg-gradient-to-r from-amber-950/60 via-slate-900 to-slate-900 border-b border-slate-800 flex items-center justify-between">
@@ -145,7 +178,7 @@ export const MassPitchModal: React.FC<MassPitchModalProps> = ({
                   Mass Regional Outreach Dispatcher
                 </h3>
                 <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-emerald-950 text-emerald-400 border border-emerald-800">
-                  CrewAI Multi-Lead Engine
+                  {venues.length} Établissements Disponibles
                 </span>
               </div>
               <p className="text-xs text-slate-400 mt-0.5">
@@ -171,7 +204,7 @@ export const MassPitchModal: React.FC<MassPitchModalProps> = ({
             <div className="p-3.5 bg-slate-950 rounded-xl border border-slate-800">
               <span className="text-[10px] text-slate-400 uppercase font-bold tracking-wider block">Cibles Sélectionnées</span>
               <div className="text-xl font-bold text-white font-mono mt-1">
-                {targetVenues.length} <span className="text-xs text-slate-400 font-sans">Riads / Hôtels</span>
+                {targetVenues.length} <span className="text-xs text-slate-400 font-sans">sur {eligibleVenues.length}</span>
               </div>
             </div>
 
@@ -190,41 +223,83 @@ export const MassPitchModal: React.FC<MassPitchModalProps> = ({
             </div>
           </div>
 
-          {/* Language Selector */}
-          <div className="flex flex-wrap items-center justify-between gap-3 p-3.5 rounded-xl bg-slate-950 border border-slate-800">
-            <div className="flex items-center gap-2">
-              <Sparkles className="w-4 h-4 text-amber-400" />
-              <span className="text-xs font-bold text-slate-200">Langue du Template WhatsApp :</span>
+          {/* Controls Bar: Filters, Search & Language */}
+          <div className="p-4 rounded-2xl bg-slate-950 border border-slate-800 space-y-3">
+            <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3">
+              
+              {/* Pool Scope Switch */}
+              <div className="flex bg-slate-900 p-1 rounded-xl border border-slate-800 text-xs">
+                <button
+                  onClick={() => setFilterMode('ALL')}
+                  disabled={isDispatching}
+                  className={`px-3 py-1.5 rounded-lg font-semibold transition-all ${
+                    filterMode === 'ALL'
+                      ? 'bg-emerald-600 text-white shadow'
+                      : 'text-slate-400 hover:text-white'
+                  }`}
+                >
+                  Tous les Établissements ({venues.length})
+                </button>
+                <button
+                  onClick={() => setFilterMode('UNCONTACTED')}
+                  disabled={isDispatching}
+                  className={`px-3 py-1.5 rounded-lg font-semibold transition-all ${
+                    filterMode === 'UNCONTACTED'
+                      ? 'bg-emerald-600 text-white shadow'
+                      : 'text-slate-400 hover:text-white'
+                  }`}
+                >
+                  À Prospecter Uniquement ({venues.filter(v => !v.outreachStage || v.outreachStage === 'A_PROSPECTER').length})
+                </button>
+              </div>
+
+              {/* Language Selector */}
+              <div className="flex items-center gap-2">
+                <span className="text-xs text-slate-400 font-medium hidden sm:inline">Template :</span>
+                <div className="flex bg-slate-900 p-1 rounded-xl border border-slate-800 text-xs">
+                  <button
+                    onClick={() => setLang('DARIJA')}
+                    disabled={isDispatching}
+                    className={`px-2.5 py-1 rounded-lg font-semibold transition-colors ${
+                      lang === 'DARIJA' ? 'bg-amber-600 text-slate-950 shadow' : 'text-slate-400 hover:text-white'
+                    }`}
+                  >
+                    🇲🇦 Darija
+                  </button>
+                  <button
+                    onClick={() => setLang('FR')}
+                    disabled={isDispatching}
+                    className={`px-2.5 py-1 rounded-lg font-semibold transition-colors ${
+                      lang === 'FR' ? 'bg-amber-600 text-slate-950 shadow' : 'text-slate-400 hover:text-white'
+                    }`}
+                  >
+                    🇫🇷 Français
+                  </button>
+                  <button
+                    onClick={() => setLang('EN')}
+                    disabled={isDispatching}
+                    className={`px-2.5 py-1 rounded-lg font-semibold transition-colors ${
+                      lang === 'EN' ? 'bg-amber-600 text-slate-950 shadow' : 'text-slate-400 hover:text-white'
+                    }`}
+                  >
+                    🇬🇧 English
+                  </button>
+                </div>
+              </div>
+
             </div>
 
-            <div className="flex bg-slate-900 p-1 rounded-lg border border-slate-800">
-              <button
-                onClick={() => setLang('DARIJA')}
+            {/* Quick Search */}
+            <div className="relative">
+              <Search className="w-4 h-4 text-slate-500 absolute left-3 top-1/2 -translate-y-1/2" />
+              <input
+                type="text"
+                placeholder="Filtrer rapidement par nom (ex: Riad, Restaurant...), ville (Marrakech, Casa...), ou contact..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
                 disabled={isDispatching}
-                className={`px-3 py-1 text-xs font-semibold rounded-md transition-colors ${
-                  lang === 'DARIJA' ? 'bg-emerald-600 text-white shadow' : 'text-slate-400 hover:text-white'
-                }`}
-              >
-                🇲🇦 Darija Pro
-              </button>
-              <button
-                onClick={() => setLang('FR')}
-                disabled={isDispatching}
-                className={`px-3 py-1 text-xs font-semibold rounded-md transition-colors ${
-                  lang === 'FR' ? 'bg-emerald-600 text-white shadow' : 'text-slate-400 hover:text-white'
-                }`}
-              >
-                🇫🇷 Français
-              </button>
-              <button
-                onClick={() => setLang('EN')}
-                disabled={isDispatching}
-                className={`px-3 py-1 text-xs font-semibold rounded-md transition-colors ${
-                  lang === 'EN' ? 'bg-emerald-600 text-white shadow' : 'text-slate-400 hover:text-white'
-                }`}
-              >
-                🇬🇧 English
-              </button>
+                className="w-full pl-9 pr-4 py-2 bg-slate-900 border border-slate-700/80 rounded-xl text-xs text-slate-200 placeholder:text-slate-500 focus:outline-none focus:border-emerald-500"
+              />
             </div>
           </div>
 
@@ -233,19 +308,19 @@ export const MassPitchModal: React.FC<MassPitchModalProps> = ({
             <div className="flex items-center justify-between text-xs">
               <span className="font-bold text-slate-300 flex items-center gap-2">
                 <Layers className="w-4 h-4 text-emerald-400" />
-                Établissements dans la file d'envoi ({targetVenues.length})
+                File d'Attente ({targetVenues.length} cochés sur {eligibleVenues.length})
               </span>
               <button
                 onClick={toggleSelectAll}
                 disabled={isDispatching}
-                className="text-xs text-emerald-400 hover:text-emerald-300 font-semibold"
+                className="text-xs text-emerald-400 hover:text-emerald-300 font-semibold cursor-pointer"
               >
-                {selectedIds.length === initialTargets.length ? 'Tout désélectionner' : 'Tout sélectionner'}
+                {selectedIds.length === eligibleVenues.length ? 'Tout désélectionner' : `Tout sélectionner (${eligibleVenues.length})`}
               </button>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 max-h-48 overflow-y-auto p-1 bg-slate-950/60 rounded-xl border border-slate-800">
-              {initialTargets.map((venue) => {
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 max-h-64 overflow-y-auto p-2 bg-slate-950 rounded-2xl border border-slate-800">
+              {eligibleVenues.map((venue) => {
                 const isSelected = selectedIds.includes(venue.id);
                 const isSent = dispatchedIds.includes(venue.id);
 
@@ -253,33 +328,37 @@ export const MassPitchModal: React.FC<MassPitchModalProps> = ({
                   <div
                     key={venue.id}
                     onClick={() => !isDispatching && toggleSelectVenue(venue.id)}
-                    className={`p-2.5 rounded-lg border flex items-center justify-between text-xs cursor-pointer transition-all ${
+                    className={`p-2.5 rounded-xl border flex items-center justify-between text-xs cursor-pointer transition-all ${
                       isSent
                         ? 'bg-emerald-950/40 border-emerald-500/50 text-white'
                         : isSelected
-                        ? 'bg-slate-900 border-amber-500/40 text-slate-200'
-                        : 'bg-slate-950/80 border-slate-800/80 text-slate-500 opacity-60'
+                        ? 'bg-slate-900 border-amber-500/50 text-slate-200 shadow-sm'
+                        : 'bg-slate-950/60 border-slate-800/80 text-slate-500 opacity-60'
                     }`}
                   >
-                    <div className="flex items-center gap-2 truncate">
-                      <div className={`w-4 h-4 rounded border flex items-center justify-center ${
-                        isSelected ? 'bg-emerald-600 border-emerald-500 text-white' : 'border-slate-700'
+                    <div className="flex items-center gap-2 truncate flex-1 mr-2">
+                      <div className={`w-4 h-4 rounded border flex items-center justify-center shrink-0 ${
+                        isSelected ? 'bg-emerald-600 border-emerald-500 text-white' : 'border-slate-700 bg-slate-900'
                       }`}>
                         {isSelected && <Check className="w-3 h-3" />}
                       </div>
                       <div className="truncate">
-                        <span className="font-bold block truncate">{venue.name}</span>
-                        <span className="text-[10px] text-slate-400 truncate">📍 {venue.city} • {venue.contactPerson}</span>
+                        <span className="font-bold block truncate text-slate-100">{venue.name}</span>
+                        <span className="text-[10px] text-slate-400 truncate block">
+                          📍 {venue.city} • {venue.phone}
+                        </span>
                       </div>
                     </div>
 
                     <div className="shrink-0 text-right font-mono text-[11px]">
                       {isSent ? (
-                        <span className="text-emerald-400 font-bold flex items-center gap-1">
-                          <CheckCircle2 className="w-3.5 h-3.5" /> Envoyé
+                        <span className="text-emerald-400 font-bold flex items-center gap-1 text-[10px]">
+                          <CheckCircle2 className="w-3 h-3" /> Envoyé
                         </span>
                       ) : (
-                        <span className="text-amber-400">-{venue.annualLossMAD / 1000}k DH</span>
+                        <span className="text-amber-400 font-bold text-[10px]">
+                          -{(venue.annualLossMAD / 1000).toFixed(0)}k DH
+                        </span>
                       )}
                     </div>
                   </div>

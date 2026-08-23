@@ -126,13 +126,37 @@ export const TabBillingLegal: React.FC<TabBillingLegalProps> = ({
             </div>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 flex-wrap">
+            <a
+              href={`https://wa.me/${customClient.phone.replace(/[^0-9]/g, '').startsWith('0') ? '212' + customClient.phone.replace(/[^0-9]/g, '').slice(1) : customClient.phone.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(
+                `Salam / Bonjour ${customClient.name},\n\nVoici votre Devis Pro Forma officiel pour la gestion de votre E-Réputation & Flotte IA par ${AGENCY_METADATA.brandName} :\n\n📄 N° : ${invoiceNumber}\n💰 Formule : ${plan.name} (${billingPeriod === 'Annual' ? '12 Mois' : '1 Mois'})\n💵 Montant Total : ${totalMAD.toLocaleString()} MAD (${AGENCY_METADATA.taxExemptionClause})\n\n🏦 Coordonnées Bancaires (Virement) :\n- Banque : ${AGENCY_METADATA.bankName} (${AGENCY_METADATA.bankBranch})\n- RIB : ${AGENCY_METADATA.rib}\n- ICE Agence : ${AGENCY_METADATA.ice}\n- Compte Délégué GBP/Booking : ${AGENCY_METADATA.email}\n\nRestant à votre entière disposition,\nHassan Tiguidda (Tél : ${AGENCY_METADATA.phone})`
+              )}`}
+              target="_blank"
+              rel="noreferrer"
+              className="flex items-center gap-1.5 px-3.5 py-2 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold rounded-xl shadow-lg shadow-emerald-950/50 transition-colors"
+            >
+              <Send className="w-4 h-4" />
+              Envoyer par WhatsApp
+            </a>
+
+            <a
+              href={`mailto:${customClient.email}?subject=${encodeURIComponent(`Devis Pro Forma ${invoiceNumber} - ${customClient.name} - Morocco Radar`)}&body=${encodeURIComponent(
+                `Bonjour ${customClient.name},\n\nVeuillez trouver ci-dessous les détails de votre Devis Pro Forma pour la formule ${plan.name} :\n\n- Prestation : ${plan.name} (${plan.tagline})\n- Montant Total : ${totalMAD.toLocaleString()} MAD Net (${AGENCY_METADATA.taxExemptionClause})\n- RIB BMCE : ${AGENCY_METADATA.rib}\n- ICE : ${AGENCY_METADATA.ice}\n\nPour activer la gestion déléguée sans partage de mot de passe, vous pouvez ajouter l'adresse ${AGENCY_METADATA.email} en tant que gestionnaire sur votre compte Google Business Profile et Booking.com.\n\nBien cordialement,\nHassan Tiguidda — Morocco Radar\nTél : ${AGENCY_METADATA.phone}`
+              )}`}
+              target="_blank"
+              rel="noreferrer"
+              className="flex items-center gap-1.5 px-3.5 py-2 bg-slate-900 hover:bg-slate-800 text-sky-300 border border-slate-700 text-xs font-medium rounded-xl transition-colors"
+            >
+              <Send className="w-4 h-4 text-sky-400" />
+              Envoyer par Email
+            </a>
+
             <button
               onClick={handlePrint}
-              className="flex items-center gap-1.5 px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold rounded-xl shadow-lg shadow-emerald-950/50 transition-colors"
+              className="flex items-center gap-1.5 px-3.5 py-2 bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700 text-xs font-bold rounded-xl transition-colors"
             >
-              <Printer className="w-4 h-4" />
-              Imprimer / Exporter Facture PDF
+              <Printer className="w-4 h-4 text-amber-400" />
+              Imprimer PDF
             </button>
           </div>
         </div>

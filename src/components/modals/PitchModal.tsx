@@ -34,7 +34,7 @@ export const PitchModal: React.FC<PitchModalProps> = ({
   onUpdateStage,
   onOpenShareableAudit
 }) => {
-  const [lang, setLang] = useState<'DARIJA' | 'FR' | 'EN'>('DARIJA');
+  const [lang, setLang] = useState<'DARIJA' | 'FR' | 'EN'>('FR');
   const [copied, setCopied] = useState(false);
   const [isSendingMeta, setIsSendingMeta] = useState(false);
   const [metaSendSuccess, setMetaSendSuccess] = useState<string | null>(null);

@@ -15,6 +15,7 @@ import { AddVenueModal } from './components/modals/AddVenueModal';
 import { QRStandModal } from './components/modals/QRStandModal';
 import { ShareableAuditModal } from './components/modals/ShareableAuditModal';
 import { MassPitchModal } from './components/modals/MassPitchModal';
+import { AutoScoutModal } from './components/modals/AutoScoutModal';
 import { AuthLockScreen } from './components/auth/AuthLockScreen';
 
 import { INITIAL_VENUES, AGENCY_METADATA } from './data/mockData';
@@ -40,11 +41,16 @@ export function App() {
   const [shareableAuditVenue, setShareableAuditVenue] = useState<Venue | null>(null);
   const [pitchVenue, setPitchVenue] = useState<Venue | null>(null);
   const [isMassPitchOpen, setIsMassPitchOpen] = useState<boolean>(false);
+  const [isAutoScoutOpen, setIsAutoScoutOpen] = useState<boolean>(false);
   const [legalCase, setLegalCase] = useState<DefamationCase | null>(null);
   const [certificateVenue, setCertificateVenue] = useState<Venue | null>(null);
   const [qrVenue, setQrVenue] = useState<Venue | null>(null);
   const [isAddVenueOpen, setIsAddVenueOpen] = useState<boolean>(false);
   const [planForInvoice, setPlanForInvoice] = useState<PricingPlan | null>(null);
+
+  const handleImportDiscoveredVenues = (newVenues: Venue[]) => {
+    setVenues((prev) => [...newVenues, ...prev]);
+  };
 
   const handleOpenAudit = (venue: Venue) => {
     setAuditVenue(venue);
@@ -142,6 +148,7 @@ export function App() {
             onOpenShareableAudit={handleOpenShareableAudit}
             onUpdateOutreachStage={handleUpdateOutreachStage}
             onOpenMassPitch={() => setIsMassPitchOpen(true)}
+            onOpenAutoScout={() => setIsAutoScoutOpen(true)}
           />
         )}
 
@@ -182,6 +189,12 @@ export function App() {
       </main>
 
       {/* Persistent Modals */}
+      <AutoScoutModal
+        isOpen={isAutoScoutOpen}
+        onClose={() => setIsAutoScoutOpen(false)}
+        onImportVenues={handleImportDiscoveredVenues}
+      />
+
       <MassPitchModal
         venues={venues}
         isOpen={isMassPitchOpen}

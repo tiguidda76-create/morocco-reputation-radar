@@ -44,6 +44,7 @@ interface TabLeadEngineProps {
   onOpenShareableAudit?: (venue: Venue) => void;
   onUpdateOutreachStage?: (venueId: string, stage: OutreachStage) => void;
   onOpenMassPitch?: () => void;
+  onOpenAutoScout?: () => void;
 }
 
 export const TabLeadEngine: React.FC<TabLeadEngineProps> = ({
@@ -57,6 +58,7 @@ export const TabLeadEngine: React.FC<TabLeadEngineProps> = ({
   onOpenShareableAudit,
   onUpdateOutreachStage,
   onOpenMassPitch,
+  onOpenAutoScout,
 }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedRegion, setSelectedRegion] = useState<string>('ALL');
@@ -338,6 +340,17 @@ export const TabLeadEngine: React.FC<TabLeadEngineProps> = ({
         </div>
 
         <div className="flex items-center gap-2 flex-wrap">
+          {onOpenAutoScout && (
+            <button
+              onClick={onOpenAutoScout}
+              className="flex items-center gap-1.5 px-4 py-2 bg-gradient-to-r from-emerald-600 via-emerald-500 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white rounded-xl text-xs font-bold transition-all shadow-lg shadow-emerald-950/50"
+              title="Scanner automatiquement des dizaines de Riads et Hôtels d'une ville marocaine et les importer avec contacts WhatsApp"
+            >
+              <Sparkles className="w-4 h-4 text-amber-300 animate-spin" />
+              <span>🤖 Scout IA : Scan Automatique</span>
+            </button>
+          )}
+
           {onOpenMassPitch && (
             <button
               onClick={onOpenMassPitch}

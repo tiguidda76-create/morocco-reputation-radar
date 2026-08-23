@@ -13,20 +13,12 @@ import {
   Play,
   RefreshCw,
   Search,
-  ChevronRight,
-  ExternalLink,
   Building2,
   FileText,
-  Clock,
-  Layers,
-  ThumbsUp,
-  Smile,
-  Info,
   Globe2,
-  ArrowUpRight,
   Edit3,
   X,
-  Plus
+  Info
 } from 'lucide-react';
 import {
   WAR_ROOM_AGENTS,
@@ -125,7 +117,6 @@ export const TabAgentFleet: React.FC<TabAgentFleetProps> = ({
   const handleSelectChannel = (channelId: string) => {
     setActiveChannelId(channelId);
     setActiveDmHandle(null);
-    // Clear unread count
     setChannels((prev) =>
       prev.map((c) => (c.id === channelId ? { ...c, unreadCount: 0 } : c))
     );
@@ -205,7 +196,6 @@ export const TabAgentFleet: React.FC<TabAgentFleetProps> = ({
       setSelectedIncident((prev) => (prev ? updateCardStatus(prev) : null));
     }
 
-    // Add confirmation message from Manager Radar
     const timeNow = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     const targetInc = messages.find((m) => m.incidentCard?.id === incidentId)?.incidentCard || selectedIncident;
     
@@ -271,7 +261,6 @@ export const TabAgentFleet: React.FC<TabAgentFleetProps> = ({
 
     setEditingIncidentId(null);
 
-    // Agent confirmation
     const timeNow = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     setTimeout(() => {
       const replyMsg: WarRoomMessage = {
@@ -318,7 +307,6 @@ export const TabAgentFleet: React.FC<TabAgentFleetProps> = ({
       onOpenLegalNotice(defCase);
     }
 
-    // Add war room message
     const timeNow = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     const legalMsg: WarRoomMessage = {
       id: 'msg-leg-trig-' + Date.now(),
@@ -346,7 +334,6 @@ export const TabAgentFleet: React.FC<TabAgentFleetProps> = ({
 
     const timeNow = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     
-    // Check for slash commands
     if (content.startsWith('/')) {
       handleExecuteSlashCommand(content.trim());
       setInputText('');
@@ -354,7 +341,6 @@ export const TabAgentFleet: React.FC<TabAgentFleetProps> = ({
       return;
     }
 
-    // Normal User Message
     const userMsg: WarRoomMessage = {
       id: 'msg-user-' + Date.now(),
       channelId: activeChannelId,
@@ -384,7 +370,6 @@ export const TabAgentFleet: React.FC<TabAgentFleetProps> = ({
     setInputText('');
     setShowSlashMenu(false);
 
-    // Trigger smart agent reply
     triggerAgentReply(content);
   };
 
@@ -449,7 +434,6 @@ export const TabAgentFleet: React.FC<TabAgentFleetProps> = ({
   const handleExecuteSlashCommand = (cmdStr: string) => {
     const timeNow = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     
-    // Command: /clear
     if (cmdStr.startsWith('/clear')) {
       if (activeDmHandle) {
         setDmThreads((prev) => ({ ...prev, [activeDmHandle]: [] }));
@@ -459,13 +443,11 @@ export const TabAgentFleet: React.FC<TabAgentFleetProps> = ({
       return;
     }
 
-    // Command: /simulate
     if (cmdStr.startsWith('/simulate')) {
       runMultiAgentSimulation();
       return;
     }
 
-    // Command: /help
     if (cmdStr.startsWith('/help')) {
       const helpMsg: WarRoomMessage = {
         id: 'msg-help-' + Date.now(),
@@ -493,7 +475,6 @@ export const TabAgentFleet: React.FC<TabAgentFleetProps> = ({
       return;
     }
 
-    // Command: /audit "Venue"
     if (cmdStr.startsWith('/audit')) {
       const match = cmdStr.match(/"([^"]+)"/) || cmdStr.split(' ');
       const venueName = typeof match === 'object' && match[1] ? match[1] : (match[1] || 'La Mamounia');
@@ -513,7 +494,7 @@ export const TabAgentFleet: React.FC<TabAgentFleetProps> = ({
           color: 'amber',
         },
         timestamp: timeNow,
-        content: `🔍 **Mission d'Audit Furtif 5P Exécutée pour "${venueObj.name}"** :\n- Google Maps : **${venueObj.platforms.google.score}★** (${venueObj.platforms.google.totalReviews} avis, ${venueObj.platforms.google.unrepliedCount} non répondus)\n- Booking.com : **${venueObj.platforms.booking.score}★** (${venueObj.platforms.booking.totalReviews} avis)\n- TripAdvisor : **${venueObj.platforms.tripadvisor.score}★** (${venueObj.platforms.tripadvisor.totalReviews} avis)\n- Perte estimée : **${venueObj.annualLossMAD.toLocaleString()} MAD / an**\n\nTu peux consulter le rapport complet en cliquant sur le bouton ci-dessous :`,
+        content: `🔍 **Mission d'Audit Furtif 5P Exécutée pour "${venueObj.name}"** :\n- Google Maps : **${venueObj.platforms.google.score}★** (${venueObj.platforms.google.totalReviews} avis, ${venueObj.platforms.google.unrepliedCount} non répondus)\n- Booking.com : **${venueObj.platforms.booking.score}★** (${venueObj.platforms.booking.totalReviews} avis)\n- TripAdvisor : **${venueObj.platforms.tripadvisor.score}★** (${venueObj.platforms.tripadvisor.totalReviews} avis)\n- Perte estimée : **${venueObj.annualLossMAD.toLocaleString()} MAD / an**\n\nTu peux consulter le rapport complet via le tiroir latéral contextuel.`,
         incidentCard: {
           id: 'inc-audit-' + Date.now(),
           venueId: venueObj.id,
@@ -553,7 +534,6 @@ export const TabAgentFleet: React.FC<TabAgentFleetProps> = ({
       return;
     }
 
-    // Command: /invoice
     if (cmdStr.startsWith('/invoice')) {
       const invMsg: WarRoomMessage = {
         id: 'msg-inv-cmd-' + Date.now(),
@@ -569,7 +549,7 @@ export const TabAgentFleet: React.FC<TabAgentFleetProps> = ({
           color: 'indigo',
         },
         timestamp: timeNow,
-        content: `💼 **Devis Pro Forma Généré avec Succès** :\n- Client : **Riad Kasbah & Spa (Marrakech)**\n- Formule : **Pack Professional (1 500 MAD / mois)**\n- Émetteur : **${AGENCY_METADATA.entity}** (ICE : \`${AGENCY_METADATA.ice}\`)\n- Exonération TVA : *Art 91 - II - 1° du CGI*\n- RIB BMCE : \`${AGENCY_METADATA.rib}\` (Agence Guéliz)\n\nLe document est prêt pour téléchargement ou envoi direct via WhatsApp.`,
+        content: `💼 **Devis Pro Forma Généré avec Succès** :\n- Client : **Riad Kasbah & Spa (Marrakech)**\n- Formule : **Pack Professional (1 500 MAD / mois)**\n- Émetteur : **${AGENCY_METADATA.entity}** (ICE : \`${AGENCY_METADATA.ice}\`)\n- Exonération TVA : *Art 91 - II - 1° du CGI*\n- RIB BMCE : \`${AGENCY_METADATA.rib}\` (Agence Guéliz)\n\nLe document est prêt pour transmission WhatsApp ou export PDF.`,
         reactions: [{ emoji: '💳', count: 3, active: true }],
       };
 
@@ -581,7 +561,6 @@ export const TabAgentFleet: React.FC<TabAgentFleetProps> = ({
       return;
     }
 
-    // Fallback command
     triggerAgentReply(cmdStr);
   };
 
@@ -593,7 +572,6 @@ export const TabAgentFleet: React.FC<TabAgentFleetProps> = ({
 
     const timeNow = () => new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
-    // Step 1: Manager Radar dispatches
     setTimeout(() => {
       setActiveSimStep(1);
       const step1Msg: WarRoomMessage = {
@@ -614,7 +592,6 @@ export const TabAgentFleet: React.FC<TabAgentFleetProps> = ({
       setMessages((prev) => [...prev, step1Msg]);
     }, 600);
 
-    // Step 2: Auditor Agent scrapes
     setTimeout(() => {
       setActiveSimStep(2);
       const step2Msg: WarRoomMessage = {
@@ -635,7 +612,6 @@ export const TabAgentFleet: React.FC<TabAgentFleetProps> = ({
       setMessages((prev) => [...prev, step2Msg]);
     }, 1800);
 
-    // Step 3: Reply Rescue drafts
     setTimeout(() => {
       setActiveSimStep(3);
       const step3Msg: WarRoomMessage = {
@@ -656,7 +632,6 @@ export const TabAgentFleet: React.FC<TabAgentFleetProps> = ({
       setMessages((prev) => [...prev, step3Msg]);
     }, 3000);
 
-    // Step 4: QC Reviewer checks
     setTimeout(() => {
       setActiveSimStep(4);
       const step4Msg: WarRoomMessage = {
@@ -677,7 +652,6 @@ export const TabAgentFleet: React.FC<TabAgentFleetProps> = ({
       setMessages((prev) => [...prev, step4Msg]);
     }, 4200);
 
-    // Step 5: Completion
     setTimeout(() => {
       setActiveSimStep(5);
       const step5Msg: WarRoomMessage = {
@@ -702,7 +676,6 @@ export const TabAgentFleet: React.FC<TabAgentFleetProps> = ({
     }, 5400);
   };
 
-  // Render Platform Badge Helper
   const renderPlatformBadge = (platform: PlatformType) => {
     switch (platform) {
       case 'google':
@@ -759,7 +732,6 @@ export const TabAgentFleet: React.FC<TabAgentFleetProps> = ({
         </div>
 
         <div className="flex items-center gap-2.5 flex-wrap">
-          {/* LangGraph Node state indicator */}
           <div className="hidden lg:flex items-center gap-1 text-[11px] font-mono px-3 py-1.5 rounded-xl bg-slate-950/80 border border-slate-800">
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
             <span className="text-slate-400">Graphe d'états :</span>
@@ -791,12 +763,9 @@ export const TabAgentFleet: React.FC<TabAgentFleetProps> = ({
       {/* 3-Column War Room Interface */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 min-h-[680px]">
         
-        {/* ============================================================ */}
-        {/* LEFT COLUMN: Channels & Direct Agent Roster (3 cols)        */}
-        {/* ============================================================ */}
+        {/* LEFT COLUMN: Channels & Direct Agent Roster */}
         <div className="lg:col-span-3 glass-panel rounded-2xl border border-slate-800/90 flex flex-col overflow-hidden bg-slate-950/70">
           
-          {/* Workspace Switcher Header */}
           <div className="p-3.5 border-b border-slate-800/80 bg-slate-950 flex items-center justify-between">
             <div className="flex items-center gap-2">
               <div className="w-7 h-7 rounded-lg bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-xs font-bold text-emerald-400">
@@ -918,7 +887,6 @@ export const TabAgentFleet: React.FC<TabAgentFleetProps> = ({
               })}
             </div>
 
-            {/* Guardrail & Compliance Footer Box */}
             <div className="p-3 rounded-xl bg-slate-900/70 border border-slate-800 text-[11px] space-y-1.5">
               <div className="flex items-center justify-between text-slate-300 font-semibold">
                 <span className="flex items-center gap-1.5 text-emerald-400">
@@ -934,12 +902,9 @@ export const TabAgentFleet: React.FC<TabAgentFleetProps> = ({
           </div>
         </div>
 
-        {/* ============================================================ */}
-        {/* CENTER COLUMN: Live Incident Stream & Discussion (6 cols)   */}
-        {/* ============================================================ */}
+        {/* CENTER COLUMN: Live Incident Stream & Discussion */}
         <div className="lg:col-span-6 glass-panel rounded-2xl border border-slate-800/90 flex flex-col overflow-hidden bg-slate-950/80">
           
-          {/* Active Feed Header */}
           <div className="px-4 py-3 border-b border-slate-800/80 bg-slate-950 flex flex-wrap items-center justify-between gap-2">
             <div>
               <div className="flex items-center gap-2">
@@ -965,7 +930,6 @@ export const TabAgentFleet: React.FC<TabAgentFleetProps> = ({
             </div>
 
             <div className="flex items-center gap-2">
-              {/* Quick Search inside stream */}
               <div className="relative">
                 <Search className="w-3.5 h-3.5 text-slate-500 absolute left-2.5 top-1/2 -translate-y-1/2" />
                 <input
@@ -977,7 +941,6 @@ export const TabAgentFleet: React.FC<TabAgentFleetProps> = ({
                 />
               </div>
 
-              {/* Toggle Right Drawer on smaller screens */}
               <button
                 onClick={() => setIsRightDrawerOpen(!isRightDrawerOpen)}
                 className={`p-1.5 rounded-lg border text-xs transition-colors ${
@@ -1017,7 +980,6 @@ export const TabAgentFleet: React.FC<TabAgentFleetProps> = ({
                       msg.incidentCard ? 'bg-slate-900/40 border border-slate-800/80' : 'hover:bg-slate-900/30'
                     }`}
                   >
-                    {/* Avatar */}
                     <div className="shrink-0">
                       <div
                         className={`w-8 h-8 rounded-xl flex items-center justify-center text-xs font-bold ${
@@ -1030,10 +992,8 @@ export const TabAgentFleet: React.FC<TabAgentFleetProps> = ({
                       </div>
                     </div>
 
-                    {/* Content Block */}
                     <div className="flex-1 min-w-0 space-y-1.5">
                       
-                      {/* Message Meta */}
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-2 flex-wrap">
                           <span className={`text-xs font-bold ${isUser ? 'text-emerald-300' : 'text-slate-200'}`}>
@@ -1051,7 +1011,6 @@ export const TabAgentFleet: React.FC<TabAgentFleetProps> = ({
                         <span className="text-[10px] text-slate-500 font-mono">{msg.timestamp}</span>
                       </div>
 
-                      {/* Text Body */}
                       <div className="text-xs text-slate-300 leading-relaxed whitespace-pre-line">
                         {msg.content}
                       </div>
@@ -1062,7 +1021,6 @@ export const TabAgentFleet: React.FC<TabAgentFleetProps> = ({
                           onClick={() => setSelectedIncident(msg.incidentCard!)}
                           className="mt-2.5 p-3.5 rounded-xl bg-slate-950 border border-slate-800/90 space-y-3 cursor-pointer hover:border-emerald-500/50 transition-all group"
                         >
-                          {/* Incident Header */}
                           <div className="flex items-start justify-between gap-2">
                             <div className="flex items-center gap-2 flex-wrap">
                               <span className="font-bold text-white text-xs group-hover:text-emerald-300 transition-colors">
@@ -1085,7 +1043,6 @@ export const TabAgentFleet: React.FC<TabAgentFleetProps> = ({
                             </div>
                           </div>
 
-                          {/* Customer Review Comment */}
                           <div className="p-2.5 rounded-lg bg-slate-900/80 border border-slate-800 text-xs space-y-1">
                             <div className="flex items-center justify-between text-[11px] text-slate-400 font-medium">
                               <span>Client : <strong>{msg.incidentCard.author}</strong> ({msg.incidentCard.authorCountry})</span>
@@ -1097,7 +1054,6 @@ export const TabAgentFleet: React.FC<TabAgentFleetProps> = ({
                             </p>
                           </div>
 
-                          {/* AI Draft Preview if available */}
                           {msg.incidentCard.aiDraft && (
                             <div className="p-3 rounded-lg bg-emerald-950/30 border border-emerald-800/40 space-y-2">
                               <div className="flex items-center justify-between">
@@ -1144,7 +1100,6 @@ export const TabAgentFleet: React.FC<TabAgentFleetProps> = ({
                                 </p>
                               )}
 
-                              {/* SEO Tags */}
                               <div className="flex flex-wrap items-center gap-1 pt-1">
                                 <span className="text-[10px] text-slate-400">SEO Injecté :</span>
                                 {msg.incidentCard.aiDraft.seoKeywords.map((kw, i) => (
@@ -1156,7 +1111,6 @@ export const TabAgentFleet: React.FC<TabAgentFleetProps> = ({
                             </div>
                           )}
 
-                          {/* Legal Defamation Context if available */}
                           {msg.incidentCard.legalDefamation && (
                             <div className="p-2.5 rounded-lg bg-rose-950/30 border border-rose-800/40 text-xs space-y-1">
                               <span className="text-[11px] font-bold text-rose-400 flex items-center gap-1">
@@ -1168,7 +1122,6 @@ export const TabAgentFleet: React.FC<TabAgentFleetProps> = ({
                             </div>
                           )}
 
-                          {/* Interactive Action Buttons */}
                           <div className="flex flex-wrap items-center gap-2 pt-1">
                             {msg.incidentCard.status === 'PUBLISHED' ? (
                               <span className="flex items-center gap-1 px-3 py-1.5 bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 rounded-lg text-xs font-bold">
@@ -1215,7 +1168,6 @@ export const TabAgentFleet: React.FC<TabAgentFleetProps> = ({
                         </div>
                       )}
 
-                      {/* Message Emoji Reactions */}
                       {msg.reactions && msg.reactions.length > 0 && (
                         <div className="flex flex-wrap items-center gap-1.5 pt-1">
                           {msg.reactions.map((r, idx) => (
@@ -1241,7 +1193,6 @@ export const TabAgentFleet: React.FC<TabAgentFleetProps> = ({
               })
             )}
 
-            {/* Typing Indicator */}
             {isTyping && (
               <div className="flex items-center gap-2 p-2 text-xs text-slate-400 font-mono">
                 <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
@@ -1255,7 +1206,6 @@ export const TabAgentFleet: React.FC<TabAgentFleetProps> = ({
           {/* Interactive Chat Input & Slash Command Bar */}
           <div className="p-3 border-t border-slate-800/80 bg-slate-950 relative">
             
-            {/* Slash Command Suggestions Popover */}
             {showSlashMenu && (
               <div className="absolute bottom-full left-3 right-3 mb-2 p-2 bg-slate-900 border border-slate-700 rounded-xl shadow-2xl space-y-1 z-30 max-h-56 overflow-y-auto">
                 <div className="px-2 py-1 text-[10px] font-bold uppercase text-slate-400 font-mono">
@@ -1280,7 +1230,6 @@ export const TabAgentFleet: React.FC<TabAgentFleetProps> = ({
               </div>
             )}
 
-            {/* Quick Action Chips */}
             <div className="flex items-center gap-1.5 pb-2 overflow-x-auto no-scrollbar">
               <button
                 onClick={() => handleSendMessage('/audit "La Mamounia"')}
@@ -1308,7 +1257,6 @@ export const TabAgentFleet: React.FC<TabAgentFleetProps> = ({
               </button>
             </div>
 
-            {/* Main Input Field */}
             <div className="flex items-center gap-2">
               <button
                 onClick={() => setShowSlashMenu(!showSlashMenu)}
@@ -1355,13 +1303,10 @@ export const TabAgentFleet: React.FC<TabAgentFleetProps> = ({
 
         </div>
 
-        {/* ============================================================ */}
-        {/* RIGHT COLUMN: Venue Context & Quick Approval Drawer (3 cols) */}
-        {/* ============================================================ */}
+        {/* RIGHT COLUMN: Venue Context & Quick Approval Drawer */}
         {isRightDrawerOpen && (
           <div className="lg:col-span-3 glass-panel rounded-2xl border border-slate-800/90 flex flex-col overflow-hidden bg-slate-950/70">
             
-            {/* Drawer Header */}
             <div className="p-3.5 border-b border-slate-800/80 bg-slate-950 flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <Building2 className="w-4 h-4 text-emerald-400" />
@@ -1378,7 +1323,6 @@ export const TabAgentFleet: React.FC<TabAgentFleetProps> = ({
 
             <div className="flex-1 overflow-y-auto p-4 space-y-4 no-scrollbar">
               
-              {/* Selected Venue Profile Card */}
               <div className="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800 space-y-2.5">
                 <div className="flex items-start justify-between">
                   <div>

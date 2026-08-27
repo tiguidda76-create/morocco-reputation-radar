@@ -33,6 +33,8 @@ import {
 } from '../../data/warRoomData';
 import { Venue, DefamationCase, PricingPlan, PlatformType } from '../../types';
 import { INITIAL_VENUES, AGENCY_METADATA } from '../../data/mockData';
+import { executeLiveMultiAgentMission } from '../../services/agentOrchestratorService';
+import { askManagerRadar } from '../../services/managerRadarBrainService';
 
 interface TabAgentFleetProps {
   venues?: Venue[];
@@ -40,6 +42,7 @@ interface TabAgentFleetProps {
   onOpenLegalNotice?: (defCase: DefamationCase) => void;
   onSelectPlanForInvoice?: (plan: PricingPlan) => void;
   onOpenCertificate?: (venue: Venue) => void;
+  onOpenAutonomousPipeline?: (venue: Venue) => void;
 }
 
 export const TabAgentFleet: React.FC<TabAgentFleetProps> = ({
@@ -48,6 +51,7 @@ export const TabAgentFleet: React.FC<TabAgentFleetProps> = ({
   onOpenLegalNotice,
   onSelectPlanForInvoice,
   onOpenCertificate,
+  onOpenAutonomousPipeline,
 }) => {
   // Navigation State
   const [activeChannelId, setActiveChannelId] = useState<string>('all-venues-feed');
@@ -67,6 +71,8 @@ export const TabAgentFleet: React.FC<TabAgentFleetProps> = ({
   const [typingAgent, setTypingAgent] = useState<string>('');
   const [isSimulating, setIsSimulating] = useState<boolean>(false);
   const [activeSimStep, setActiveSimStep] = useState<number>(0);
+  const [activeStepName, setActiveStepName] = useState<string>('');
+  const [selectedTargetVenueId, setSelectedTargetVenueId] = useState<string>('AUTO');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [isRightDrawerOpen, setIsRightDrawerOpen] = useState<boolean>(true);
   const [editingIncidentId, setEditingIncidentId] = useState<string | null>(null);
@@ -374,13 +380,51 @@ export const TabAgentFleet: React.FC<TabAgentFleetProps> = ({
   };
 
   // Smart agent reply generator
-  const triggerAgentReply = (userPrompt: string) => {
+  const triggerAgentReply = async (userPrompt: string) => {
     setIsTyping(true);
     const respondingAgent = activeDmHandle
       ? (WAR_ROOM_AGENTS.find((a) => a.handle === activeDmHandle) || WAR_ROOM_AGENTS[0])
       : WAR_ROOM_AGENTS[0];
 
     setTypingAgent(respondingAgent.name);
+
+    try {
+      if (respondingAgent.handle === '@Manager-Radar' || !activeDmHandle) {
+        const radarRes = await askManagerRadar(userPrompt, venues, 'fleet');
+        setIsTyping(false);
+        const timeNow = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+        const replyMsg: WarRoomMessage = {
+          id: 'msg-reply-' + Date.now(),
+          channelId: activeChannelId,
+          recipientHandle: activeDmHandle || undefined,
+          sender: {
+            id: respondingAgent.id,
+            name: respondingAgent.name,
+            handle: respondingAgent.handle,
+            avatar: respondingAgent.avatar,
+            isAgent: true,
+            role: respondingAgent.role,
+            color: respondingAgent.color,
+          },
+          timestamp: timeNow,
+          content: radarRes.text,
+          reactions: [{ emoji: '⚡', count: 3 }, { emoji: '🇲🇦', count: 2 }],
+        };
+
+        if (activeDmHandle) {
+          setDmThreads((prev) => ({
+            ...prev,
+            [activeDmHandle]: [...(prev[activeDmHandle] || []), replyMsg],
+          }));
+        } else {
+          setMessages((prev) => [...prev, replyMsg]);
+        }
+        return;
+      }
+    } catch (e) {
+      console.warn('Error in agent response brain:', e);
+    }
 
     setTimeout(() => {
       setIsTyping(false);
@@ -427,7 +471,7 @@ export const TabAgentFleet: React.FC<TabAgentFleetProps> = ({
       } else {
         setMessages((prev) => [...prev, replyMsg]);
       }
-    }, 1200);
+    }, 1000);
   };
 
   // Execute Slash Commands
@@ -564,116 +608,41 @@ export const TabAgentFleet: React.FC<TabAgentFleetProps> = ({
     triggerAgentReply(cmdStr);
   };
 
-  // Full Multi-Agent Simulation Pipeline
-  const runMultiAgentSimulation = () => {
+  // Autonomous Live Multi-Agent Execution Pipeline (Real data from 412 venues)
+  const runLiveMultiAgentMission = async () => {
     if (isSimulating) return;
     setIsSimulating(true);
     setActiveSimStep(1);
+    setActiveStepName('Initialisation...');
 
-    const timeNow = () => new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    // Select target venue from real 412 database
+    let targetVenue = venues.find((v) => v.id === selectedTargetVenueId);
+    if (!targetVenue || selectedTargetVenueId === 'AUTO') {
+      // Pick highest urgency venue with unreplied reviews
+      const candidates = [...venues].sort((a, b) => b.unrepliedReviews - a.unrepliedReviews);
+      targetVenue = candidates[0] || venues[0];
+    }
 
-    setTimeout(() => {
-      setActiveSimStep(1);
-      const step1Msg: WarRoomMessage = {
-        id: 'sim-1-' + Date.now(),
-        channelId: activeChannelId,
-        sender: {
-          id: 'agent-manager',
-          name: 'Manager Radar',
-          handle: '@Manager-Radar',
-          avatar: 'MR',
-          isAgent: true,
-          role: 'Fleet Orchestrator',
-          color: 'emerald',
-        },
-        timestamp: timeNow(),
-        content: '🧠 `[NODE 1: PLANNING & DISPATCH]` Déclenchement de la ronde d\'audit furtif sur 18 Riads à Marrakech et Casablanca. Mission assignée à @Auditor-Agent.',
-      };
-      setMessages((prev) => [...prev, step1Msg]);
-    }, 600);
+    try {
+      const result = await executeLiveMultiAgentMission(
+        targetVenue,
+        activeChannelId,
+        (stepNum, stepName, msg) => {
+          setActiveSimStep(stepNum);
+          setActiveStepName(stepName);
+          setMessages((prev) => [...prev, msg]);
+        }
+      );
 
-    setTimeout(() => {
-      setActiveSimStep(2);
-      const step2Msg: WarRoomMessage = {
-        id: 'sim-2-' + Date.now(),
-        channelId: activeChannelId,
-        sender: {
-          id: 'agent-auditor',
-          name: 'Auditor Agent',
-          handle: '@Auditor-Agent',
-          avatar: 'AA',
-          isAgent: true,
-          role: 'Scraper & Parser',
-          color: 'amber',
-        },
-        timestamp: timeNow(),
-        content: '🔍 `[NODE 2: 5P SCRAPING]` Scraping furtif Google Maps & TripAdvisor terminé sans blocage. **1 avis critique 1★ détecté** chez *Riad Kasbah & Spa* ("Service lent & eau tiède"). Transfert immédiat à @Reply-Rescue.',
-      };
-      setMessages((prev) => [...prev, step2Msg]);
-    }, 1800);
-
-    setTimeout(() => {
-      setActiveSimStep(3);
-      const step3Msg: WarRoomMessage = {
-        id: 'sim-3-' + Date.now(),
-        channelId: activeChannelId,
-        sender: {
-          id: 'agent-reply',
-          name: 'Reply Rescue',
-          handle: '@Reply-Rescue',
-          avatar: 'RR',
-          isAgent: true,
-          role: 'Copywriter & SEO',
-          color: 'sky',
-        },
-        timestamp: timeNow(),
-        content: '✍️ `[NODE 3: MOROCCAN COPYWRITING]` Brouillon généré en Français chaleureux + Darija avec inclusion des mots-clés SEO ["riad authentique médina Marrakech", "hospitalité marocaine"]. Transmission à @QC-Reviewer pour vérification du seuil > 98.4%.',
-      };
-      setMessages((prev) => [...prev, step3Msg]);
-    }, 3000);
-
-    setTimeout(() => {
-      setActiveSimStep(4);
-      const step4Msg: WarRoomMessage = {
-        id: 'sim-4-' + Date.now(),
-        channelId: activeChannelId,
-        sender: {
-          id: 'agent-qc',
-          name: 'QC Reviewer',
-          handle: '@QC-Reviewer',
-          avatar: 'QC',
-          isAgent: true,
-          role: 'QC Auditor',
-          color: 'emerald',
-        },
-        timestamp: timeNow(),
-        content: '🛡️ `[NODE 4: QC GUARDRAILS]` **Score QC validé : 99.6%**. Aucune hallucination, respect strict de la marque et sécurité juridique garantie. Prêt pour publication ou approbation client Mode A.',
-      };
-      setMessages((prev) => [...prev, step4Msg]);
-    }, 4200);
-
-    setTimeout(() => {
-      setActiveSimStep(5);
-      const step5Msg: WarRoomMessage = {
-        id: 'sim-5-' + Date.now(),
-        channelId: activeChannelId,
-        sender: {
-          id: 'agent-manager',
-          name: 'Manager Radar',
-          handle: '@Manager-Radar',
-          avatar: 'MR',
-          isAgent: true,
-          role: 'Fleet Orchestrator',
-          color: 'emerald',
-        },
-        timestamp: timeNow(),
-        content: '🚀 `[NODE 5: PIPELINE COMPLETED]` Publication API exécutée et rapport envoyé au gestionnaire. Flotte revenue en veille active.',
-        reactions: [{ emoji: '🎉', count: 6, active: true }, { emoji: '🇲🇦', count: 5 }],
-      };
-      setMessages((prev) => [...prev, step5Msg]);
+      setSelectedIncident(result.incidentCard);
+      setIsRightDrawerOpen(true);
+    } catch (err) {
+      console.error('Error running live multi-agent mission:', err);
+    } finally {
       setIsSimulating(false);
       setActiveSimStep(0);
-    }, 5400);
+      setActiveStepName('');
+    }
   };
 
   const renderPlatformBadge = (platform: PlatformType) => {
@@ -732,31 +701,61 @@ export const TabAgentFleet: React.FC<TabAgentFleetProps> = ({
         </div>
 
         <div className="flex items-center gap-2.5 flex-wrap">
-          <div className="hidden lg:flex items-center gap-1 text-[11px] font-mono px-3 py-1.5 rounded-xl bg-slate-950/80 border border-slate-800">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
-            <span className="text-slate-400">Graphe d'états :</span>
-            <span className="text-emerald-300 font-semibold">6 Agents en ligne</span>
-            <span className="text-slate-600">|</span>
-            <span className="text-amber-300">QC &gt; 98.4%</span>
+          {/* Target Venue Selector */}
+          <div className="flex items-center gap-1.5 bg-slate-950/90 border border-slate-800 rounded-xl px-3 py-1.5 text-xs">
+            <Building2 className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+            <select
+              value={selectedTargetVenueId}
+              onChange={(e) => setSelectedTargetVenueId(e.target.value)}
+              disabled={isSimulating}
+              className="bg-transparent text-xs text-slate-200 focus:outline-none cursor-pointer max-w-[220px] truncate"
+            >
+              <option value="AUTO" className="bg-slate-900 text-emerald-300 font-bold">
+                🎯 Auto (Priorité Maximale)
+              </option>
+              {venues.slice(0, 50).map((v) => (
+                <option key={v.id} value={v.id} className="bg-slate-900 text-slate-200">
+                  {v.name} ({v.city}) - {v.unrepliedReviews} avis
+                </option>
+              ))}
+            </select>
           </div>
 
           <button
-            onClick={runMultiAgentSimulation}
+            onClick={runLiveMultiAgentMission}
             disabled={isSimulating}
             className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-white text-xs font-bold rounded-xl shadow-lg shadow-emerald-950/50 transition-all disabled:opacity-50"
           >
             {isSimulating ? (
               <>
-                <RefreshCw className="w-3.5 h-3.5 animate-spin" />
-                <span>Simulation LangGraph ({activeSimStep}/5)...</span>
+                <RefreshCw className="w-3.5 h-3.5 animate-spin text-amber-300" />
+                <span>Exécution Multi-Agents ({activeSimStep}/5: {activeStepName})...</span>
               </>
             ) : (
               <>
-                <Play className="w-3.5 h-3.5 fill-current" />
-                <span>Simuler Multi-Agents (Live)</span>
+                <Sparkles className="w-3.5 h-3.5 text-amber-300 animate-pulse" />
+                <span>⚡ Lancer Mission Multi-Agents (Direct)</span>
               </>
             )}
           </button>
+
+          {onOpenAutonomousPipeline && (
+            <button
+              onClick={() => {
+                let target = venues.find((v) => v.id === selectedTargetVenueId);
+                if (!target || selectedTargetVenueId === 'AUTO') {
+                  const candidates = [...venues].sort((a, b) => b.unrepliedReviews - a.unrepliedReviews);
+                  target = candidates[0] || venues[0];
+                }
+                if (target) onOpenAutonomousPipeline(target);
+              }}
+              className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-teal-600 via-emerald-600 to-cyan-600 hover:from-teal-500 hover:to-cyan-500 text-white text-xs font-extrabold rounded-xl shadow-lg shadow-emerald-950/50 transition-all cursor-pointer"
+              title="Lancer le pipeline asynchrone autonome complet (Queue 202 ➔ Scrape ➔ PDF WeasyPrint ➔ Email)"
+            >
+              <Bot className="w-3.5 h-3.5 text-amber-300 animate-pulse" />
+              <span>⚡ Moteur Asynchrone 360°</span>
+            </button>
+          )}
         </div>
       </div>
 

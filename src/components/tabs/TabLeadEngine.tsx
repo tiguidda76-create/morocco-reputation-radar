@@ -29,7 +29,9 @@ import {
   Lock,
   ChevronRight,
   TrendingDown,
-  Megaphone
+  Megaphone,
+  RotateCcw,
+  Mail
 } from 'lucide-react';
 import { Venue, MoroccanRegion, VenueCategory, ThreatLevel, OutreachStage } from '../../types';
 
@@ -45,6 +47,8 @@ interface TabLeadEngineProps {
   onUpdateOutreachStage?: (venueId: string, stage: OutreachStage) => void;
   onOpenMassPitch?: () => void;
   onOpenAutoScout?: () => void;
+  onResetFullCatalog?: () => void;
+  onOpenAutonomousPipeline?: (venue: Venue) => void;
 }
 
 export const TabLeadEngine: React.FC<TabLeadEngineProps> = ({
@@ -59,12 +63,15 @@ export const TabLeadEngine: React.FC<TabLeadEngineProps> = ({
   onUpdateOutreachStage,
   onOpenMassPitch,
   onOpenAutoScout,
+  onResetFullCatalog,
+  onOpenAutonomousPipeline,
 }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedRegion, setSelectedRegion] = useState<string>('ALL');
   const [selectedCategory, setSelectedCategory] = useState<string>('ALL');
   const [selectedThreat, setSelectedThreat] = useState<string>('ALL');
   const [selectedStage, setSelectedStage] = useState<string>('ALL');
+  const [selectedChannelFilter, setSelectedChannelFilter] = useState<'ALL' | 'EMAIL_PRIORITY' | 'WHATSAPP_ONLY'>('ALL');
   const [activeView, setActiveView] = useState<'TABLE' | 'PIPELINE' | 'HEATMAP'>('PIPELINE');
 
   const regions: MoroccanRegion[] = [
@@ -148,6 +155,37 @@ export const TabLeadEngine: React.FC<TabLeadEngineProps> = ({
     }
   ];
 
+  const hasValidEmail = (email?: string): boolean => {
+    if (!email) return false;
+    const clean = email.trim().toLowerCase();
+    return clean.includes('@') && clean.includes('.') && !clean.includes('example') && !clean.includes('placeholder');
+  };
+
+  const buildEmailPitchLink = (venue: Venue) => {
+    const subject = `[Audit E-Réputation] Manque à gagner estimé à -${venue.annualLossMAD.toLocaleString()} MAD/an pour ${venue.name}`;
+    const body = `Bonjour ${venue.contactPerson || 'Madame, Monsieur la Direction'},
+
+Je suis Hassan Tiguidda, fondateur de l'Agence MOROCCO RADAR (Spécialiste E-Réputation & IA Hôtelière à Marrakech).
+
+Nous venons de réaliser un audit de réputation sur votre établissement "${venue.name}" à ${venue.city} :
+⚠️ ${venue.unrepliedReviews} avis récents sont actuellement sans réponse sur Google Maps et Booking.
+📉 Manque à gagner estimé : ~${venue.annualLossMAD.toLocaleString()} MAD/an en réservations directes perdues au profit d'établissements concurrents.
+
+📊 Consultez votre rapport d'audit chiffré complet ici :
+👉 https://morocco-radar.agency/audit/${venue.id}
+
+Notre flotte IA marocaine répond en moins de 2h sur 5 plateformes (Google, Booking, TripAdvisor, Airbnb, Yelp) avec la chaleur de l'hospitalité marocaine et garantie de conformité juridique (Art. 447 Code Pénal & CNDP).
+
+Seriez-vous disponible pour un court échange de 5 min ou pour recevoir un exemple de réponse gratuit pour votre établissement ?
+
+Bien cordialement,
+Hassan Tiguidda — MOROCCO RADAR
+Tél/WhatsApp : 0632155430 | Email : tiguidda76@gmail.com
+ICE : 1161674000043`;
+
+    return `mailto:${venue.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  };
+
   // Regional Heatmap Distribution
   const regionalStats = [
     { name: 'Marrakech-Safi', count: 18450, unreplied: 610, lossMAD: '1.42M', hub: 'Marrakech / Essaouira', color: 'border-emerald-500/50 bg-emerald-950/30' },
@@ -158,22 +196,36 @@ export const TabLeadEngine: React.FC<TabLeadEngineProps> = ({
     { name: 'Drâa-Tafilalet', count: 1390, unreplied: 30, lossMAD: '340K', hub: 'Merzouga / Ouarzazate', color: 'border-amber-500/50 bg-amber-950/30' },
   ];
 
-  // Filtering
+  // Filtering & Smart Priority Sorting
   const filteredVenues = useMemo(() => {
-    return venues.filter((v) => {
-      const matchSearch =
-        v.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        v.city.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        v.contactPerson.toLowerCase().includes(searchTerm.toLowerCase());
-      
-      const matchRegion = selectedRegion === 'ALL' || v.region === selectedRegion;
-      const matchCategory = selectedCategory === 'ALL' || v.category === selectedCategory;
-      const matchThreat = selectedThreat === 'ALL' || v.threatLevel === selectedThreat;
-      const matchStage = selectedStage === 'ALL' || (v.outreachStage || 'A_PROSPECTER') === selectedStage;
+    return venues
+      .filter((v) => {
+        const matchSearch =
+          v.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          v.city.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          v.contactPerson.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          (v.email && v.email.toLowerCase().includes(searchTerm.toLowerCase()));
+        
+        const matchRegion = selectedRegion === 'ALL' || v.region === selectedRegion;
+        const matchCategory = selectedCategory === 'ALL' || v.category === selectedCategory;
+        const matchThreat = selectedThreat === 'ALL' || v.threatLevel === selectedThreat;
+        const matchStage = selectedStage === 'ALL' || (v.outreachStage || 'A_PROSPECTER') === selectedStage;
+        
+        const matchChannel = 
+          selectedChannelFilter === 'ALL' ||
+          (selectedChannelFilter === 'EMAIL_PRIORITY' && hasValidEmail(v.email)) ||
+          (selectedChannelFilter === 'WHATSAPP_ONLY' && !hasValidEmail(v.email));
 
-      return matchSearch && matchRegion && matchCategory && matchThreat && matchStage;
-    });
-  }, [venues, searchTerm, selectedRegion, selectedCategory, selectedThreat, selectedStage]);
+        return matchSearch && matchRegion && matchCategory && matchThreat && matchStage && matchChannel;
+      })
+      .sort((a, b) => {
+        // Prioritize venues with verified direct emails
+        const aHasEmail = hasValidEmail(a.email) ? 1 : 0;
+        const bHasEmail = hasValidEmail(b.email) ? 1 : 0;
+        if (aHasEmail !== bHasEmail) return bHasEmail - aHasEmail;
+        return b.unrepliedReviews - a.unrepliedReviews;
+      });
+  }, [venues, searchTerm, selectedRegion, selectedCategory, selectedThreat, selectedStage, selectedChannelFilter]);
 
   // Stage advancement helper
   const getNextStage = (current?: OutreachStage): OutreachStage => {
@@ -340,6 +392,20 @@ export const TabLeadEngine: React.FC<TabLeadEngineProps> = ({
         </div>
 
         <div className="flex items-center gap-2 flex-wrap">
+          {onOpenAutonomousPipeline && (
+            <button
+              onClick={() => {
+                const target = filteredVenues[0] || venues[0];
+                if (target) onOpenAutonomousPipeline(target);
+              }}
+              className="flex items-center gap-1.5 px-4 py-2 bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 hover:from-emerald-500 hover:to-cyan-500 text-white rounded-xl text-xs font-extrabold transition-all shadow-lg shadow-emerald-950/50"
+              title="Lancer le pipeline de production asynchrone (Queue 202 ➔ Scrape ➔ Scoring MAD ➔ PDF WeasyPrint ➔ Email)"
+            >
+              <Bot className="w-4 h-4 text-amber-300 animate-pulse" />
+              <span>⚡ Moteur Asynchrone 360°</span>
+            </button>
+          )}
+
           {onOpenAutoScout && (
             <button
               onClick={onOpenAutoScout}
@@ -359,6 +425,17 @@ export const TabLeadEngine: React.FC<TabLeadEngineProps> = ({
             >
               <Megaphone className="w-4 h-4" />
               <span>Pitch All (Mass Outreach)</span>
+            </button>
+          )}
+
+          {onResetFullCatalog && (
+            <button
+              onClick={onResetFullCatalog}
+              className="flex items-center gap-1.5 px-3.5 py-2 bg-slate-900 hover:bg-slate-800 text-emerald-400 hover:text-emerald-300 rounded-xl text-xs font-bold border border-emerald-800/60 hover:border-emerald-500 transition-all shadow-sm"
+              title="Restaurer ou réinitialiser la base de données nationale complète (412 établissements)"
+            >
+              <RotateCcw className="w-3.5 h-3.5" />
+              <span>Base 412 Établissements</span>
             </button>
           )}
 
@@ -471,6 +548,20 @@ export const TabLeadEngine: React.FC<TabLeadEngineProps> = ({
                   <option value="EN_DISCUSSION" className="bg-slate-900">3. En Négociation</option>
                   <option value="ACCES_DELEGUE" className="bg-slate-900">4. Accès Reçu</option>
                   <option value="CLIENT_ACTIF" className="bg-slate-900">5. Client Actif IA</option>
+                </select>
+              </div>
+
+              {/* Outreach Channel Priority Filter */}
+              <div className="flex items-center gap-1.5 bg-slate-950/80 border border-slate-800 rounded-xl px-3 py-2">
+                <Mail className="w-3.5 h-3.5 text-sky-400 shrink-0" />
+                <select
+                  value={selectedChannelFilter}
+                  onChange={(e) => setSelectedChannelFilter(e.target.value as any)}
+                  className="bg-transparent text-xs text-slate-200 focus:outline-none cursor-pointer font-medium"
+                >
+                  <option value="ALL" className="bg-slate-900">Tous les Canaux (Email + WA)</option>
+                  <option value="EMAIL_PRIORITY" className="bg-slate-900 text-sky-300 font-bold">📧 Priorité Email Direction ({venues.filter(v => hasValidEmail(v.email)).length})</option>
+                  <option value="WHATSAPP_ONLY" className="bg-slate-900 text-amber-300 font-bold">📱 WhatsApp Direct Uniquement</option>
                 </select>
               </div>
             </div>
@@ -591,6 +682,16 @@ export const TabLeadEngine: React.FC<TabLeadEngineProps> = ({
                               <div className="flex items-center gap-1 truncate text-slate-300">
                                 <span>👤 {venue.contactPerson}</span>
                               </div>
+                              {hasValidEmail(venue.email) ? (
+                                <div className="flex items-center justify-between text-[10px] bg-sky-950/40 px-2 py-1 rounded border border-sky-800/40">
+                                  <span className="text-sky-300 font-mono truncate">✉️ {venue.email}</span>
+                                  <span className="text-[8px] font-bold text-sky-400 uppercase tracking-wide shrink-0">PRIORITÉ EMAIL</span>
+                                </div>
+                              ) : (
+                                <div className="flex items-center gap-1 text-[10px] text-slate-400">
+                                  <span>📱 {venue.phone}</span>
+                                </div>
+                              )}
                               {venue.outreachNotes && (
                                 <p className="text-slate-400 italic bg-slate-950/60 p-1.5 rounded border border-slate-800/50 line-clamp-2">
                                   "{venue.outreachNotes}"
@@ -600,15 +701,29 @@ export const TabLeadEngine: React.FC<TabLeadEngineProps> = ({
 
                             {/* Action Buttons */}
                             <div className="pt-2 border-t border-slate-800/80 grid grid-cols-2 gap-1.5">
-                              {/* Pitch WhatsApp */}
-                              <button
-                                onClick={() => onDispatchPitch(venue)}
-                                className="py-1 px-2 bg-amber-500/15 hover:bg-amber-500/25 text-amber-300 border border-amber-500/30 rounded-lg text-[10px] font-bold transition-all flex items-center justify-center gap-1"
-                                title="Ouvrir le Pitch WhatsApp personnalisé"
-                              >
-                                <MessageCircle className="w-3 h-3" />
-                                <span>Pitch WA</span>
-                              </button>
+                              {/* Primary Outreach Trigger (Email or WhatsApp) */}
+                              {hasValidEmail(venue.email) ? (
+                                <a
+                                  href={buildEmailPitchLink(venue)}
+                                  target="_blank"
+                                  rel="noreferrer"
+                                  onClick={() => onUpdateOutreachStage && onUpdateOutreachStage(venue.id, 'PITCH_ENVOYE')}
+                                  className="py-1 px-2 bg-sky-500/20 hover:bg-sky-500/30 text-sky-200 border border-sky-500/40 rounded-lg text-[10px] font-bold transition-all flex items-center justify-center gap-1 shadow-sm"
+                                  title="Envoyer un email B2B personnalisé avec rapport d'audit"
+                                >
+                                  <Mail className="w-3 h-3 text-sky-300" />
+                                  <span>Email VIP ➔</span>
+                                </a>
+                              ) : (
+                                <button
+                                  onClick={() => onDispatchPitch(venue)}
+                                  className="py-1 px-2 bg-amber-500/15 hover:bg-amber-500/25 text-amber-300 border border-amber-500/30 rounded-lg text-[10px] font-bold transition-all flex items-center justify-center gap-1"
+                                  title="Ouvrir le Pitch WhatsApp personnalisé"
+                                >
+                                  <MessageCircle className="w-3 h-3" />
+                                  <span>Pitch WA</span>
+                                </button>
+                              )}
 
                               {/* Shareable Audit */}
                               <button
@@ -620,6 +735,20 @@ export const TabLeadEngine: React.FC<TabLeadEngineProps> = ({
                                 <span>Audit Client</span>
                               </button>
                             </div>
+
+                            {/* 1-Click Autonomous 360° Engine */}
+                            {onOpenAutonomousPipeline && (
+                              <div className="pt-1">
+                                <button
+                                  onClick={() => onOpenAutonomousPipeline(venue)}
+                                  className="w-full py-1.5 px-2 bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 hover:from-emerald-500 hover:to-cyan-500 text-white rounded-lg text-[10px] font-extrabold transition-all flex items-center justify-center gap-1.5 shadow-sm"
+                                  title="Exécuter le pipeline autonome complet (Queue 202 ➔ Scrape ➔ Scoring MAD ➔ PDF WeasyPrint ➔ Email)"
+                                >
+                                  <Bot className="w-3 h-3 text-amber-300 animate-pulse" />
+                                  <span>⚡ Pipeline 360° Autonome</span>
+                                </button>
+                              </div>
+                            )}
 
                             {/* Quick Stage Progression */}
                             {onUpdateOutreachStage && stage.id !== 'CLIENT_ACTIF' && (
@@ -815,6 +944,33 @@ export const TabLeadEngine: React.FC<TabLeadEngineProps> = ({
                       {/* Actions */}
                       <td className="py-4 px-4 text-right">
                         <div className="flex items-center justify-end gap-1.5 flex-wrap">
+                          {/* Priority Email Trigger */}
+                          {hasValidEmail(venue.email) && (
+                            <a
+                              href={buildEmailPitchLink(venue)}
+                              target="_blank"
+                              rel="noreferrer"
+                              onClick={() => onUpdateOutreachStage && onUpdateOutreachStage(venue.id, 'PITCH_ENVOYE')}
+                              className="px-2.5 py-1.5 bg-sky-950/70 hover:bg-sky-900/70 text-sky-300 border border-sky-800/70 rounded-lg text-[11px] font-semibold transition-all flex items-center gap-1 shadow-sm"
+                              title="Envoyer un pitch email avec audit chiffré"
+                            >
+                              <Mail className="w-3.5 h-3.5 text-sky-400" />
+                              <span>Email 1-Clic</span>
+                            </a>
+                          )}
+
+                          {/* Autonomous 360° Pipeline */}
+                          {onOpenAutonomousPipeline && (
+                            <button
+                              onClick={() => onOpenAutonomousPipeline(venue)}
+                              className="px-2.5 py-1.5 bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 hover:from-emerald-500 hover:to-cyan-500 text-white rounded-lg text-[11px] font-extrabold transition-all flex items-center gap-1 shadow-sm"
+                              title="Lancer le pipeline asynchrone autonome (Queue 202 ➔ Scrape ➔ PDF WeasyPrint ➔ Email)"
+                            >
+                              <Bot className="w-3.5 h-3.5 text-amber-300 animate-pulse" />
+                              <span>Pipeline IA</span>
+                            </button>
+                          )}
+
                           {/* Shareable Audit */}
                           <button
                             onClick={() => onOpenShareableAudit ? onOpenShareableAudit(venue) : onOpenAudit(venue)}
@@ -825,14 +981,14 @@ export const TabLeadEngine: React.FC<TabLeadEngineProps> = ({
                             <span>Audit Partageable</span>
                           </button>
 
-                          {/* Dispatch Pitch */}
+                          {/* Dispatch Pitch WhatsApp */}
                           <button
                             onClick={() => onDispatchPitch(venue)}
                             className="px-2.5 py-1.5 bg-amber-500/10 hover:bg-amber-500/20 text-amber-300 border border-amber-500/30 rounded-lg text-[11px] font-semibold transition-all flex items-center gap-1"
                             title="Générer pitch WhatsApp (Darija/FR/EN)"
                           >
                             <Zap className="w-3.5 h-3.5 text-amber-400" />
-                            <span>Pitch 1-Clic</span>
+                            <span>Pitch WA</span>
                           </button>
 
                           {/* Auto-IA */}

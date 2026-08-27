@@ -64,6 +64,8 @@ export interface Venue {
   outreachStage?: OutreachStage;
   outreachNotes?: string;
   lastContactDate?: string;
+  isNewlyScouted?: boolean;
+  discoveredAt?: string;
 }
 
 export interface ReviewItem {

@@ -23,12 +23,16 @@ interface AutoScoutModalProps {
   isOpen: boolean;
   onClose: () => void;
   onImportVenues: (venues: Venue[]) => void;
+  existingVenues?: Venue[];
+  onImportAndPitchNewVenues?: (newVenues: Venue[]) => void;
 }
 
 export const AutoScoutModal: React.FC<AutoScoutModalProps> = ({
   isOpen,
   onClose,
   onImportVenues,
+  existingVenues = [],
+  onImportAndPitchNewVenues,
 }) => {
   const [selectedRegion, setSelectedRegion] = useState<MoroccanRegion | 'ALL'>('ALL');
   const [selectedCity, setSelectedCity] = useState('Toutes les villes & pôles touristiques');
@@ -73,6 +77,7 @@ export const AutoScoutModal: React.FC<AutoScoutModalProps> = ({
         count: targetCount,
         maxScore: maxScore,
         minUnrepliedReviews: minUnreplied,
+        existingVenues: existingVenues,
       };
 
       const results = await runAutonomousLeadScout(params, (prog, text) => {
@@ -91,6 +96,17 @@ export const AutoScoutModal: React.FC<AutoScoutModalProps> = ({
   const handleConfirmImport = () => {
     if (discoveredVenues.length > 0) {
       onImportVenues(discoveredVenues);
+      onClose();
+    }
+  };
+
+  const handleConfirmImportAndPitch = () => {
+    if (discoveredVenues.length > 0) {
+      if (onImportAndPitchNewVenues) {
+        onImportAndPitchNewVenues(discoveredVenues);
+      } else {
+        onImportVenues(discoveredVenues);
+      }
       onClose();
     }
   };
@@ -381,7 +397,7 @@ export const AutoScoutModal: React.FC<AutoScoutModalProps> = ({
         </div>
 
         {/* Footer */}
-        <div className="px-6 py-4 bg-slate-950 border-t border-slate-800 flex items-center justify-between">
+        <div className="px-6 py-4 bg-slate-950 border-t border-slate-800 flex flex-wrap items-center justify-between gap-3">
           <button
             onClick={onClose}
             className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-xs font-medium transition-colors"
@@ -390,13 +406,23 @@ export const AutoScoutModal: React.FC<AutoScoutModalProps> = ({
           </button>
 
           {discoveredVenues.length > 0 && (
-            <button
-              onClick={handleConfirmImport}
-              className="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-white rounded-xl text-xs font-bold transition-all shadow-lg shadow-emerald-950/50 cursor-pointer"
-            >
-              <span>Importer les {discoveredVenues.length} Prospects dans le Radar</span>
-              <ArrowRight className="w-4 h-4" />
-            </button>
+            <div className="flex items-center gap-2.5 flex-wrap">
+              <button
+                onClick={handleConfirmImport}
+                className="flex items-center gap-1.5 px-4 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl text-xs font-bold transition-all border border-slate-700 cursor-pointer"
+              >
+                <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                <span>Importer ({discoveredVenues.length} Leads)</span>
+              </button>
+
+              <button
+                onClick={handleConfirmImportAndPitch}
+                className="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400 text-slate-950 rounded-xl text-xs font-extrabold transition-all shadow-lg shadow-amber-950/50 cursor-pointer"
+              >
+                <Zap className="w-4 h-4 fill-current" />
+                <span>⚡ Importer &amp; Pitcher Exclusivement ces {discoveredVenues.length} Nouveaux Leads ➔</span>
+              </button>
+            </div>
           )}
         </div>
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Navbar } from './components/Navbar';
 import { TabLeadEngine } from './components/tabs/TabLeadEngine';
 import { TabAgentFleet } from './components/tabs/TabAgentFleet';
@@ -16,12 +16,16 @@ import { QRStandModal } from './components/modals/QRStandModal';
 import { ShareableAuditModal } from './components/modals/ShareableAuditModal';
 import { MassPitchModal } from './components/modals/MassPitchModal';
 import { AutoScoutModal } from './components/modals/AutoScoutModal';
+import { AutonomousAuditWorkerModal } from './components/modals/AutonomousAuditWorkerModal';
+import { ManagerRadarCopilot } from './components/chat/ManagerRadarCopilot';
+import { ManagerRadarFloatingLauncher } from './components/chat/ManagerRadarFloatingLauncher';
 import { AuthLockScreen } from './components/auth/AuthLockScreen';
 
 import { INITIAL_VENUES, AGENCY_METADATA } from './data/mockData';
 import { Venue, DefamationCase, PricingPlan, OutreachStage } from './types';
 
 const AUTH_STORAGE_KEY = 'mrr_auth_session';
+const VENUES_STORAGE_KEY = 'mrr_venues_data_v4_clean';
 
 export function App() {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => {
@@ -34,22 +38,98 @@ export function App() {
 
   const [activeTab, setActiveTab] = useState<string>('leads');
   const [isAutoPilot, setIsAutoPilot] = useState<boolean>(false);
-  const [venues, setVenues] = useState<Venue[]>(INITIAL_VENUES);
+  const [venues, setVenues] = useState<Venue[]>(() => {
+    try {
+      const saved = localStorage.getItem(VENUES_STORAGE_KEY);
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed) && parsed.length >= 412) {
+          // Strict deduplication by ID
+          const unique = Array.from(new Map(parsed.map((v: Venue) => [v.id, v])).values());
+          return unique;
+        }
+      }
+    } catch (e) {
+      console.error('Failed to parse cached venues from localStorage:', e);
+    }
+    return INITIAL_VENUES;
+  });
+
+  // Automatically synchronize venues to localStorage
+  useEffect(() => {
+    try {
+      // Ensure only unique venues are stored
+      const unique = Array.from(new Map(venues.map((v) => [v.id, v])).values());
+      localStorage.setItem(VENUES_STORAGE_KEY, JSON.stringify(unique));
+    } catch (e) {
+      console.error('Failed to save venues to localStorage:', e);
+    }
+  }, [venues]);
+
+  const handleResetToFullCatalog = () => {
+    setVenues(INITIAL_VENUES);
+    try {
+      localStorage.setItem(VENUES_STORAGE_KEY, JSON.stringify(INITIAL_VENUES));
+    } catch (e) {
+      console.error('Failed to write default venues:', e);
+    }
+  };
 
   // Modals state
   const [auditVenue, setAuditVenue] = useState<Venue | null>(null);
   const [shareableAuditVenue, setShareableAuditVenue] = useState<Venue | null>(null);
   const [pitchVenue, setPitchVenue] = useState<Venue | null>(null);
+  const [autonomousWorkerVenue, setAutonomousWorkerVenue] = useState<Venue | null>(null);
+  const [autonomousWorkerJobId, setAutonomousWorkerJobId] = useState<string | null>(null);
   const [isMassPitchOpen, setIsMassPitchOpen] = useState<boolean>(false);
+  const [massPitchTargetIds, setMassPitchTargetIds] = useState<string[] | null>(null);
   const [isAutoScoutOpen, setIsAutoScoutOpen] = useState<boolean>(false);
   const [legalCase, setLegalCase] = useState<DefamationCase | null>(null);
   const [certificateVenue, setCertificateVenue] = useState<Venue | null>(null);
   const [qrVenue, setQrVenue] = useState<Venue | null>(null);
   const [isAddVenueOpen, setIsAddVenueOpen] = useState<boolean>(false);
   const [planForInvoice, setPlanForInvoice] = useState<PricingPlan | null>(null);
+  const [isCopilotOpen, setIsCopilotOpen] = useState<boolean>(false);
+
+  // Global keyboard shortcut: Ctrl+K or Cmd+K to open Manager Radar Copilot
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        setIsCopilotOpen((prev) => !prev);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
+  const handleOpenAutonomousPipeline = (venue: Venue, jobId?: string) => {
+    setAutonomousWorkerVenue(venue);
+    setAutonomousWorkerJobId(jobId || null);
+  };
 
   const handleImportDiscoveredVenues = (newVenues: Venue[]) => {
-    setVenues((prev) => [...newVenues, ...prev]);
+    setVenues((prev) => {
+      const map = new Map<string, Venue>();
+      newVenues.forEach((v) => map.set(v.id, v));
+      prev.forEach((v) => {
+        if (!map.has(v.id)) {
+          map.set(v.id, v);
+        }
+      });
+      return Array.from(map.values());
+    });
+  };
+
+  const handleImportAndPitchNewVenues = (newVenues: Venue[]) => {
+    handleImportDiscoveredVenues(newVenues);
+    setMassPitchTargetIds(newVenues.map((v) => v.id));
+    setIsMassPitchOpen(true);
+  };
+
+  const handleOpenGeneralMassPitch = () => {
+    setMassPitchTargetIds(null);
+    setIsMassPitchOpen(true);
   };
 
   const handleOpenAudit = (venue: Venue) => {
@@ -131,6 +211,7 @@ export function App() {
         isAutoPilot={isAutoPilot}
         setIsAutoPilot={setIsAutoPilot}
         onOpenNewInvoice={() => setActiveTab('billing')}
+        onOpenCopilot={() => setIsCopilotOpen((prev) => !prev)}
         onLogout={handleLogout}
       />
 
@@ -147,8 +228,10 @@ export function App() {
             onOpenQRStand={handleOpenQRStand}
             onOpenShareableAudit={handleOpenShareableAudit}
             onUpdateOutreachStage={handleUpdateOutreachStage}
-            onOpenMassPitch={() => setIsMassPitchOpen(true)}
+            onOpenMassPitch={handleOpenGeneralMassPitch}
             onOpenAutoScout={() => setIsAutoScoutOpen(true)}
+            onResetFullCatalog={handleResetToFullCatalog}
+            onOpenAutonomousPipeline={handleOpenAutonomousPipeline}
           />
         )}
 
@@ -159,6 +242,7 @@ export function App() {
             onOpenLegalNotice={handleOpenLegalNotice}
             onSelectPlanForInvoice={handleSelectPlanForInvoice}
             onOpenCertificate={handleOpenCertificate}
+            onOpenAutonomousPipeline={handleOpenAutonomousPipeline}
           />
         )}
 
@@ -193,13 +277,19 @@ export function App() {
         isOpen={isAutoScoutOpen}
         onClose={() => setIsAutoScoutOpen(false)}
         onImportVenues={handleImportDiscoveredVenues}
+        existingVenues={venues}
+        onImportAndPitchNewVenues={handleImportAndPitchNewVenues}
       />
 
       <MassPitchModal
         venues={venues}
         isOpen={isMassPitchOpen}
-        onClose={() => setIsMassPitchOpen(false)}
+        onClose={() => {
+          setIsMassPitchOpen(false);
+          setMassPitchTargetIds(null);
+        }}
         onBatchUpdateStage={handleBatchUpdateStage}
+        targetVenueIds={massPitchTargetIds}
       />
 
       <ShareableAuditModal
@@ -247,6 +337,38 @@ export function App() {
         isOpen={isAddVenueOpen}
         onClose={() => setIsAddVenueOpen(false)}
         onAddVenue={handleAddVenue}
+      />
+
+      <AutonomousAuditWorkerModal
+        venue={autonomousWorkerVenue}
+        isOpen={!!autonomousWorkerVenue}
+        onClose={() => {
+          setAutonomousWorkerVenue(null);
+          setAutonomousWorkerJobId(null);
+        }}
+        existingJobId={autonomousWorkerJobId}
+      />
+
+      {/* Global Omnipresent Manager Radar Copilot & Floating Launcher */}
+      <ManagerRadarCopilot
+        venues={venues}
+        activeTab={activeTab}
+        setActiveTab={setActiveTab}
+        isOpen={isCopilotOpen}
+        onClose={() => setIsCopilotOpen(false)}
+        onOpenAudit={handleOpenAudit}
+        onDispatchPitch={handleDispatchPitch}
+        onOpenAutonomousPipeline={handleOpenAutonomousPipeline}
+        onOpenLegalNotice={handleOpenLegalNotice}
+        onSelectPlanForInvoice={handleSelectPlanForInvoice}
+        onOpenCertificate={handleOpenCertificate}
+      />
+
+      <ManagerRadarFloatingLauncher
+        isOpen={isCopilotOpen}
+        onToggle={() => setIsCopilotOpen((prev) => !prev)}
+        venuesCount={venues.length}
+        criticalCount={venues.filter((v) => v.threatLevel === 'CRITICAL').length}
       />
 
       {/* Footer */}

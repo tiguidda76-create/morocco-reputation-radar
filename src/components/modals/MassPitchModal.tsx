@@ -22,6 +22,7 @@ interface MassPitchModalProps {
   isOpen: boolean;
   onClose: () => void;
   onBatchUpdateStage: (venueIds: string[], stage: OutreachStage) => void;
+  targetVenueIds?: string[] | null;
 }
 
 export const MassPitchModal: React.FC<MassPitchModalProps> = ({
@@ -29,8 +30,11 @@ export const MassPitchModal: React.FC<MassPitchModalProps> = ({
   isOpen,
   onClose,
   onBatchUpdateStage,
+  targetVenueIds = null,
 }) => {
-  const [filterMode, setFilterMode] = useState<'UNCONTACTED' | 'ALL'>('ALL');
+  const [filterMode, setFilterMode] = useState<'NEWLY_DISCOVERED' | 'UNCONTACTED' | 'ALL'>(() => {
+    return targetVenueIds && targetVenueIds.length > 0 ? 'NEWLY_DISCOVERED' : 'UNCONTACTED';
+  });
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const [lang, setLang] = useState<'DARIJA' | 'FR' | 'EN'>('FR');
@@ -40,14 +44,18 @@ export const MassPitchModal: React.FC<MassPitchModalProps> = ({
   const [logs, setLogs] = useState<string[]>([]);
   const [isCompleted, setIsCompleted] = useState(false);
 
+  // Compute newly discovered venues count
+  const newVenuesCount = useMemo(() => {
+    return venues.filter((v) => v.isNewlyScouted || (targetVenueIds && targetVenueIds.includes(v.id))).length;
+  }, [venues, targetVenueIds]);
+
   // Compute eligible pool
   const eligibleVenues = useMemo(() => {
     return venues.filter((v) => {
       const matchStage =
         filterMode === 'ALL' ||
-        !v.outreachStage ||
-        v.outreachStage === 'A_PROSPECTER' ||
-        (v.outreachStage as any) === 'NON_CONTACTE';
+        (filterMode === 'UNCONTACTED' && (!v.outreachStage || v.outreachStage === 'A_PROSPECTER' || (v.outreachStage as any) === 'NON_CONTACTE')) ||
+        (filterMode === 'NEWLY_DISCOVERED' && (v.isNewlyScouted || (targetVenueIds && targetVenueIds.includes(v.id))));
       
       const matchSearch =
         searchQuery === '' ||
@@ -57,19 +65,23 @@ export const MassPitchModal: React.FC<MassPitchModalProps> = ({
 
       return matchStage && matchSearch;
     });
-  }, [venues, filterMode, searchQuery]);
+  }, [venues, filterMode, searchQuery, targetVenueIds]);
 
   // Synchronize selection whenever the modal opens or the pool changes
   useEffect(() => {
     if (isOpen) {
-      // By default select all currently eligible venues
-      setSelectedIds(eligibleVenues.map((v) => v.id));
+      if (targetVenueIds && targetVenueIds.length > 0) {
+        setFilterMode('NEWLY_DISCOVERED');
+        setSelectedIds(targetVenueIds.filter((id) => venues.some((v) => v.id === id)));
+      } else {
+        setSelectedIds(eligibleVenues.map((v) => v.id));
+      }
       setIsCompleted(false);
       setProgress(0);
       setDispatchedIds([]);
       setLogs([]);
     }
-  }, [isOpen, filterMode, venues.length]);
+  }, [isOpen, targetVenueIds, filterMode, venues.length]);
 
   if (!isOpen) return null;
 
@@ -228,18 +240,21 @@ export const MassPitchModal: React.FC<MassPitchModalProps> = ({
             <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3">
               
               {/* Pool Scope Switch */}
-              <div className="flex bg-slate-900 p-1 rounded-xl border border-slate-800 text-xs">
-                <button
-                  onClick={() => setFilterMode('ALL')}
-                  disabled={isDispatching}
-                  className={`px-3 py-1.5 rounded-lg font-semibold transition-all ${
-                    filterMode === 'ALL'
-                      ? 'bg-emerald-600 text-white shadow'
-                      : 'text-slate-400 hover:text-white'
-                  }`}
-                >
-                  Tous les Établissements ({venues.length})
-                </button>
+              <div className="flex bg-slate-900 p-1 rounded-xl border border-slate-800 text-xs flex-wrap gap-1">
+                {newVenuesCount > 0 && (
+                  <button
+                    onClick={() => setFilterMode('NEWLY_DISCOVERED')}
+                    disabled={isDispatching}
+                    className={`px-3 py-1.5 rounded-lg font-bold transition-all flex items-center gap-1.5 ${
+                      filterMode === 'NEWLY_DISCOVERED'
+                        ? 'bg-amber-500 text-slate-950 shadow-md'
+                        : 'text-amber-400 hover:text-white'
+                    }`}
+                  >
+                    <Sparkles className="w-3.5 h-3.5" />
+                    <span>Nouveaux Leads Scout IA ({newVenuesCount})</span>
+                  </button>
+                )}
                 <button
                   onClick={() => setFilterMode('UNCONTACTED')}
                   disabled={isDispatching}
@@ -249,7 +264,18 @@ export const MassPitchModal: React.FC<MassPitchModalProps> = ({
                       : 'text-slate-400 hover:text-white'
                   }`}
                 >
-                  À Prospecter Uniquement ({venues.filter(v => !v.outreachStage || v.outreachStage === 'A_PROSPECTER').length})
+                  À Prospecter ({venues.filter(v => !v.outreachStage || v.outreachStage === 'A_PROSPECTER').length})
+                </button>
+                <button
+                  onClick={() => setFilterMode('ALL')}
+                  disabled={isDispatching}
+                  className={`px-3 py-1.5 rounded-lg font-semibold transition-all ${
+                    filterMode === 'ALL'
+                      ? 'bg-emerald-600 text-white shadow'
+                      : 'text-slate-400 hover:text-white'
+                  }`}
+                >
+                  Tous ({venues.length})
                 </button>
               </div>
 

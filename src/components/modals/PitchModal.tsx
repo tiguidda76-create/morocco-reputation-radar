@@ -283,15 +283,24 @@ Phone/WhatsApp: +212 632 155 430 | Email: ${AGENCY_METADATA.email}`
           </div>
 
           <div className="flex items-center gap-2">
-            <a
-              href={mailtoUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="flex items-center gap-1.5 px-3 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-lg text-xs font-medium transition-colors border border-slate-700"
-            >
-              <Mail className="w-3.5 h-3.5 text-sky-400" />
-              Email
-            </a>
+            {venue.email ? (
+              <a
+                href={mailtoUrl}
+                target="_blank"
+                rel="noreferrer"
+                onClick={() => {
+                  if (onUpdateStage) {
+                    onUpdateStage(venue.id, 'PITCH_ENVOYE');
+                  }
+                }}
+                className="flex items-center gap-1.5 px-3.5 py-2 bg-sky-600 hover:bg-sky-500 text-white rounded-lg text-xs font-bold transition-all shadow-md shadow-sky-950/40"
+              >
+                <Mail className="w-3.5 h-3.5 text-white" />
+                <span>📧 Envoyer Email VIP</span>
+              </a>
+            ) : (
+              <span className="text-[10px] text-slate-500 italic">Pas d'email renseigné</span>
+            )}
 
             {/* Direct Meta Cloud API Send Button (If configured) */}
             {isMetaReady && (

@@ -20,6 +20,7 @@ interface NavbarProps {
   isAutoPilot: boolean;
   setIsAutoPilot: (val: boolean) => void;
   onOpenNewInvoice?: () => void;
+  onOpenCopilot?: () => void;
   onLogout?: () => void;
 }
 
@@ -29,6 +30,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   isAutoPilot,
   setIsAutoPilot,
   onOpenNewInvoice,
+  onOpenCopilot,
   onLogout
 }) => {
   const tabs = [
@@ -132,8 +134,26 @@ export const Navbar: React.FC<NavbarProps> = ({
             </div>
           </div>
 
-          {/* User / Agent Owner Profile */}
+          {/* User / Agent Owner Profile & Copilot Trigger */}
           <div className="flex items-center gap-3">
+            {/* Quick Copilot AI Launcher */}
+            {onOpenCopilot && (
+              <button
+                onClick={onOpenCopilot}
+                className="flex items-center gap-2 px-3 py-1.5 bg-gradient-to-r from-emerald-950 via-slate-900 to-teal-950 hover:from-emerald-900 hover:to-teal-900 text-emerald-300 border border-emerald-500/40 rounded-xl text-xs font-semibold shadow-lg shadow-emerald-950/40 hover:border-emerald-400 transition-all hover:scale-105"
+                title="Discuter avec Manager Radar (Ctrl + K)"
+              >
+                <div className="relative">
+                  <Bot className="w-4 h-4 text-emerald-400" />
+                  <span className="absolute -top-0.5 -right-0.5 w-2 h-2 bg-emerald-500 rounded-full animate-ping"></span>
+                </div>
+                <span className="hidden sm:inline">Manager Radar</span>
+                <span className="text-[10px] px-1.5 py-0.2 bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 rounded font-mono">
+                  Ctrl+K
+                </span>
+              </button>
+            )}
+
             <div className="hidden sm:flex flex-col text-right">
               <span className="text-xs font-semibold text-slate-200">{AGENCY_METADATA.entity}</span>
               <span className="text-[10px] text-emerald-400 font-mono">Directeur E-Réputation & IA</span>

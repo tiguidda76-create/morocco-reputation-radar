@@ -7,6 +7,7 @@ export interface ScoutScanParams {
   count: number;
   minUnrepliedReviews?: number;
   maxScore?: number;
+  existingVenues?: Venue[];
 }
 
 // Seed dataset of realistic Moroccan hospitality establishments per city & category
@@ -20,7 +21,9 @@ const MOROCCAN_SCOUT_DATABASE: Record<string, { region: MoroccanRegion; names: s
       'Restaurant Le Comptoir Darna', 'Restaurant Al Fassia Guéliz', 'Nomad Marrakech', 'Café des Épices',
       'Kabana Rooftop Medina', 'Dar Moha Gastronomie', 'Palais Jad Mahal Hivernage', 'Grand Café de la Poste',
       'Bô & Zin Route de l\'Ourika', 'Le Jardin Médina', 'Limoni Marrakech', 'Plus61 Guéliz',
-      'Riad Cinnamon', 'Riad Star by Marrakech Riad', 'Riad Hikaya', 'Riad Kaiss by Anika', 'La Maison Arabe Marrakech'
+      'Riad Cinnamon', 'Riad Star by Marrakech Riad', 'Riad Hikaya', 'Riad Kaiss by Anika', 'La Maison Arabe Marrakech',
+      'Riad Dar Safir', 'Palais Al Manzel', 'Riad Jasmin Blanc', 'Kasbah Agafay Luxury', 'Riad Dar Touria',
+      'Villa des Orangers Médina', 'Dar Rhizlane Hivernage', 'Riad Elegancia', 'Riad Maison Bleue Palmeraie'
     ],
     streets: [
       'Derb Dabachi, Médina', 'Rue Riad Zitoun el Jdid', 'Derb Asmat, Kasbah', 'Avenue Mohammed VI, Hivernage',
@@ -36,7 +39,8 @@ const MOROCCAN_SCOUT_DATABASE: Record<string, { region: MoroccanRegion; names: s
       'Restaurant Iloli Gastronomie Japonaise', 'Le Basmane Casablanca', 'Bistrot Chic Gauthier',
       'Brasserie La Bavaroise Maarif', 'Dar Dada Médina', 'Nkoa Restaurant Fusion', 'Le Rive Gauche Gauthier',
       'Boutique Hôtel Le Doge Relais & Châteaux', 'Hôtel & Spa Kenzi Tower', 'Maison Blanche Casablanca',
-      'Le Relais de Paris Ain Diab', 'A ma Bretagne Corniche', 'Restaurant Sens Gauthier', 'La Bavaroise Racine'
+      'Le Relais de Paris Ain Diab', 'A ma Bretagne Corniche', 'Restaurant Sens Gauthier', 'La Bavaroise Racine',
+      'Villa Blanca Urban Resort', 'L\'Atelier Oriental Casablanca', 'Boccanova Corniche'
     ],
     streets: [
       'Boulevard de la Corniche, Ain Diab', 'Rue Allal Ben Abdellah', 'Boulevard Franklin Roosevelt',
@@ -51,7 +55,7 @@ const MOROCCAN_SCOUT_DATABASE: Record<string, { region: MoroccanRegion; names: s
       'Villa Diyafa Boutique Hotel & Spa', 'La Tour Hassan Palace', 'Dar El Kébira Médina',
       'Euphoriad Spa & Riad', 'Restaurant Le Dinarjat Médina', 'Cosmopolitan Restaurant Agdal',
       'Le Ziryab Gastronomie Marocaine', 'Il Gambero Seafood Agdal', 'Ty Potes Rabat Hassan',
-      'Riad Dar Courbages', 'Riad Meftaha Hassan'
+      'Riad Dar Courbages', 'Riad Meftaha Hassan', 'Riad Kalaa Médina', 'Palais Andalou Souissi'
     ],
     streets: [
       'Avenue Mehdi Ben Barka, Souissi', 'Boulevard Hassan II', 'Rue Sidi Fateh, Médina',
@@ -65,7 +69,8 @@ const MOROCCAN_SCOUT_DATABASE: Record<string, { region: MoroccanRegion; names: s
       'Riad Fès Relais & Châteaux', 'Palais Amani Médina', 'Riad Maison Bleue & Spa',
       'Riad Dar Bensouda', 'Riad Karawan Riad', 'Café Clock Talaa Kebira', 'The Ruined Garden Fès',
       'Dar Roumana Batha', 'Riad Idrissy', 'Palais Faraj Suites & Spa', 'Riad Al Bartal',
-      'Dar Hatim Médina', 'Restaurant L\'Ambre Palais Faraj', 'Riad Laaroussa & Spa'
+      'Dar Hatim Médina', 'Restaurant L\'Ambre Palais Faraj', 'Riad Laaroussa & Spa',
+      'Riad Salam Fès', 'Dar Seffarine Médina', 'Riad Tazi Fès'
     ],
     streets: [
       'Derb el Miter, Talaa Seghira', 'Derb Ben Slimane, Batha', 'Bab Guissa', 'Rue Sidi el Khayat',
@@ -79,7 +84,8 @@ const MOROCCAN_SCOUT_DATABASE: Record<string, { region: MoroccanRegion; names: s
       'Hôtel & Riad Nord-Pinus Tanger', 'Villa Josephine Vieille Montagne', 'El Morocco Club Kasbah',
       'Salon Bleu Place de la Kasbah', 'Café Hafa Marshan', 'Restaurant Saveur de Poisson',
       'Riad Mokhtar Tanger', 'Palais Zahia Médina', 'La Tangerina Kasbah', 'Dar Chams Tanja',
-      'Restaurant Le Mirage Cap Spartel', 'Chez Abdou Plage Sidi Kacem', 'Restaurant Populaire Bab Kasbah'
+      'Restaurant Le Mirage Cap Spartel', 'Chez Abdou Plage Sidi Kacem', 'Restaurant Populaire Bab Kasbah',
+      'Riad Tanja Kasbah', 'Hôtel Continental Port de Tanger'
     ],
     streets: [
       'Rue Riad Sultan, Kasbah', 'Route de la Vieille Montagne', 'Place du Grand Socco',
@@ -93,7 +99,7 @@ const MOROCCAN_SCOUT_DATABASE: Record<string, { region: MoroccanRegion; names: s
       'Riad Villa Blanche Agadir', 'Paradis Plage Surf Yoga & Spa Taghazout', 'Restaurant Pure Passion Marina',
       'Le Jardin d\'Eau Agadir', 'Café Del Mar Marina Agadir', 'Riad Dar Haven Tamraght',
       'Restaurant Les Blancs Baie d\'Agadir', 'Hyatt Regency Taghazout Bay', 'Sol House Taghazout Bay',
-      'Riad Dar Maktoub Golf Agadir', 'Restaurant La Scala Agadir'
+      'Riad Dar Maktoub Golf Agadir', 'Restaurant La Scala Agadir', 'Taghazout Ocean Lodge'
     ],
     streets: [
       'Marina d\'Agadir', 'Boulevard du 20 Août, Secteur Touristique', 'Station Balnéaire Taghazout Bay',
@@ -106,7 +112,8 @@ const MOROCCAN_SCOUT_DATABASE: Record<string, { region: MoroccanRegion; names: s
     names: [
       'Heure Bleue Palais Relais & Châteaux', 'Riad Chbanate Médina', 'Villa Maroc Essaouira',
       'Riad Mimouna Vue Mer', 'Restaurant La Table Madada', 'Taros Café Rooftop Place Moulay Hassan',
-      'Salut Maroc Boutique Hotel', 'Caravane Café Médina', 'Riad Dar L\'Oussia', 'Le Chalet de la Plage'
+      'Salut Maroc Boutique Hotel', 'Caravane Café Médina', 'Riad Dar L\'Oussia', 'Le Chalet de la Plage',
+      'Riad Perle d\'Essaouira', 'Dar Maya Spa & Riad'
     ],
     streets: [
       'Rue de la Kasbah', 'Place Moulay Hassan', 'Rue Chbanat, Médina', 'Rue Zayan', 'Boulevard Mohamed V'
@@ -118,7 +125,7 @@ const MOROCCAN_SCOUT_DATABASE: Record<string, { region: MoroccanRegion; names: s
     names: [
       'Desert Luxury Camp Erg Chebbi', 'Merzouga Luxury Bivouac', 'Ksar Bicha Merzouga',
       'Riad Madu Dunes', 'Ali & Sara\'s Desert Palace', 'Auberge Tombouctou Dunes',
-      'Kasbah Hotel Tombouctou', 'Palais Masrah Ouarzazate'
+      'Kasbah Hotel Tombouctou', 'Palais Masrah Ouarzazate', 'Sahara Royal Camp Erg Chegaga'
     ],
     streets: [
       'Dunes de l\'Erg Chebbi', 'Village de Hassi Labied', 'Route du Désert, Merzouga', 'Palmeraie de Skoura'
@@ -129,7 +136,8 @@ const MOROCCAN_SCOUT_DATABASE: Record<string, { region: MoroccanRegion; names: s
     region: 'Dakhla-Oued Ed-Dahab',
     names: [
       'Dakhla Attitude Lagoon Camp', 'Ocean Vagabond Lassarga Eco-Lodge', 'Westpoint Dakhla Eco-Resort',
-      'PK25 Dakhla Kite Resort', 'Dakhla Club Hotel & Spa', 'La Tour d\'Eole Dakhla'
+      'PK25 Dakhla Kite Resort', 'Dakhla Club Hotel & Spa', 'La Tour d\'Eole Dakhla',
+      'Heliophora Eco-Lodge Dakhla'
     ],
     streets: [
       'Baie de Dakhla, PK 25', 'Plage Lassarga', 'Lagune de Dakhla', 'Point de l\'Oued'
@@ -137,6 +145,15 @@ const MOROCCAN_SCOUT_DATABASE: Record<string, { region: MoroccanRegion; names: s
     phonePrefixes: ['0661', '0665', '0673', '0678', '0528']
   }
 };
+
+const NOVEL_VENUE_ROOTS = [
+  'Riad Dar', 'Palais', 'Kasbah', 'Maison d\'Hôtes', 'Restaurant Le', 'Boutique Hôtel', 'Camp Desert', 'Villa & Spa', 'Rooftop Lounge', 'Eco-Lodge'
+];
+const NOVEL_VENUE_MODIFIERS = [
+  'Al Kawtar', 'Jasmin Blanc', 'Bahia', 'Majorelle', 'Zellige d\'Or', 'Al Manzel', 'Dar Diafa', 'Atlas View',
+  'Saphir Bleu', 'Fleur de Sable', 'Tichka', 'Almohade', 'Saadien', 'Oasis Étoilée', 'Oasis du Sud',
+  'Les Almoravides', 'Dar Zohra', 'Dar Noujoum', 'Chérifien', 'Ambre & Cèdre', 'Merzouga Dunes', 'Bab Agnaou'
+];
 
 const ALL_CATEGORIES: VenueCategory[] = [
   'Riad de Luxe',
@@ -152,17 +169,23 @@ const MANAGER_FIRST_NAMES = ['Si Mohamed', 'Si Youssef', 'Si Rachid', 'Si Mehdi'
 const MANAGER_LAST_NAMES = ['El Amrani', 'Berrada', 'Benjelloun', 'Alami', 'Tazi', 'Chraïbi', 'El Fassi', 'Kabbaj', 'Guessous', 'Bennis', 'Slaoui', 'Naciri', 'Lahlou', 'Idrissi', 'Filali'];
 
 /**
- * Moteur d'Extraction & Auto-Discovery
- * Supporte le Scan Géolocalisé ou le Scan Global Tout le Maroc (12 Régions) + Tous les Segments
+ * Moteur d'Extraction & Auto-Discovery avec Déduplication Stricte
+ * Garantit 0 doublon par rapport à la base existante
  */
 export const runAutonomousLeadScout = async (
   params: ScoutScanParams,
   onProgress?: (progress: number, currentStep: string) => void
 ): Promise<Venue[]> => {
-  const { region, city, category, count, minUnrepliedReviews = 5, maxScore = 4.5 } = params;
+  const { region, city, category, count, minUnrepliedReviews = 5, maxScore = 4.5, existingVenues = [] } = params;
 
   const isAllRegions = region === 'ALL';
   const isAllCategories = category === 'ALL';
+
+  // Build a Set of normalized existing venue names and IDs to strictly prevent duplication
+  const existingNamesSet = new Set(
+    existingVenues.map((v) => v.name.toLowerCase().trim().replace(/[^a-z0-9]/g, ''))
+  );
+  const existingIdsSet = new Set(existingVenues.map((v) => v.id));
 
   if (onProgress) {
     onProgress(
@@ -175,7 +198,7 @@ export const runAutonomousLeadScout = async (
   await new Promise((r) => setTimeout(r, 400));
 
   if (onProgress) {
-    onProgress(35, `Interrogation furtive multi-plateformes (Google Maps, Booking, TripAdvisor, Airbnb)...`);
+    onProgress(35, `Scan multi-plateformes et filtrage anti-doublon (${existingNamesSet.size} établissements existants exclus)...`);
   }
   await new Promise((r) => setTimeout(r, 500));
 
@@ -197,13 +220,38 @@ export const runAutonomousLeadScout = async (
   const targetCount = count;
 
   let leadIndex = 0;
-  while (generatedVenues.length < targetCount) {
+  let attempts = 0;
+  const maxAttempts = targetCount * 15;
+
+  while (generatedVenues.length < targetCount && attempts < maxAttempts) {
+    attempts++;
     const currentCityKey = cityKeys[leadIndex % cityKeys.length];
     const cityData = MOROCCAN_SCOUT_DATABASE[currentCityKey] || MOROCCAN_SCOUT_DATABASE['Marrakech'];
     
-    const venueNameBase = cityData.names[Math.floor(Math.random() * cityData.names.length)];
-    const uniqueSuffix = generatedVenues.some(v => v.name === venueNameBase) ? ` (Pôle ${leadIndex + 1})` : '';
-    const venueName = `${venueNameBase}${uniqueSuffix}`;
+    // Generate an authentic venue name
+    let venueName = '';
+    if (leadIndex < cityData.names.length && attempts < cityData.names.length * 2) {
+      venueName = cityData.names[leadIndex % cityData.names.length];
+    } else {
+      const root = NOVEL_VENUE_ROOTS[Math.floor(Math.random() * NOVEL_VENUE_ROOTS.length)];
+      const mod = NOVEL_VENUE_MODIFIERS[Math.floor(Math.random() * NOVEL_VENUE_MODIFIERS.length)];
+      venueName = `${root} ${mod} ${currentCityKey}`;
+    }
+
+    const normalizedName = venueName.toLowerCase().trim().replace(/[^a-z0-9]/g, '');
+
+    // Skip if already in existing catalog or already generated in this batch
+    if (existingNamesSet.has(normalizedName) || generatedVenues.some(v => v.name.toLowerCase().trim().replace(/[^a-z0-9]/g, '') === normalizedName)) {
+      leadIndex++;
+      continue;
+    }
+
+    // Generate unique ID
+    const uniqueId = `scout-${currentCityKey.toLowerCase()}-${Date.now()}-${generatedVenues.length + 1}`;
+    if (existingIdsSet.has(uniqueId)) {
+      leadIndex++;
+      continue;
+    }
 
     const street = cityData.streets[Math.floor(Math.random() * cityData.streets.length)];
     const phonePrefix = cityData.phonePrefixes[Math.floor(Math.random() * cityData.phonePrefixes.length)];
@@ -288,6 +336,8 @@ export const runAutonomousLeadScout = async (
       outreachStage: 'A_PROSPECTER',
       outreachNotes: `Découvert automatiquement par Scout IA. Manque à gagner estimé à ${(annualLossMAD / 1000).toFixed(0)}k MAD/an.`,
       lastContactDate: 'Jamais contacté',
+      isNewlyScouted: true,
+      discoveredAt: new Date().toISOString(),
       recentReviews: [
         {
           id: `rev-scout-${Date.now()}-${leadIndex}`,

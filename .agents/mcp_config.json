@@ -1,0 +1,19 @@
+{
+  "mcpServers": {
+    "playwright": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-puppeteer"],
+      "description": "Headless browser automation for UI testing, responsive visual inspection, and layout regression checks."
+    },
+    "fetch-api": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-fetch"],
+      "description": "HTTP/REST and GraphQL API inspector to fetch schemas, OpenAPI specs, and validate live data endpoints."
+    },
+    "filesystem-context": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "src", "public"],
+      "description": "Scoped filesystem access for design assets, tokens, and component templates."
+    }
+  }
+}

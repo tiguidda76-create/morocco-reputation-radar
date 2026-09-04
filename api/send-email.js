@@ -1,5 +1,14 @@
+function sanitizeTagValue(val) {
+  if (!val) return 'default';
+  return String(val)
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '') // remove accent marks
+    .replace(/[^a-zA-Z0-9_-]/g, '_') // only ASCII letters, numbers, underscores, dashes
+    .slice(0, 64);
+}
+
 export default async function handler(req, res) {
-  // Enable CORS if ever needed from preview deployments
+  // Enable CORS
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
@@ -24,6 +33,15 @@ export default async function handler(req, res) {
   const recipient = Array.isArray(to) ? to[0] : (to || 'tiguidda76@gmail.com');
   const fromAddress = from || process.env.VITE_RESEND_FROM_EMAIL || 'onboarding@resend.dev';
 
+  // Sanitize all tags strictly to ASCII letters, numbers, _, -
+  const safeTags = (Array.isArray(tags) ? tags : [])
+    .filter(t => t && t.name && t.value)
+    .map(t => ({
+      name: sanitizeTagValue(t.name),
+      value: sanitizeTagValue(t.value)
+    }))
+    .filter(t => t.name.length > 0 && t.value.length > 0);
+
   try {
     // Attempt 1: Send with configured parameters
     let response = await fetch('https://api.resend.com/emails', {
@@ -38,7 +56,7 @@ export default async function handler(req, res) {
         subject,
         html,
         reply_to: reply_to || 'tiguidda76@gmail.com',
-        tags: tags || [],
+        tags: safeTags,
       }),
     });
 
@@ -67,7 +85,7 @@ export default async function handler(req, res) {
           `,
           reply_to: 'tiguidda76@gmail.com',
           tags: [
-            ...(tags || []),
+            ...safeTags,
             { name: 'test_route', value: 'true' }
           ],
         }),

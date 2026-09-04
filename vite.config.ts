@@ -52,6 +52,18 @@ export default defineConfig(({ mode }) => {
                 const recipient = Array.isArray(to) ? to[0] : (to || 'tiguidda76@gmail.com');
                 const fromAddress = from || env.VITE_RESEND_FROM_EMAIL || 'onboarding@resend.dev';
 
+                const sanitize = (val: any) =>
+                  String(val || 'default')
+                    .normalize('NFD')
+                    .replace(/[\u0300-\u036f]/g, '')
+                    .replace(/[^a-zA-Z0-9_-]/g, '_')
+                    .slice(0, 64);
+
+                const safeTags = (Array.isArray(tags) ? tags : [])
+                  .filter((t) => t && t.name && t.value)
+                  .map((t) => ({ name: sanitize(t.name), value: sanitize(t.value) }))
+                  .filter((t) => t.name.length > 0 && t.value.length > 0);
+
                 let response = await fetch('https://api.resend.com/emails', {
                   method: 'POST',
                   headers: {
@@ -64,7 +76,7 @@ export default defineConfig(({ mode }) => {
                     subject,
                     html,
                     reply_to: reply_to || 'tiguidda76@gmail.com',
-                    tags: tags || [],
+                    tags: safeTags,
                   }),
                 });
 

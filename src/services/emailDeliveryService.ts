@@ -223,8 +223,8 @@ export async function dispatchPitchEmail(
             city: venue.city,
           },
           tags: [
-            { name: 'venue_id', value: venue.id },
-            { name: 'city', value: venue.city },
+            { name: 'venue_id', value: String(venue.id || '').replace(/[^a-zA-Z0-9_-]/g, '_').slice(0, 64) },
+            { name: 'city', value: (venue.city || 'Maroc').normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-zA-Z0-9_-]/g, '_').slice(0, 64) },
             { name: 'lang', value: lang },
           ],
         }),

@@ -1,0 +1,150 @@
+{
+  "name": "Morocco Radar - Automated Outreach Engine",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "morocco-outreach",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "node-webhook-trigger",
+      "name": "Webhook Inbound",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [240, 300],
+      "webhookId": "morocco-outreach-webhook"
+    },
+    {
+      "parameters": {
+        "dataType": "string",
+        "value1": "={{ $json.body.eventType }}",
+        "rules": {
+          "rules": [
+            {
+              "value2": "TEST_PING",
+              "outputKey": "test_ping"
+            },
+            {
+              "value2": "EMAIL_AUDIT",
+              "outputKey": "email_audit"
+            },
+            {
+              "value2": "WHATSAPP_PITCH",
+              "outputKey": "whatsapp_pitch"
+            }
+          ]
+        }
+      },
+      "id": "node-router",
+      "name": "Route by Event Type",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [480, 300]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { success: true, message: 'Pong! Morocco Radar n8n Webhook opérationnel 🇲🇦', timestamp: new Date().toISOString() } }}",
+        "options": {}
+      },
+      "id": "node-respond-ping",
+      "name": "Respond Test Ping",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [780, 140]
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "subject": "={{ $json.body.content.subject || '[Audit Confidentiel] Fuite estimée pour votre établissement' }}",
+        "emailType": "html",
+        "message": "={{ $json.body.content.htmlBody || $json.body.content.messageText }}",
+        "options": {
+          "toEmail": "={{ $json.body.recipient.email }}"
+        }
+      },
+      "id": "node-gmail-send",
+      "name": "Send via Gmail / SMTP",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [780, 300]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { success: true, messageId: $json.id || 'email_' + Date.now(), recipient: $('Webhook Inbound').item.json.body.recipient.email, deliveredVia: 'n8n_gmail_smtp' } }}",
+        "options": {}
+      },
+      "id": "node-respond-email",
+      "name": "Respond Email Success",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [1020, 300]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { success: true, messageId: 'wa_' + Date.now(), recipientPhone: $('Webhook Inbound').item.json.body.recipient.phone, deliveredVia: 'n8n_whatsapp_gateway' } }}",
+        "options": {}
+      },
+      "id": "node-respond-whatsapp",
+      "name": "Respond WhatsApp Success",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [780, 460]
+    }
+  ],
+  "connections": {
+    "Webhook Inbound": {
+      "main": [
+        [
+          {
+            "node": "Route by Event Type",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Route by Event Type": {
+      "main": [
+        [
+          {
+            "node": "Respond Test Ping",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send via Gmail / SMTP",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Respond WhatsApp Success",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send via Gmail / SMTP": {
+      "main": [
+        [
+          {
+            "node": "Respond Email Success",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

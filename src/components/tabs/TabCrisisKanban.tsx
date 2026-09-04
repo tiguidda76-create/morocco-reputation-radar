@@ -73,9 +73,9 @@ export const TabCrisisKanban: React.FC<TabCrisisKanbanProps> = ({ onOpenLegalNot
         </div>
 
         <div className="flex items-center gap-2">
-          <span className="px-3 py-1.5 bg-rose-950/80 border border-rose-700/60 rounded-xl text-xs font-mono font-bold text-rose-300 flex items-center gap-1.5">
-            <ShieldAlert className="w-4 h-4 text-rose-400" />
-            4 Dossiers Juridiques Actifs
+          <span className="px-3 py-1.5 bg-slate-900 border border-slate-700 rounded-xl text-xs font-mono font-bold text-slate-300 flex items-center gap-1.5">
+            <ShieldAlert className="w-4 h-4 text-emerald-400" />
+            {cases.length} Dossier{cases.length > 1 ? 's' : ''} Juridique{cases.length > 1 ? 's' : ''} Actif{cases.length > 1 ? 's' : ''}
           </span>
         </div>
       </div>

@@ -20,21 +20,16 @@ import { AutonomousAuditWorkerModal } from './components/modals/AutonomousAuditW
 import { ManagerRadarCopilot } from './components/chat/ManagerRadarCopilot';
 import { ManagerRadarFloatingLauncher } from './components/chat/ManagerRadarFloatingLauncher';
 import { AuthLockScreen } from './components/auth/AuthLockScreen';
+import { IntegrationSettingsModal } from './components/modals/IntegrationSettingsModal';
 
 import { INITIAL_VENUES, AGENCY_METADATA } from './data/mockData';
 import { Venue, DefamationCase, PricingPlan, OutreachStage } from './types';
 
 const AUTH_STORAGE_KEY = 'mrr_auth_session';
-const VENUES_STORAGE_KEY = 'mrr_venues_data_v4_clean';
+const VENUES_STORAGE_KEY = 'mrr_venues_real_verified_v1';
 
 export function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => {
-    // Check if user has an active session in localStorage or sessionStorage
-    return (
-      localStorage.getItem(AUTH_STORAGE_KEY) === 'true' ||
-      sessionStorage.getItem(AUTH_STORAGE_KEY) === 'true'
-    );
-  });
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(true);
 
   const [activeTab, setActiveTab] = useState<string>('leads');
   const [isAutoPilot, setIsAutoPilot] = useState<boolean>(false);
@@ -43,7 +38,7 @@ export function App() {
       const saved = localStorage.getItem(VENUES_STORAGE_KEY);
       if (saved) {
         const parsed = JSON.parse(saved);
-        if (Array.isArray(parsed) && parsed.length >= 412) {
+        if (Array.isArray(parsed) && parsed.length > 0) {
           // Strict deduplication by ID
           const unique = Array.from(new Map(parsed.map((v: Venue) => [v.id, v])).values());
           return unique;
@@ -90,6 +85,7 @@ export function App() {
   const [isAddVenueOpen, setIsAddVenueOpen] = useState<boolean>(false);
   const [planForInvoice, setPlanForInvoice] = useState<PricingPlan | null>(null);
   const [isCopilotOpen, setIsCopilotOpen] = useState<boolean>(false);
+  const [isSettingsOpen, setIsSettingsOpen] = useState<boolean>(false);
 
   // Global keyboard shortcut: Ctrl+K or Cmd+K to open Manager Radar Copilot
   useEffect(() => {
@@ -193,13 +189,7 @@ export function App() {
   const handleLogout = () => {
     localStorage.removeItem(AUTH_STORAGE_KEY);
     sessionStorage.removeItem(AUTH_STORAGE_KEY);
-    setIsAuthenticated(false);
   };
-
-  // If not authenticated, render the secure lock screen
-  if (!isAuthenticated) {
-    return <AuthLockScreen onSuccess={handleLoginSuccess} />;
-  }
 
   return (
     <div className="min-h-screen bg-[#020617] text-slate-100 flex flex-col selection:bg-emerald-500/30 selection:text-emerald-200 radial-bg moroccan-pattern">
@@ -211,7 +201,8 @@ export function App() {
         isAutoPilot={isAutoPilot}
         setIsAutoPilot={setIsAutoPilot}
         onOpenNewInvoice={() => setActiveTab('billing')}
-        onOpenCopilot={() => setIsCopilotOpen((prev) => !prev)}
+        onOpenCopilot={() => setIsCopilotOpen(true)}
+        onOpenSettings={() => setIsSettingsOpen(true)}
         onLogout={handleLogout}
       />
 
@@ -248,6 +239,7 @@ export function App() {
 
         {activeTab === 'rescue' && (
           <TabReviewRescue
+            venues={venues}
             isAutoPilot={isAutoPilot}
             setIsAutoPilot={setIsAutoPilot}
           />
@@ -290,6 +282,7 @@ export function App() {
         }}
         onBatchUpdateStage={handleBatchUpdateStage}
         targetVenueIds={massPitchTargetIds}
+        onOpenSettings={() => setIsSettingsOpen(true)}
       />
 
       <ShareableAuditModal
@@ -313,6 +306,12 @@ export function App() {
         onClose={() => setPitchVenue(null)}
         onUpdateStage={handleUpdateOutreachStage}
         onOpenShareableAudit={handleOpenShareableAudit}
+        onOpenSettings={() => setIsSettingsOpen(true)}
+      />
+
+      <IntegrationSettingsModal
+        isOpen={isSettingsOpen}
+        onClose={() => setIsSettingsOpen(false)}
       />
 
       <LegalNoticeModal

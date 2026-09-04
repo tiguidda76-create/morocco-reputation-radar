@@ -31,9 +31,11 @@ import {
   TrendingDown,
   Megaphone,
   RotateCcw,
-  Mail
+  Mail,
+  Bot
 } from 'lucide-react';
 import { Venue, MoroccanRegion, VenueCategory, ThreatLevel, OutreachStage } from '../../types';
+import { LiveOutreachTelemetry } from '../LiveOutreachTelemetry';
 
 interface TabLeadEngineProps {
   venues: Venue[];
@@ -270,6 +272,9 @@ ICE : 1161674000043`;
   return (
     <div className="space-y-6">
       
+      {/* Live Outreach Telemetry & SMTP Deliverability Bar */}
+      <LiveOutreachTelemetry />
+
       {/* Top Bar KPI Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {/* KPI 1 */}
@@ -432,10 +437,10 @@ ICE : 1161674000043`;
             <button
               onClick={onResetFullCatalog}
               className="flex items-center gap-1.5 px-3.5 py-2 bg-slate-900 hover:bg-slate-800 text-emerald-400 hover:text-emerald-300 rounded-xl text-xs font-bold border border-emerald-800/60 hover:border-emerald-500 transition-all shadow-sm"
-              title="Restaurer ou réinitialiser la base de données nationale complète (412 établissements)"
+              title="Restaurer ou réinitialiser la base aux établissements réels vérifiés"
             >
               <RotateCcw className="w-3.5 h-3.5" />
-              <span>Base 412 Établissements</span>
+              <span>Données Réelles Vérifiées ({venues.length})</span>
             </button>
           )}
 

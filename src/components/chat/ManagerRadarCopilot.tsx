@@ -103,7 +103,7 @@ Tu peux me demander de **tout vérifier ("check everything")**, de scanner une v
           { label: 'Précision QC', value: '98.4%', subtext: 'Calibrage Marocain', color: 'amber' },
         ],
         quickFollowUps: [
-          '📊 Check everything (Bilan global 412 venues)',
+          '📊 Check everything (Bilan global des établissements réels)',
           '🚨 Top 5 établissements en risque critique',
           '🏨 Scanner les Riads de Marrakech',
           '⚖️ Détecter les avis diffamatoires (Art. 447)',

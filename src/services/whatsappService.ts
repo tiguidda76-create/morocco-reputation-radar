@@ -1,34 +1,33 @@
 /**
- * Morocco Reputation Radar - Meta Cloud API WhatsApp Service
- * 
- * Ce service permet d'envoyer de véritables messages WhatsApp via l'API officielle Meta Graph
- * avec gestion automatique du fallback vers WhatsApp Web (wa.me) si aucune clé n'est configurée.
+ * Morocco Reputation Radar - WhatsApp & Multi-Channel Outreach Dispatcher
+ * Supporte : n8n Webhook, Meta Cloud Graph API, et Fallback Web Intent (wa.me)
  */
+
+import { getIntegrationConfig, dispatchToN8n, OutreachWebhookPayload } from './n8nOutreachService';
+import { AGENCY_METADATA } from '../data/mockData';
 
 export interface WhatsAppSendResult {
   success: boolean;
   messageId?: string;
   recipientPhone: string;
-  mode: 'META_CLOUD_API' | 'FALLBACK_WEB_INTENT';
+  mode: 'N8N_WEBHOOK' | 'META_CLOUD_API' | 'FALLBACK_WEB_INTENT';
   error?: string;
   rawResponse?: any;
 }
 
-// Configuration depuis les variables d'environnement Vite (.env)
-const META_WHATSAPP_TOKEN = import.meta.env.VITE_META_WHATSAPP_TOKEN || '';
-const META_PHONE_ID = import.meta.env.VITE_META_PHONE_ID || '';
 const META_API_VERSION = 'v21.0';
 
 /**
  * Vérifie si les identifiants Meta Cloud API sont présents et configurés
  */
 export const isMetaWhatsAppConfigured = (): boolean => {
+  const cfg = getIntegrationConfig();
   return Boolean(
-    META_WHATSAPP_TOKEN && 
-    META_PHONE_ID && 
-    META_WHATSAPP_TOKEN.trim() !== '' && 
-    META_PHONE_ID.trim() !== '' &&
-    META_WHATSAPP_TOKEN !== 'your_meta_access_token_here'
+    cfg.metaWhatsAppToken && 
+    cfg.metaPhoneId && 
+    cfg.metaWhatsAppToken.trim() !== '' && 
+    cfg.metaPhoneId.trim() !== '' &&
+    !cfg.metaWhatsAppToken.includes('placeholder')
   );
 };
 
@@ -37,33 +36,82 @@ export const isMetaWhatsAppConfigured = (): boolean => {
  */
 export const formatMoroccanPhoneE164 = (rawPhone: string): string => {
   const digitsOnly = rawPhone.replace(/[^0-9]/g, '');
-  
-  // Format local marocain: 06XXXXXXXX ou 07XXXXXXXX ou 05XXXXXXXX
   if (digitsOnly.startsWith('0') && digitsOnly.length === 10) {
     return '212' + digitsOnly.slice(1);
   }
-  
-  // Déjà au format international avec 212
   if (digitsOnly.startsWith('212')) {
     return digitsOnly;
   }
-  
   return digitsOnly;
 };
 
 /**
- * Envoie un message texte libre (avec aperçu de lien d'audit) via Meta Cloud API
+ * Envoie un message texte libre (avec lien d'audit)
+ * Priorité 1: n8n Webhook
+ * Priorité 2: Meta Cloud API
+ * Priorité 3: WhatsApp Web Intent
  */
 export const sendWhatsAppMessage = async (
   toPhone: string,
-  messageBody: string
+  messageBody: string,
+  venueContext?: {
+    venueId: string;
+    venueName: string;
+    city: string;
+    contactPerson: string;
+    unrepliedReviews: number;
+    annualLossMAD: number;
+    language?: 'FR' | 'DARIJA' | 'EN';
+  }
 ): Promise<WhatsAppSendResult> => {
   const cleanPhone = formatMoroccanPhoneE164(toPhone);
+  const config = getIntegrationConfig();
 
-  // 1. Si Meta API est configuré, on fait le véritable appel HTTP réseau
+  // 1. Canal Prioritaire : n8n Webhook
+  if (config.n8nWebhookUrl && config.n8nWebhookUrl.startsWith('http')) {
+    const payload: OutreachWebhookPayload = {
+      eventType: 'WHATSAPP_PITCH',
+      timestamp: new Date().toISOString(),
+      recipient: {
+        venueId: venueContext?.venueId || 'venue_direct',
+        venueName: venueContext?.venueName || 'Établissement',
+        city: venueContext?.city || 'Maroc',
+        contactPerson: venueContext?.contactPerson || 'Direction',
+        phone: cleanPhone,
+        email: '',
+        unrepliedReviews: venueContext?.unrepliedReviews || 0,
+        annualLossMAD: venueContext?.annualLossMAD || 0
+      },
+      content: {
+        messageText: messageBody,
+        language: venueContext?.language || 'FR',
+        auditPublicUrl: venueContext?.venueId ? `https://morocco-radar.agency/audit/${venueContext.venueId}` : ''
+      },
+      sender: {
+        agencyName: 'Morocco Radar Agency',
+        senderName: config.senderName,
+        senderEmail: config.senderEmail,
+        senderPhone: '+212632155430',
+        ice: AGENCY_METADATA.ice
+      }
+    };
+
+    const n8nRes = await dispatchToN8n(payload);
+    if (n8nRes.success) {
+      return {
+        success: true,
+        messageId: n8nRes.messageId,
+        recipientPhone: cleanPhone,
+        mode: 'N8N_WEBHOOK',
+        rawResponse: n8nRes.rawResponse
+      };
+    }
+  }
+
+  // 2. Canal : Meta Cloud API direct
   if (isMetaWhatsAppConfigured()) {
     try {
-      const endpoint = `https://graph.facebook.com/${META_API_VERSION}/${META_PHONE_ID}/messages`;
+      const endpoint = `https://graph.facebook.com/${META_API_VERSION}/${config.metaPhoneId}/messages`;
 
       const payload = {
         messaging_product: 'whatsapp',
@@ -71,7 +119,7 @@ export const sendWhatsAppMessage = async (
         to: cleanPhone,
         type: 'text',
         text: {
-          preview_url: true, // Génère automatiquement l'aperçu du lien d'audit
+          preview_url: true,
           body: messageBody,
         },
       };
@@ -79,7 +127,7 @@ export const sendWhatsAppMessage = async (
       const response = await fetch(endpoint, {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${META_WHATSAPP_TOKEN}`,
+          'Authorization': `Bearer ${config.metaWhatsAppToken}`,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(payload),
@@ -88,7 +136,6 @@ export const sendWhatsAppMessage = async (
       const data = await response.json();
 
       if (!response.ok) {
-        console.error('❌ Erreur Meta Cloud API:', data);
         return {
           success: false,
           recipientPhone: cleanPhone,
@@ -99,8 +146,6 @@ export const sendWhatsAppMessage = async (
       }
 
       const messageId = data.messages?.[0]?.id || 'wamid.success';
-      console.log(`✅ Message WhatsApp envoyé avec succès via Meta API (ID: ${messageId}) à +${cleanPhone}`);
-
       return {
         success: true,
         messageId,
@@ -109,7 +154,6 @@ export const sendWhatsAppMessage = async (
         rawResponse: data,
       };
     } catch (err: any) {
-      console.error('❌ Erreur réseau lors de l\'envoi Meta API:', err);
       return {
         success: false,
         recipientPhone: cleanPhone,
@@ -119,7 +163,7 @@ export const sendWhatsAppMessage = async (
     }
   }
 
-  // 2. Mode Fallback (wa.me) si aucune clé Meta n'est configurée
+  // 3. Mode Fallback Web Intent (wa.me)
   const fallbackUrl = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(messageBody)}`;
   return {
     success: true,
@@ -128,76 +172,4 @@ export const sendWhatsAppMessage = async (
     messageId: 'intent_' + Date.now(),
     rawResponse: { url: fallbackUrl },
   };
-};
-
-/**
- * Envoie un message basé sur un template approuvé Meta (utile hors de la fenêtre 24h)
- */
-export const sendWhatsAppTemplate = async (
-  toPhone: string,
-  templateName: string,
-  languageCode: string = 'fr',
-  components: any[] = []
-): Promise<WhatsAppSendResult> => {
-  const cleanPhone = formatMoroccanPhoneE164(toPhone);
-
-  if (!isMetaWhatsAppConfigured()) {
-    return {
-      success: false,
-      recipientPhone: cleanPhone,
-      mode: 'FALLBACK_WEB_INTENT',
-      error: 'Les clés Meta API doivent être configurées pour utiliser les templates officiels.',
-    };
-  }
-
-  try {
-    const endpoint = `https://graph.facebook.com/${META_API_VERSION}/${META_PHONE_ID}/messages`;
-
-    const payload = {
-      messaging_product: 'whatsapp',
-      to: cleanPhone,
-      type: 'template',
-      template: {
-        name: templateName,
-        language: { code: languageCode },
-        components: components.length > 0 ? components : undefined,
-      },
-    };
-
-    const response = await fetch(endpoint, {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${META_WHATSAPP_TOKEN}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(payload),
-    });
-
-    const data = await response.json();
-
-    if (!response.ok) {
-      return {
-        success: false,
-        recipientPhone: cleanPhone,
-        mode: 'META_CLOUD_API',
-        error: data.error?.message || `Erreur HTTP ${response.status}`,
-        rawResponse: data,
-      };
-    }
-
-    return {
-      success: true,
-      messageId: data.messages?.[0]?.id,
-      recipientPhone: cleanPhone,
-      mode: 'META_CLOUD_API',
-      rawResponse: data,
-    };
-  } catch (err: any) {
-    return {
-      success: false,
-      recipientPhone: cleanPhone,
-      mode: 'META_CLOUD_API',
-      error: err.message || 'Erreur réseau inconnue',
-    };
-  }
 };

@@ -167,7 +167,70 @@ Directives de réponse :
 3. Sois concis et direct, en proposant des étapes concrètes (Audit, Pitch WhatsApp, Requête légale, Devis).
 `;
 
-  // 1. Google Gemini
+  const groqKey = import.meta.env.VITE_GROQ_API_KEY || (typeof window !== 'undefined' ? localStorage.getItem('mrr_groq_api_key') || '' : '');
+  const claudeKey = import.meta.env.VITE_CLAUDE_API_KEY || (typeof window !== 'undefined' ? localStorage.getItem('mrr_claude_api_key') || '' : '');
+
+  // 1. Groq Cloud (Ultra-Fast 120B / Qwen 3.8 / Allam)
+  if (groqKey && groqKey.startsWith('gsk_')) {
+    try {
+      const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${groqKey}`
+        },
+        body: JSON.stringify({
+          model: 'openai/gpt-oss-120b',
+          messages: [
+            { role: 'system', content: systemContext },
+            { role: 'user', content: userMessage }
+          ],
+          temperature: 0.7,
+          max_tokens: 1500
+        })
+      });
+      if (response.ok) {
+        const data = await response.json();
+        const text = data.choices?.[0]?.message?.content;
+        if (text && text.trim().length > 30) {
+          return text.trim();
+        }
+      }
+    } catch (e) {
+      console.warn('Manager Radar Groq error:', e);
+    }
+  }
+
+  // 2. Anthropic Claude (Claude 3.7 / 3.5 Sonnet)
+  if (claudeKey && claudeKey.startsWith('sk-ant-')) {
+    try {
+      const response = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: {
+          'x-api-key': claudeKey,
+          'anthropic-version': '2023-06-01',
+          'content-type': 'application/json'
+        },
+        body: JSON.stringify({
+          model: 'claude-3-7-sonnet-20250219',
+          max_tokens: 1500,
+          system: systemContext,
+          messages: [{ role: 'user', content: userMessage }]
+        })
+      });
+      if (response.ok) {
+        const data = await response.json();
+        const text = data.content?.[0]?.text;
+        if (text && text.trim().length > 30) {
+          return text.trim();
+        }
+      }
+    } catch (e) {
+      console.warn('Manager Radar Claude error:', e);
+    }
+  }
+
+  // 3. Google Gemini
   if (geminiKey && geminiKey !== 'your_gemini_api_key_here') {
     try {
       const response = await fetch(
@@ -567,7 +630,7 @@ Bien reçu Si Hassan. Tous les sous-systèmes de la flotte multi-agents sont con
     venueCards: topLeads,
     actions,
     quickFollowUps: [
-      '📊 Check everything (Bilan global 412 venues)',
+      '📊 Check everything (Bilan global des établissements réels)',
       '🚨 Top 5 établissements en risque critique',
       '🏨 Riads à Marrakech avec avis non répondus',
       '⚖️ Dossiers diffamation sous l\'Article 447'

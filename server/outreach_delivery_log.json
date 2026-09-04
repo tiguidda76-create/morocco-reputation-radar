@@ -1,0 +1,4602 @@
+[
+  {
+    "executionId": "exec_1788469024224_a2mc",
+    "timestamp": "2026-09-03T20:57:04.224Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "fr_scout_1788469013612_ml2uq",
+      "venueName": "Restaurant Plénitude (Arnaud Donckele 3★)",
+      "city": "Paris",
+      "contactPerson": "Direction Générale & Guest Relations",
+      "phone": "330142525648",
+      "email": "",
+      "unrepliedReviews": 16,
+      "annualLossMAD": 1334846
+    },
+    "contentSummary": {
+      "preview": "Bonjour Direction Générale & Guest Relations,\nAudit E-Réputation confidentiel pour \"Restaurant Plénitude (Arnaud Donckel",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788462035590_je3u",
+    "timestamp": "2026-09-03T19:00:35.590Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-dakhla-1788461809171-207",
+      "venueName": "Restaurant Le Dar Zohra Dakhla",
+      "city": "Dakhla (PK 25)",
+      "contactPerson": "Lalla Zineb Naciri (Gérant / Propriétaire)",
+      "phone": "212673954689",
+      "email": "",
+      "unrepliedReviews": 21,
+      "annualLossMAD": 473707
+    },
+    "contentSummary": {
+      "preview": "Bonjour Lalla Zineb Naciri (Gérant / Propriétaire),\nAudit E-Réputation pour Restaurant Le Dar Zohra Dakhla (Dakhla (PK 2",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788462035049_5fqn",
+    "timestamp": "2026-09-03T19:00:35.049Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-essaouira-1788461809170-205",
+      "venueName": "Restaurant Le Chérifien Essaouira",
+      "city": "Essaouira (Centre)",
+      "contactPerson": "Si Omar Bennis (Gérant / Propriétaire)",
+      "phone": "212669187091",
+      "email": "",
+      "unrepliedReviews": 21,
+      "annualLossMAD": 432677
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Omar Bennis (Gérant / Propriétaire),\nAudit E-Réputation pour Restaurant Le Chérifien Essaouira (Essaouira (Ce",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788462034498_8zir",
+    "timestamp": "2026-09-03T19:00:34.498Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-agadir-1788461809170-204",
+      "venueName": "Camp Desert Saphir Bleu Agadir",
+      "city": "Agadir (Secteur Touristique)",
+      "contactPerson": "Si Karim Guessous (Gérant / Propriétaire)",
+      "phone": "212679836992",
+      "email": "",
+      "unrepliedReviews": 28,
+      "annualLossMAD": 557870
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Karim Guessous (Gérant / Propriétaire),\nAudit E-Réputation pour Camp Desert Saphir Bleu Agadir (Agadir (Secte",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788462033948_jgzr",
+    "timestamp": "2026-09-03T19:00:33.948Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-tanger-1788461809170-203",
+      "venueName": "Restaurant Le Almohade Tanger",
+      "city": "Tanger (Centre)",
+      "contactPerson": "Lalla Salma Kabbaj (Gérant / Propriétaire)",
+      "phone": "212672849863",
+      "email": "",
+      "unrepliedReviews": 26,
+      "annualLossMAD": 563795
+    },
+    "contentSummary": {
+      "preview": "Bonjour Lalla Salma Kabbaj (Gérant / Propriétaire),\nAudit E-Réputation pour Restaurant Le Almohade Tanger (Tanger (Centr",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788462033412_2o1x",
+    "timestamp": "2026-09-03T19:00:33.412Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-fès-1788461809169-202",
+      "venueName": "Riad Dar Almohade Fès",
+      "city": "Fès (Centre)",
+      "contactPerson": "Lalla Meriem El Fassi (Gérant / Propriétaire)",
+      "phone": "212661859518",
+      "email": "",
+      "unrepliedReviews": 19,
+      "annualLossMAD": 422093
+    },
+    "contentSummary": {
+      "preview": "Bonjour Lalla Meriem El Fassi (Gérant / Propriétaire),\nAudit E-Réputation pour Riad Dar Almohade Fès (Fès (Centre)) : 19",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788462032843_c6e6",
+    "timestamp": "2026-09-03T19:00:32.843Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-casablanca-1788461809169-200",
+      "venueName": "Rooftop Lounge Ambre & Cèdre Casablanca",
+      "city": "Casablanca (Ain Diab)",
+      "contactPerson": "Si Amine Tazi (Gérant / Propriétaire)",
+      "phone": "212522665249",
+      "email": "",
+      "unrepliedReviews": 10,
+      "annualLossMAD": 279885
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Amine Tazi (Gérant / Propriétaire),\nAudit E-Réputation pour Rooftop Lounge Ambre & Cèdre Casablanca (Casablan",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788462032326_3eqr",
+    "timestamp": "2026-09-03T19:00:32.326Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-marrakech-1788461809168-199",
+      "venueName": "Rooftop Lounge Al Kawtar Marrakech",
+      "city": "Marrakech (Rahba Kedima)",
+      "contactPerson": "Si Mehdi Alami (Gérant / Propriétaire)",
+      "phone": "212663788975",
+      "email": "",
+      "unrepliedReviews": 25,
+      "annualLossMAD": 500450
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Mehdi Alami (Gérant / Propriétaire),\nAudit E-Réputation pour Rooftop Lounge Al Kawtar Marrakech (Marrakech (R",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788462031745_evfm",
+    "timestamp": "2026-09-03T19:00:31.745Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-dakhla-1788461809168-198",
+      "venueName": "Maison d'Hôtes Atlas View Dakhla",
+      "city": "Dakhla (Centre)",
+      "contactPerson": "Si Rachid Benjelloun (Gérant / Propriétaire)",
+      "phone": "212665165196",
+      "email": "",
+      "unrepliedReviews": 8,
+      "annualLossMAD": 208835
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Rachid Benjelloun (Gérant / Propriétaire),\nAudit E-Réputation pour Maison d'Hôtes Atlas View Dakhla (Dakhla (",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788462031165_g40k",
+    "timestamp": "2026-09-03T19:00:31.165Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-merzouga-1788461809168-197",
+      "venueName": "Kasbah Almohade Merzouga",
+      "city": "Merzouga (Merzouga)",
+      "contactPerson": "Si Youssef Berrada (Gérant / Propriétaire)",
+      "phone": "212668160400",
+      "email": "",
+      "unrepliedReviews": 11,
+      "annualLossMAD": 272691
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Youssef Berrada (Gérant / Propriétaire),\nAudit E-Réputation pour Kasbah Almohade Merzouga (Merzouga (Merzouga",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788462030623_4clo",
+    "timestamp": "2026-09-03T19:00:30.623Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-essaouira-1788461809168-196",
+      "venueName": "Camp Desert Oasis du Sud Essaouira",
+      "city": "Essaouira (Centre)",
+      "contactPerson": "Si Mohamed El Amrani (Gérant / Propriétaire)",
+      "phone": "212661930609",
+      "email": "",
+      "unrepliedReviews": 20,
+      "annualLossMAD": 452764
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Mohamed El Amrani (Gérant / Propriétaire),\nAudit E-Réputation pour Camp Desert Oasis du Sud Essaouira (Essaou",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788462030108_mtq9",
+    "timestamp": "2026-09-03T19:00:30.108Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-agadir-1788461809167-195",
+      "venueName": "Boutique Hôtel Bab Agnaou Agadir",
+      "city": "Agadir (Secteur Touristique)",
+      "contactPerson": "Lalla Imane Filali (Gérant / Propriétaire)",
+      "phone": "212528680539",
+      "email": "",
+      "unrepliedReviews": 10,
+      "annualLossMAD": 284830
+    },
+    "contentSummary": {
+      "preview": "Bonjour Lalla Imane Filali (Gérant / Propriétaire),\nAudit E-Réputation pour Boutique Hôtel Bab Agnaou Agadir (Agadir (Se",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788462029553_fdg0",
+    "timestamp": "2026-09-03T19:00:29.553Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-tanger-1788461809167-194",
+      "venueName": "Villa & Spa Ambre & Cèdre Tanger",
+      "city": "Tanger (Centre)",
+      "contactPerson": "Si Hamza Idrissi (Gérant / Propriétaire)",
+      "phone": "212672876373",
+      "email": "",
+      "unrepliedReviews": 28,
+      "annualLossMAD": 562097
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Hamza Idrissi (Gérant / Propriétaire),\nAudit E-Réputation pour Villa & Spa Ambre & Cèdre Tanger (Tanger (Cent",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788462029017_y66q",
+    "timestamp": "2026-09-03T19:00:29.017Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-fès-1788461809167-193",
+      "venueName": "Riad Dar Saadien Fès",
+      "city": "Fès (Talaa Seghira)",
+      "contactPerson": "Si Hicham Lahlou (Gérant / Propriétaire)",
+      "phone": "212535744220",
+      "email": "",
+      "unrepliedReviews": 13,
+      "annualLossMAD": 303067
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Hicham Lahlou (Gérant / Propriétaire),\nAudit E-Réputation pour Riad Dar Saadien Fès (Fès (Talaa Seghira)) : 1",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788462028485_t0th",
+    "timestamp": "2026-09-03T19:00:28.485Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-rabat-1788461809166-192",
+      "venueName": "Eco-Lodge Atlas View Rabat",
+      "city": "Rabat (Agdal)",
+      "contactPerson": "Lalla Zineb Naciri (Gérant / Propriétaire)",
+      "phone": "212667632894",
+      "email": "",
+      "unrepliedReviews": 32,
+      "annualLossMAD": 636951
+    },
+    "contentSummary": {
+      "preview": "Bonjour Lalla Zineb Naciri (Gérant / Propriétaire),\nAudit E-Réputation pour Eco-Lodge Atlas View Rabat (Rabat (Agdal)) :",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788462027914_hvgl",
+    "timestamp": "2026-09-03T19:00:27.914Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-casablanca-1788461809166-191",
+      "venueName": "Boutique Hôtel Ambre & Cèdre Casablanca",
+      "city": "Casablanca (Centre)",
+      "contactPerson": "Si Adil Slaoui (Gérant / Propriétaire)",
+      "phone": "212666366173",
+      "email": "",
+      "unrepliedReviews": 25,
+      "annualLossMAD": 497468
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Adil Slaoui (Gérant / Propriétaire),\nAudit E-Réputation pour Boutique Hôtel Ambre & Cèdre Casablanca (Casabla",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788462027377_hvhs",
+    "timestamp": "2026-09-03T19:00:27.377Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-marrakech-1788461809166-190",
+      "venueName": "Villa & Spa Chérifien Marrakech",
+      "city": "Marrakech (Bab Doukkala)",
+      "contactPerson": "Si Omar Bennis (Gérant / Propriétaire)",
+      "phone": "212672219087",
+      "email": "",
+      "unrepliedReviews": 8,
+      "annualLossMAD": 228796
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Omar Bennis (Gérant / Propriétaire),\nAudit E-Réputation pour Villa & Spa Chérifien Marrakech (Marrakech (Bab ",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788462026716_0zj9",
+    "timestamp": "2026-09-03T19:00:26.716Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-dakhla-1788461809165-189",
+      "venueName": "Eco-Lodge Dar Zohra Dakhla",
+      "city": "Dakhla (Centre)",
+      "contactPerson": "Si Karim Guessous (Gérant / Propriétaire)",
+      "phone": "212661535655",
+      "email": "",
+      "unrepliedReviews": 16,
+      "annualLossMAD": 351918
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Karim Guessous (Gérant / Propriétaire),\nAudit E-Réputation pour Eco-Lodge Dar Zohra Dakhla (Dakhla (Centre)) ",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788462026112_f1mq",
+    "timestamp": "2026-09-03T19:00:26.112Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-merzouga-1788461809165-188",
+      "venueName": "Maison d'Hôtes Merzouga Dunes Merzouga",
+      "city": "Merzouga (Centre)",
+      "contactPerson": "Lalla Salma Kabbaj (Gérant / Propriétaire)",
+      "phone": "212668646875",
+      "email": "",
+      "unrepliedReviews": 8,
+      "annualLossMAD": 217200
+    },
+    "contentSummary": {
+      "preview": "Bonjour Lalla Salma Kabbaj (Gérant / Propriétaire),\nAudit E-Réputation pour Maison d'Hôtes Merzouga Dunes Merzouga (Merz",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788462025541_d2d4",
+    "timestamp": "2026-09-03T19:00:25.541Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-essaouira-1788461809165-187",
+      "venueName": "Riad Dar Les Almoravides Essaouira",
+      "city": "Essaouira (Centre)",
+      "contactPerson": "Lalla Meriem El Fassi (Gérant / Propriétaire)",
+      "phone": "212524449679",
+      "email": "",
+      "unrepliedReviews": 13,
+      "annualLossMAD": 307081
+    },
+    "contentSummary": {
+      "preview": "Bonjour Lalla Meriem El Fassi (Gérant / Propriétaire),\nAudit E-Réputation pour Riad Dar Les Almoravides Essaouira (Essao",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788462024926_2lib",
+    "timestamp": "2026-09-03T19:00:24.926Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-agadir-1788461809165-186",
+      "venueName": "Restaurant Le Chérifien Agadir",
+      "city": "Agadir (Centre)",
+      "contactPerson": "Lalla Fatima Chraïbi (Gérant / Propriétaire)",
+      "phone": "212667431489",
+      "email": "",
+      "unrepliedReviews": 16,
+      "annualLossMAD": 335218
+    },
+    "contentSummary": {
+      "preview": "Bonjour Lalla Fatima Chraïbi (Gérant / Propriétaire),\nAudit E-Réputation pour Restaurant Le Chérifien Agadir (Agadir (Ce",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788462024318_nlez",
+    "timestamp": "2026-09-03T19:00:24.318Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-tanger-1788461809165-185",
+      "venueName": "Maison d'Hôtes Dar Diafa Tanger",
+      "city": "Tanger (Centre)",
+      "contactPerson": "Si Amine Tazi (Gérant / Propriétaire)",
+      "phone": "212661939182",
+      "email": "",
+      "unrepliedReviews": 14,
+      "annualLossMAD": 359548
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Amine Tazi (Gérant / Propriétaire),\nAudit E-Réputation pour Maison d'Hôtes Dar Diafa Tanger (Tanger (Centre))",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788462023635_gu19",
+    "timestamp": "2026-09-03T19:00:23.635Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-fès-1788461809165-184",
+      "venueName": "Camp Desert Al Kawtar Fès",
+      "city": "Fès (Centre)",
+      "contactPerson": "Si Mehdi Alami (Gérant / Propriétaire)",
+      "phone": "212663205808",
+      "email": "",
+      "unrepliedReviews": 14,
+      "annualLossMAD": 330383
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Mehdi Alami (Gérant / Propriétaire),\nAudit E-Réputation pour Camp Desert Al Kawtar Fès (Fès (Centre)) : 14 av",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788462023045_xlhd",
+    "timestamp": "2026-09-03T19:00:23.045Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-rabat-1788461809165-183",
+      "venueName": "Kasbah Saadien Rabat",
+      "city": "Rabat (Centre)",
+      "contactPerson": "Si Rachid Benjelloun (Gérant / Propriétaire)",
+      "phone": "212670631584",
+      "email": "",
+      "unrepliedReviews": 19,
+      "annualLossMAD": 423758
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Rachid Benjelloun (Gérant / Propriétaire),\nAudit E-Réputation pour Kasbah Saadien Rabat (Rabat (Centre)) : 19",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788462022479_lb7g",
+    "timestamp": "2026-09-03T19:00:22.478Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-casablanca-1788461809165-182",
+      "venueName": "Boutique Hôtel Bab Agnaou Casablanca",
+      "city": "Casablanca (Racine)",
+      "contactPerson": "Si Youssef Berrada (Gérant / Propriétaire)",
+      "phone": "212671493462",
+      "email": "",
+      "unrepliedReviews": 21,
+      "annualLossMAD": 414868
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Youssef Berrada (Gérant / Propriétaire),\nAudit E-Réputation pour Boutique Hôtel Bab Agnaou Casablanca (Casabl",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788462021931_sxt4",
+    "timestamp": "2026-09-03T19:00:21.931Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-marrakech-1788461809164-181",
+      "venueName": "Kasbah Almohade Marrakech",
+      "city": "Marrakech (Médina)",
+      "contactPerson": "Si Mohamed El Amrani (Gérant / Propriétaire)",
+      "phone": "212662903000",
+      "email": "",
+      "unrepliedReviews": 17,
+      "annualLossMAD": 384979
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Mohamed El Amrani (Gérant / Propriétaire),\nAudit E-Réputation pour Kasbah Almohade Marrakech (Marrakech (Médi",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788462021395_4zva",
+    "timestamp": "2026-09-03T19:00:21.395Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-dakhla-1788461809164-180",
+      "venueName": "Riad Dar Zellige d'Or Dakhla",
+      "city": "Dakhla (Centre)",
+      "contactPerson": "Lalla Imane Filali (Gérant / Propriétaire)",
+      "phone": "212678881312",
+      "email": "",
+      "unrepliedReviews": 27,
+      "annualLossMAD": 540199
+    },
+    "contentSummary": {
+      "preview": "Bonjour Lalla Imane Filali (Gérant / Propriétaire),\nAudit E-Réputation pour Riad Dar Zellige d'Or Dakhla (Dakhla (Centre",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788462020875_jr40",
+    "timestamp": "2026-09-03T19:00:20.875Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-merzouga-1788461809164-179",
+      "venueName": "Riad Dar Merzouga Dunes Merzouga",
+      "city": "Merzouga (Centre)",
+      "contactPerson": "Si Hamza Idrissi (Gérant / Propriétaire)",
+      "phone": "212668414239",
+      "email": "",
+      "unrepliedReviews": 31,
+      "annualLossMAD": 607356
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Hamza Idrissi (Gérant / Propriétaire),\nAudit E-Réputation pour Riad Dar Merzouga Dunes Merzouga (Merzouga (Ce",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788462020295_0gyi",
+    "timestamp": "2026-09-03T19:00:20.295Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-essaouira-1788461809164-178",
+      "venueName": "Kasbah Bab Agnaou Essaouira",
+      "city": "Essaouira (Centre)",
+      "contactPerson": "Si Hicham Lahlou (Gérant / Propriétaire)",
+      "phone": "212676366760",
+      "email": "",
+      "unrepliedReviews": 33,
+      "annualLossMAD": 681522
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Hicham Lahlou (Gérant / Propriétaire),\nAudit E-Réputation pour Kasbah Bab Agnaou Essaouira (Essaouira (Centre",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788462019703_9wbr",
+    "timestamp": "2026-09-03T19:00:19.703Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-agadir-1788461809164-177",
+      "venueName": "Eco-Lodge Bab Agnaou Agadir",
+      "city": "Agadir (Centre)",
+      "contactPerson": "Lalla Zineb Naciri (Gérant / Propriétaire)",
+      "phone": "212661330304",
+      "email": "",
+      "unrepliedReviews": 8,
+      "annualLossMAD": 190859
+    },
+    "contentSummary": {
+      "preview": "Bonjour Lalla Zineb Naciri (Gérant / Propriétaire),\nAudit E-Réputation pour Eco-Lodge Bab Agnaou Agadir (Agadir (Centre)",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788462019123_i6ri",
+    "timestamp": "2026-09-03T19:00:19.123Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-fès-1788461809164-175",
+      "venueName": "Camp Desert Bab Agnaou Fès",
+      "city": "Fès (Centre)",
+      "contactPerson": "Si Omar Bennis (Gérant / Propriétaire)",
+      "phone": "212675249717",
+      "email": "",
+      "unrepliedReviews": 8,
+      "annualLossMAD": 226550
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Omar Bennis (Gérant / Propriétaire),\nAudit E-Réputation pour Camp Desert Bab Agnaou Fès (Fès (Centre)) : 8 av",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788462018575_z9wt",
+    "timestamp": "2026-09-03T19:00:18.575Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-rabat-1788461809164-174",
+      "venueName": "Villa & Spa Jasmin Blanc Rabat",
+      "city": "Rabat (Centre)",
+      "contactPerson": "Si Karim Guessous (Gérant / Propriétaire)",
+      "phone": "212661865215",
+      "email": "",
+      "unrepliedReviews": 33,
+      "annualLossMAD": 690351
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Karim Guessous (Gérant / Propriétaire),\nAudit E-Réputation pour Villa & Spa Jasmin Blanc Rabat (Rabat (Centre",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788462018049_uxn7",
+    "timestamp": "2026-09-03T19:00:18.049Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-casablanca-1788461809163-173",
+      "venueName": "Boutique Hôtel Merzouga Dunes Casablanca",
+      "city": "Casablanca (Centre)",
+      "contactPerson": "Lalla Salma Kabbaj (Gérant / Propriétaire)",
+      "phone": "212522291620",
+      "email": "",
+      "unrepliedReviews": 15,
+      "annualLossMAD": 337852
+    },
+    "contentSummary": {
+      "preview": "Bonjour Lalla Salma Kabbaj (Gérant / Propriétaire),\nAudit E-Réputation pour Boutique Hôtel Merzouga Dunes Casablanca (Ca",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788462017493_dej9",
+    "timestamp": "2026-09-03T19:00:17.493Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-marrakech-1788461809163-172",
+      "venueName": "Rooftop Lounge Saadien Marrakech",
+      "city": "Marrakech (Majorelle)",
+      "contactPerson": "Lalla Meriem El Fassi (Gérant / Propriétaire)",
+      "phone": "212663352603",
+      "email": "",
+      "unrepliedReviews": 25,
+      "annualLossMAD": 527358
+    },
+    "contentSummary": {
+      "preview": "Bonjour Lalla Meriem El Fassi (Gérant / Propriétaire),\nAudit E-Réputation pour Rooftop Lounge Saadien Marrakech (Marrake",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788462016815_m8xg",
+    "timestamp": "2026-09-03T19:00:16.815Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-dakhla-1788461809163-171",
+      "venueName": "Eco-Lodge Al Manzel Dakhla",
+      "city": "Dakhla (Centre)",
+      "contactPerson": "Lalla Fatima Chraïbi (Gérant / Propriétaire)",
+      "phone": "212528957207",
+      "email": "",
+      "unrepliedReviews": 12,
+      "annualLossMAD": 313163
+    },
+    "contentSummary": {
+      "preview": "Bonjour Lalla Fatima Chraïbi (Gérant / Propriétaire),\nAudit E-Réputation pour Eco-Lodge Al Manzel Dakhla (Dakhla (Centre",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788462016090_s03m",
+    "timestamp": "2026-09-03T19:00:16.090Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-merzouga-1788461809163-170",
+      "venueName": "Villa & Spa Merzouga Dunes Merzouga",
+      "city": "Merzouga (Centre)",
+      "contactPerson": "Si Amine Tazi (Gérant / Propriétaire)",
+      "phone": "212671430143",
+      "email": "",
+      "unrepliedReviews": 29,
+      "annualLossMAD": 589553
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Amine Tazi (Gérant / Propriétaire),\nAudit E-Réputation pour Villa & Spa Merzouga Dunes Merzouga (Merzouga (Ce",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788462015569_2o3q",
+    "timestamp": "2026-09-03T19:00:15.569Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-essaouira-1788461809163-169",
+      "venueName": "Riad Dar Saadien Essaouira",
+      "city": "Essaouira (Médina)",
+      "contactPerson": "Si Mehdi Alami (Gérant / Propriétaire)",
+      "phone": "212676544965",
+      "email": "",
+      "unrepliedReviews": 25,
+      "annualLossMAD": 556293
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Mehdi Alami (Gérant / Propriétaire),\nAudit E-Réputation pour Riad Dar Saadien Essaouira (Essaouira (Médina)) ",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788462015035_2aio",
+    "timestamp": "2026-09-03T19:00:15.034Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-agadir-1788461809163-168",
+      "venueName": "Riad Dar Atlas View Agadir",
+      "city": "Agadir (Centre)",
+      "contactPerson": "Si Rachid Benjelloun (Gérant / Propriétaire)",
+      "phone": "212528489857",
+      "email": "",
+      "unrepliedReviews": 21,
+      "annualLossMAD": 423657
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Rachid Benjelloun (Gérant / Propriétaire),\nAudit E-Réputation pour Riad Dar Atlas View Agadir (Agadir (Centre",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788462014496_gofk",
+    "timestamp": "2026-09-03T19:00:14.496Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-tanger-1788461809163-167",
+      "venueName": "Eco-Lodge Chérifien Tanger",
+      "city": "Tanger (Centre)",
+      "contactPerson": "Si Youssef Berrada (Gérant / Propriétaire)",
+      "phone": "212665268723",
+      "email": "",
+      "unrepliedReviews": 20,
+      "annualLossMAD": 405603
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Youssef Berrada (Gérant / Propriétaire),\nAudit E-Réputation pour Eco-Lodge Chérifien Tanger (Tanger (Centre))",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788462013937_cv6q",
+    "timestamp": "2026-09-03T19:00:13.937Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-fès-1788461809163-166",
+      "venueName": "Maison d'Hôtes Bahia Fès",
+      "city": "Fès (Batha)",
+      "contactPerson": "Si Mohamed El Amrani (Gérant / Propriétaire)",
+      "phone": "212661356322",
+      "email": "",
+      "unrepliedReviews": 19,
+      "annualLossMAD": 388151
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Mohamed El Amrani (Gérant / Propriétaire),\nAudit E-Réputation pour Maison d'Hôtes Bahia Fès (Fès (Batha)) : 1",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788462013394_sb1o",
+    "timestamp": "2026-09-03T19:00:13.394Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-rabat-1788461809163-165",
+      "venueName": "Restaurant Le Ambre & Cèdre Rabat",
+      "city": "Rabat (Souissi)",
+      "contactPerson": "Lalla Imane Filali (Gérant / Propriétaire)",
+      "phone": "212537164650",
+      "email": "",
+      "unrepliedReviews": 16,
+      "annualLossMAD": 339142
+    },
+    "contentSummary": {
+      "preview": "Bonjour Lalla Imane Filali (Gérant / Propriétaire),\nAudit E-Réputation pour Restaurant Le Ambre & Cèdre Rabat (Rabat (So",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788462012852_1wiy",
+    "timestamp": "2026-09-03T19:00:12.852Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-casablanca-1788461809163-164",
+      "venueName": "Maison d'Hôtes Chérifien Casablanca",
+      "city": "Casablanca (Ain Diab)",
+      "contactPerson": "Si Hamza Idrissi (Gérant / Propriétaire)",
+      "phone": "212666272087",
+      "email": "",
+      "unrepliedReviews": 30,
+      "annualLossMAD": 590243
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Hamza Idrissi (Gérant / Propriétaire),\nAudit E-Réputation pour Maison d'Hôtes Chérifien Casablanca (Casablanc",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788462012329_ft1c",
+    "timestamp": "2026-09-03T19:00:12.329Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-marrakech-1788461809162-163",
+      "venueName": "Villa & Spa Majorelle Marrakech",
+      "city": "Marrakech (Majorelle)",
+      "contactPerson": "Si Hicham Lahlou (Gérant / Propriétaire)",
+      "phone": "212661341056",
+      "email": "",
+      "unrepliedReviews": 31,
+      "annualLossMAD": 662988
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Hicham Lahlou (Gérant / Propriétaire),\nAudit E-Réputation pour Villa & Spa Majorelle Marrakech (Marrakech (Ma",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788462011743_is1w",
+    "timestamp": "2026-09-03T19:00:11.743Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-dakhla-1788461809162-162",
+      "venueName": "Eco-Lodge Al Kawtar Dakhla",
+      "city": "Dakhla (PK 25)",
+      "contactPerson": "Lalla Zineb Naciri (Gérant / Propriétaire)",
+      "phone": "212678882571",
+      "email": "",
+      "unrepliedReviews": 22,
+      "annualLossMAD": 476507
+    },
+    "contentSummary": {
+      "preview": "Bonjour Lalla Zineb Naciri (Gérant / Propriétaire),\nAudit E-Réputation pour Eco-Lodge Al Kawtar Dakhla (Dakhla (PK 25)) ",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788462011149_ayms",
+    "timestamp": "2026-09-03T19:00:11.149Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-merzouga-1788461809162-161",
+      "venueName": "Riad Dar Dar Diafa Merzouga",
+      "city": "Merzouga (Centre)",
+      "contactPerson": "Si Adil Slaoui (Gérant / Propriétaire)",
+      "phone": "212677679264",
+      "email": "",
+      "unrepliedReviews": 12,
+      "annualLossMAD": 273310
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Adil Slaoui (Gérant / Propriétaire),\nAudit E-Réputation pour Riad Dar Dar Diafa Merzouga (Merzouga (Centre)) ",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788462010633_rz2f",
+    "timestamp": "2026-09-03T19:00:10.633Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-essaouira-1788461809162-160",
+      "venueName": "Restaurant Le Majorelle Essaouira",
+      "city": "Essaouira (Centre)",
+      "contactPerson": "Si Omar Bennis (Gérant / Propriétaire)",
+      "phone": "212669127260",
+      "email": "",
+      "unrepliedReviews": 17,
+      "annualLossMAD": 380792
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Omar Bennis (Gérant / Propriétaire),\nAudit E-Réputation pour Restaurant Le Majorelle Essaouira (Essaouira (Ce",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788462010082_68sj",
+    "timestamp": "2026-09-03T19:00:10.082Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-agadir-1788461809162-159",
+      "venueName": "Eco-Lodge Bahia Agadir",
+      "city": "Agadir (Centre)",
+      "contactPerson": "Si Karim Guessous (Gérant / Propriétaire)",
+      "phone": "212661750485",
+      "email": "",
+      "unrepliedReviews": 23,
+      "annualLossMAD": 492967
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Karim Guessous (Gérant / Propriétaire),\nAudit E-Réputation pour Eco-Lodge Bahia Agadir (Agadir (Centre)) : 23",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788462009521_07o8",
+    "timestamp": "2026-09-03T19:00:09.521Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-tanger-1788461809162-158",
+      "venueName": "Palais Almohade Tanger",
+      "city": "Tanger (Centre)",
+      "contactPerson": "Lalla Salma Kabbaj (Gérant / Propriétaire)",
+      "phone": "212539833424",
+      "email": "",
+      "unrepliedReviews": 22,
+      "annualLossMAD": 459678
+    },
+    "contentSummary": {
+      "preview": "Bonjour Lalla Salma Kabbaj (Gérant / Propriétaire),\nAudit E-Réputation pour Palais Almohade Tanger (Tanger (Centre)) : 2",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788462008929_ofkf",
+    "timestamp": "2026-09-03T19:00:08.929Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-fès-1788461809162-157",
+      "venueName": "Riad Dar Al Kawtar Fès",
+      "city": "Fès (Centre)",
+      "contactPerson": "Lalla Meriem El Fassi (Gérant / Propriétaire)",
+      "phone": "212535881886",
+      "email": "",
+      "unrepliedReviews": 25,
+      "annualLossMAD": 544254
+    },
+    "contentSummary": {
+      "preview": "Bonjour Lalla Meriem El Fassi (Gérant / Propriétaire),\nAudit E-Réputation pour Riad Dar Al Kawtar Fès (Fès (Centre)) : 2",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788462008387_sizj",
+    "timestamp": "2026-09-03T19:00:08.387Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-rabat-1788461809162-156",
+      "venueName": "Rooftop Lounge Zellige d'Or Rabat",
+      "city": "Rabat (Souissi)",
+      "contactPerson": "Lalla Fatima Chraïbi (Gérant / Propriétaire)",
+      "phone": "212667518082",
+      "email": "",
+      "unrepliedReviews": 16,
+      "annualLossMAD": 382282
+    },
+    "contentSummary": {
+      "preview": "Bonjour Lalla Fatima Chraïbi (Gérant / Propriétaire),\nAudit E-Réputation pour Rooftop Lounge Zellige d'Or Rabat (Rabat (",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788462007779_g033",
+    "timestamp": "2026-09-03T19:00:07.779Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-casablanca-1788461809162-155",
+      "venueName": "Boutique Hôtel Saphir Bleu Casablanca",
+      "city": "Casablanca (Maarif)",
+      "contactPerson": "Si Amine Tazi (Gérant / Propriétaire)",
+      "phone": "212664885631",
+      "email": "",
+      "unrepliedReviews": 12,
+      "annualLossMAD": 301067
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Amine Tazi (Gérant / Propriétaire),\nAudit E-Réputation pour Boutique Hôtel Saphir Bleu Casablanca (Casablanca",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788462007089_dr6v",
+    "timestamp": "2026-09-03T19:00:07.089Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-marrakech-1788461809162-154",
+      "venueName": "Eco-Lodge Zellige d'Or Marrakech",
+      "city": "Marrakech (Centre)",
+      "contactPerson": "Si Mehdi Alami (Gérant / Propriétaire)",
+      "phone": "212662798259",
+      "email": "",
+      "unrepliedReviews": 23,
+      "annualLossMAD": 520281
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Mehdi Alami (Gérant / Propriétaire),\nAudit E-Réputation pour Eco-Lodge Zellige d'Or Marrakech (Marrakech (Cen",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788462006526_fz0m",
+    "timestamp": "2026-09-03T19:00:06.526Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-dakhla-1788461809161-153",
+      "venueName": "Palais Oasis Étoilée Dakhla",
+      "city": "Dakhla (PK 25)",
+      "contactPerson": "Si Rachid Benjelloun (Gérant / Propriétaire)",
+      "phone": "212665176013",
+      "email": "",
+      "unrepliedReviews": 19,
+      "annualLossMAD": 398669
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Rachid Benjelloun (Gérant / Propriétaire),\nAudit E-Réputation pour Palais Oasis Étoilée Dakhla (Dakhla (PK 25",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788462006009_l0ar",
+    "timestamp": "2026-09-03T19:00:06.009Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-merzouga-1788461809161-152",
+      "venueName": "Restaurant Le Dar Zohra Merzouga",
+      "city": "Merzouga (Centre)",
+      "contactPerson": "Si Youssef Berrada (Gérant / Propriétaire)",
+      "phone": "212535493538",
+      "email": "",
+      "unrepliedReviews": 23,
+      "annualLossMAD": 443382
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Youssef Berrada (Gérant / Propriétaire),\nAudit E-Réputation pour Restaurant Le Dar Zohra Merzouga (Merzouga (",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788462005493_8rck",
+    "timestamp": "2026-09-03T19:00:05.493Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-essaouira-1788461809161-151",
+      "venueName": "Maison d'Hôtes Zellige d'Or Essaouira",
+      "city": "Essaouira (Centre)",
+      "contactPerson": "Si Mohamed El Amrani (Gérant / Propriétaire)",
+      "phone": "212669469407",
+      "email": "",
+      "unrepliedReviews": 31,
+      "annualLossMAD": 616806
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Mohamed El Amrani (Gérant / Propriétaire),\nAudit E-Réputation pour Maison d'Hôtes Zellige d'Or Essaouira (Ess",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788462004918_vp75",
+    "timestamp": "2026-09-03T19:00:04.918Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-agadir-1788461809161-150",
+      "venueName": "Kasbah Al Kawtar Agadir",
+      "city": "Agadir (Centre)",
+      "contactPerson": "Lalla Imane Filali (Gérant / Propriétaire)",
+      "phone": "212661281094",
+      "email": "",
+      "unrepliedReviews": 23,
+      "annualLossMAD": 487118
+    },
+    "contentSummary": {
+      "preview": "Bonjour Lalla Imane Filali (Gérant / Propriétaire),\nAudit E-Réputation pour Kasbah Al Kawtar Agadir (Agadir (Centre)) : ",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788462004392_fw1w",
+    "timestamp": "2026-09-03T19:00:04.392Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-fès-1788461809161-148",
+      "venueName": "Camp Desert Fleur de Sable Fès",
+      "city": "Fès (Centre)",
+      "contactPerson": "Si Hicham Lahlou (Gérant / Propriétaire)",
+      "phone": "212663765274",
+      "email": "",
+      "unrepliedReviews": 16,
+      "annualLossMAD": 366844
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Hicham Lahlou (Gérant / Propriétaire),\nAudit E-Réputation pour Camp Desert Fleur de Sable Fès (Fès (Centre)) ",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788462003713_e5sg",
+    "timestamp": "2026-09-03T19:00:03.713Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-rabat-1788461809161-147",
+      "venueName": "Rooftop Lounge Les Almoravides Rabat",
+      "city": "Rabat (Souissi)",
+      "contactPerson": "Lalla Zineb Naciri (Gérant / Propriétaire)",
+      "phone": "212670386728",
+      "email": "",
+      "unrepliedReviews": 21,
+      "annualLossMAD": 469772
+    },
+    "contentSummary": {
+      "preview": "Bonjour Lalla Zineb Naciri (Gérant / Propriétaire),\nAudit E-Réputation pour Rooftop Lounge Les Almoravides Rabat (Rabat ",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788462002993_94f2",
+    "timestamp": "2026-09-03T19:00:02.993Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-casablanca-1788461809161-146",
+      "venueName": "Villa & Spa Almohade Casablanca",
+      "city": "Casablanca (Ain Diab)",
+      "contactPerson": "Si Adil Slaoui (Gérant / Propriétaire)",
+      "phone": "212664554464",
+      "email": "",
+      "unrepliedReviews": 10,
+      "annualLossMAD": 257411
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Adil Slaoui (Gérant / Propriétaire),\nAudit E-Réputation pour Villa & Spa Almohade Casablanca (Casablanca (Ain",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788462002093_wig8",
+    "timestamp": "2026-09-03T19:00:02.093Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-marrakech-1788461809159-145",
+      "venueName": "Palais Bab Agnaou Marrakech",
+      "city": "Marrakech (Hivernage)",
+      "contactPerson": "Si Omar Bennis (Gérant / Propriétaire)",
+      "phone": "212524579422",
+      "email": "",
+      "unrepliedReviews": 24,
+      "annualLossMAD": 531582
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Omar Bennis (Gérant / Propriétaire),\nAudit E-Réputation pour Palais Bab Agnaou Marrakech (Marrakech (Hivernag",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788462001091_1l9e",
+    "timestamp": "2026-09-03T19:00:01.091Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-dakhla-1788461809159-144",
+      "venueName": "Boutique Hôtel Dar Zohra Dakhla",
+      "city": "Dakhla (Centre)",
+      "contactPerson": "Si Karim Guessous (Gérant / Propriétaire)",
+      "phone": "212678815854",
+      "email": "",
+      "unrepliedReviews": 23,
+      "annualLossMAD": 457749
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Karim Guessous (Gérant / Propriétaire),\nAudit E-Réputation pour Boutique Hôtel Dar Zohra Dakhla (Dakhla (Cent",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788462000129_yhtu",
+    "timestamp": "2026-09-03T19:00:00.129Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-merzouga-1788461809159-143",
+      "venueName": "Boutique Hôtel Al Manzel Merzouga",
+      "city": "Merzouga (Centre)",
+      "contactPerson": "Lalla Salma Kabbaj (Gérant / Propriétaire)",
+      "phone": "212677430870",
+      "email": "",
+      "unrepliedReviews": 17,
+      "annualLossMAD": 382160
+    },
+    "contentSummary": {
+      "preview": "Bonjour Lalla Salma Kabbaj (Gérant / Propriétaire),\nAudit E-Réputation pour Boutique Hôtel Al Manzel Merzouga (Merzouga ",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461999153_ishq",
+    "timestamp": "2026-09-03T18:59:59.153Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-essaouira-1788461809159-142",
+      "venueName": "Maison d'Hôtes Tichka Essaouira",
+      "city": "Essaouira (Centre)",
+      "contactPerson": "Lalla Meriem El Fassi (Gérant / Propriétaire)",
+      "phone": "212676422316",
+      "email": "",
+      "unrepliedReviews": 33,
+      "annualLossMAD": 650754
+    },
+    "contentSummary": {
+      "preview": "Bonjour Lalla Meriem El Fassi (Gérant / Propriétaire),\nAudit E-Réputation pour Maison d'Hôtes Tichka Essaouira (Essaouir",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461998092_6gc7",
+    "timestamp": "2026-09-03T18:59:58.092Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-agadir-1788461809159-141",
+      "venueName": "Rooftop Lounge Saadien Agadir",
+      "city": "Agadir (Centre)",
+      "contactPerson": "Lalla Fatima Chraïbi (Gérant / Propriétaire)",
+      "phone": "212679726122",
+      "email": "",
+      "unrepliedReviews": 14,
+      "annualLossMAD": 352032
+    },
+    "contentSummary": {
+      "preview": "Bonjour Lalla Fatima Chraïbi (Gérant / Propriétaire),\nAudit E-Réputation pour Rooftop Lounge Saadien Agadir (Agadir (Cen",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461997090_f5q1",
+    "timestamp": "2026-09-03T18:59:57.090Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-tanger-1788461809159-140",
+      "venueName": "Villa & Spa Dar Noujoum Tanger",
+      "city": "Tanger (Centre)",
+      "contactPerson": "Si Amine Tazi (Gérant / Propriétaire)",
+      "phone": "212672708587",
+      "email": "",
+      "unrepliedReviews": 26,
+      "annualLossMAD": 517560
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Amine Tazi (Gérant / Propriétaire),\nAudit E-Réputation pour Villa & Spa Dar Noujoum Tanger (Tanger (Centre)) ",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461996097_xbc1",
+    "timestamp": "2026-09-03T18:59:56.097Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-fès-1788461809159-139",
+      "venueName": "Eco-Lodge Zellige d'Or Fès",
+      "city": "Fès (Centre)",
+      "contactPerson": "Si Mehdi Alami (Gérant / Propriétaire)",
+      "phone": "212535473461",
+      "email": "",
+      "unrepliedReviews": 24,
+      "annualLossMAD": 485273
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Mehdi Alami (Gérant / Propriétaire),\nAudit E-Réputation pour Eco-Lodge Zellige d'Or Fès (Fès (Centre)) : 24 a",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461995100_oupu",
+    "timestamp": "2026-09-03T18:59:55.100Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-rabat-1788461809159-138",
+      "venueName": "Kasbah Almohade Rabat",
+      "city": "Rabat (Centre)",
+      "contactPerson": "Si Rachid Benjelloun (Gérant / Propriétaire)",
+      "phone": "212661674445",
+      "email": "",
+      "unrepliedReviews": 12,
+      "annualLossMAD": 301255
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Rachid Benjelloun (Gérant / Propriétaire),\nAudit E-Réputation pour Kasbah Almohade Rabat (Rabat (Centre)) : 1",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461994093_dodh",
+    "timestamp": "2026-09-03T18:59:54.093Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-casablanca-1788461809159-137",
+      "venueName": "Maison d'Hôtes Al Kawtar Casablanca",
+      "city": "Casablanca (Centre)",
+      "contactPerson": "Si Youssef Berrada (Gérant / Propriétaire)",
+      "phone": "212674773772",
+      "email": "",
+      "unrepliedReviews": 30,
+      "annualLossMAD": 608535
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Youssef Berrada (Gérant / Propriétaire),\nAudit E-Réputation pour Maison d'Hôtes Al Kawtar Casablanca (Casabla",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461993093_wk7q",
+    "timestamp": "2026-09-03T18:59:53.093Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-marrakech-1788461809159-136",
+      "venueName": "Eco-Lodge Al Kawtar Marrakech",
+      "city": "Marrakech (Guéliz)",
+      "contactPerson": "Si Mohamed El Amrani (Gérant / Propriétaire)",
+      "phone": "212672753560",
+      "email": "",
+      "unrepliedReviews": 14,
+      "annualLossMAD": 294887
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Mohamed El Amrani (Gérant / Propriétaire),\nAudit E-Réputation pour Eco-Lodge Al Kawtar Marrakech (Marrakech (",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461992092_ps1q",
+    "timestamp": "2026-09-03T18:59:52.092Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-dakhla-1788461809159-135",
+      "venueName": "Riad Dar Bab Agnaou Dakhla",
+      "city": "Dakhla (Centre)",
+      "contactPerson": "Lalla Imane Filali (Gérant / Propriétaire)",
+      "phone": "212528561583",
+      "email": "",
+      "unrepliedReviews": 30,
+      "annualLossMAD": 622734
+    },
+    "contentSummary": {
+      "preview": "Bonjour Lalla Imane Filali (Gérant / Propriétaire),\nAudit E-Réputation pour Riad Dar Bab Agnaou Dakhla (Dakhla (Centre))",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461991095_se9i",
+    "timestamp": "2026-09-03T18:59:51.095Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-merzouga-1788461809158-134",
+      "venueName": "Riad Dar Jasmin Blanc Merzouga",
+      "city": "Merzouga (Centre)",
+      "contactPerson": "Si Hamza Idrissi (Gérant / Propriétaire)",
+      "phone": "212661281508",
+      "email": "",
+      "unrepliedReviews": 28,
+      "annualLossMAD": 578876
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Hamza Idrissi (Gérant / Propriétaire),\nAudit E-Réputation pour Riad Dar Jasmin Blanc Merzouga (Merzouga (Cent",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461990104_bvfa",
+    "timestamp": "2026-09-03T18:59:50.104Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-essaouira-1788461809158-133",
+      "venueName": "Palais Oasis du Sud Essaouira",
+      "city": "Essaouira (Médina)",
+      "contactPerson": "Si Hicham Lahlou (Gérant / Propriétaire)",
+      "phone": "212676937444",
+      "email": "",
+      "unrepliedReviews": 20,
+      "annualLossMAD": 451867
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Hicham Lahlou (Gérant / Propriétaire),\nAudit E-Réputation pour Palais Oasis du Sud Essaouira (Essaouira (Médi",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461989097_qwvs",
+    "timestamp": "2026-09-03T18:59:49.097Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-agadir-1788461809158-132",
+      "venueName": "Rooftop Lounge Oasis du Sud Agadir",
+      "city": "Agadir (Centre)",
+      "contactPerson": "Lalla Zineb Naciri (Gérant / Propriétaire)",
+      "phone": "212661956148",
+      "email": "",
+      "unrepliedReviews": 17,
+      "annualLossMAD": 351528
+    },
+    "contentSummary": {
+      "preview": "Bonjour Lalla Zineb Naciri (Gérant / Propriétaire),\nAudit E-Réputation pour Rooftop Lounge Oasis du Sud Agadir (Agadir (",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461988097_zw4a",
+    "timestamp": "2026-09-03T18:59:48.097Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-tanger-1788461809158-131",
+      "venueName": "Villa & Spa Atlas View Tanger",
+      "city": "Tanger (Centre)",
+      "contactPerson": "Si Adil Slaoui (Gérant / Propriétaire)",
+      "phone": "212661387480",
+      "email": "",
+      "unrepliedReviews": 16,
+      "annualLossMAD": 358149
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Adil Slaoui (Gérant / Propriétaire),\nAudit E-Réputation pour Villa & Spa Atlas View Tanger (Tanger (Centre)) ",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461987102_xj9n",
+    "timestamp": "2026-09-03T18:59:47.102Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-fès-1788461809158-130",
+      "venueName": "Villa & Spa Jasmin Blanc Fès",
+      "city": "Fès (Centre)",
+      "contactPerson": "Si Omar Bennis (Gérant / Propriétaire)",
+      "phone": "212663640404",
+      "email": "",
+      "unrepliedReviews": 32,
+      "annualLossMAD": 637861
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Omar Bennis (Gérant / Propriétaire),\nAudit E-Réputation pour Villa & Spa Jasmin Blanc Fès (Fès (Centre)) : 32",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461986106_i1l9",
+    "timestamp": "2026-09-03T18:59:46.106Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-rabat-1788461809157-129",
+      "venueName": "Riad Dar Dar Diafa Rabat",
+      "city": "Rabat (Souissi)",
+      "contactPerson": "Si Karim Guessous (Gérant / Propriétaire)",
+      "phone": "212667865466",
+      "email": "",
+      "unrepliedReviews": 24,
+      "annualLossMAD": 491860
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Karim Guessous (Gérant / Propriétaire),\nAudit E-Réputation pour Riad Dar Dar Diafa Rabat (Rabat (Souissi)) : ",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461985104_8xam",
+    "timestamp": "2026-09-03T18:59:45.104Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-casablanca-1788461809157-128",
+      "venueName": "Kasbah Tichka Casablanca",
+      "city": "Casablanca (Centre)",
+      "contactPerson": "Lalla Salma Kabbaj (Gérant / Propriétaire)",
+      "phone": "212522658358",
+      "email": "",
+      "unrepliedReviews": 8,
+      "annualLossMAD": 236913
+    },
+    "contentSummary": {
+      "preview": "Bonjour Lalla Salma Kabbaj (Gérant / Propriétaire),\nAudit E-Réputation pour Kasbah Tichka Casablanca (Casablanca (Centre",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461984092_h31i",
+    "timestamp": "2026-09-03T18:59:44.092Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-marrakech-1788461809157-127",
+      "venueName": "Maison d'Hôtes Tichka Marrakech",
+      "city": "Marrakech (Médina)",
+      "contactPerson": "Lalla Meriem El Fassi (Gérant / Propriétaire)",
+      "phone": "212661755358",
+      "email": "",
+      "unrepliedReviews": 33,
+      "annualLossMAD": 693701
+    },
+    "contentSummary": {
+      "preview": "Bonjour Lalla Meriem El Fassi (Gérant / Propriétaire),\nAudit E-Réputation pour Maison d'Hôtes Tichka Marrakech (Marrakec",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461983091_678v",
+    "timestamp": "2026-09-03T18:59:43.091Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-dakhla-1788461809157-126",
+      "venueName": "Palais Jasmin Blanc Dakhla",
+      "city": "Dakhla (Centre)",
+      "contactPerson": "Lalla Fatima Chraïbi (Gérant / Propriétaire)",
+      "phone": "212665154559",
+      "email": "",
+      "unrepliedReviews": 8,
+      "annualLossMAD": 205813
+    },
+    "contentSummary": {
+      "preview": "Bonjour Lalla Fatima Chraïbi (Gérant / Propriétaire),\nAudit E-Réputation pour Palais Jasmin Blanc Dakhla (Dakhla (Centre",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461982093_itxc",
+    "timestamp": "2026-09-03T18:59:42.093Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-merzouga-1788461809157-125",
+      "venueName": "Restaurant Le Merzouga Dunes Merzouga",
+      "city": "Merzouga (Centre)",
+      "contactPerson": "Si Amine Tazi (Gérant / Propriétaire)",
+      "phone": "212668533774",
+      "email": "",
+      "unrepliedReviews": 28,
+      "annualLossMAD": 557082
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Amine Tazi (Gérant / Propriétaire),\nAudit E-Réputation pour Restaurant Le Merzouga Dunes Merzouga (Merzouga (",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461981096_vp47",
+    "timestamp": "2026-09-03T18:59:41.096Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-agadir-1788461809157-123",
+      "venueName": "Boutique Hôtel Al Kawtar Agadir",
+      "city": "Agadir (Centre)",
+      "contactPerson": "Si Rachid Benjelloun (Gérant / Propriétaire)",
+      "phone": "212528348309",
+      "email": "",
+      "unrepliedReviews": 8,
+      "annualLossMAD": 215655
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Rachid Benjelloun (Gérant / Propriétaire),\nAudit E-Réputation pour Boutique Hôtel Al Kawtar Agadir (Agadir (C",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461980088_jwn3",
+    "timestamp": "2026-09-03T18:59:40.088Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-tanger-1788461809156-122",
+      "venueName": "Riad Dar Merzouga Dunes Tanger",
+      "city": "Tanger (Centre)",
+      "contactPerson": "Si Youssef Berrada (Gérant / Propriétaire)",
+      "phone": "212672803388",
+      "email": "",
+      "unrepliedReviews": 8,
+      "annualLossMAD": 250323
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Youssef Berrada (Gérant / Propriétaire),\nAudit E-Réputation pour Riad Dar Merzouga Dunes Tanger (Tanger (Cent",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461979092_4y91",
+    "timestamp": "2026-09-03T18:59:39.092Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-fès-1788461809156-121",
+      "venueName": "Villa & Spa Zellige d'Or Fès",
+      "city": "Fès (Centre)",
+      "contactPerson": "Si Mohamed El Amrani (Gérant / Propriétaire)",
+      "phone": "212670535803",
+      "email": "",
+      "unrepliedReviews": 27,
+      "annualLossMAD": 557467
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Mohamed El Amrani (Gérant / Propriétaire),\nAudit E-Réputation pour Villa & Spa Zellige d'Or Fès (Fès (Centre)",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461978094_3d79",
+    "timestamp": "2026-09-03T18:59:38.094Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-rabat-1788461809156-120",
+      "venueName": "Camp Desert Saadien Rabat",
+      "city": "Rabat (Centre)",
+      "contactPerson": "Lalla Imane Filali (Gérant / Propriétaire)",
+      "phone": "212661623361",
+      "email": "",
+      "unrepliedReviews": 12,
+      "annualLossMAD": 294177
+    },
+    "contentSummary": {
+      "preview": "Bonjour Lalla Imane Filali (Gérant / Propriétaire),\nAudit E-Réputation pour Camp Desert Saadien Rabat (Rabat (Centre)) :",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461977089_bb92",
+    "timestamp": "2026-09-03T18:59:37.089Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-casablanca-1788461809156-119",
+      "venueName": "Camp Desert Fleur de Sable Casablanca",
+      "city": "Casablanca (Gauthier)",
+      "contactPerson": "Si Hamza Idrissi (Gérant / Propriétaire)",
+      "phone": "212674720627",
+      "email": "",
+      "unrepliedReviews": 31,
+      "annualLossMAD": 645857
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Hamza Idrissi (Gérant / Propriétaire),\nAudit E-Réputation pour Camp Desert Fleur de Sable Casablanca (Casabla",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461976101_hs7k",
+    "timestamp": "2026-09-03T18:59:36.101Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-marrakech-1788461809156-118",
+      "venueName": "Kasbah Atlas View Marrakech",
+      "city": "Marrakech (Médina)",
+      "contactPerson": "Si Hicham Lahlou (Gérant / Propriétaire)",
+      "phone": "212661846699",
+      "email": "",
+      "unrepliedReviews": 27,
+      "annualLossMAD": 549322
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Hicham Lahlou (Gérant / Propriétaire),\nAudit E-Réputation pour Kasbah Atlas View Marrakech (Marrakech (Médina",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461975099_q5f4",
+    "timestamp": "2026-09-03T18:59:35.099Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-dakhla-1788461809155-117",
+      "venueName": "Boutique Hôtel Oasis Étoilée Dakhla",
+      "city": "Dakhla (PK 25)",
+      "contactPerson": "Lalla Zineb Naciri (Gérant / Propriétaire)",
+      "phone": "212673126072",
+      "email": "",
+      "unrepliedReviews": 17,
+      "annualLossMAD": 389943
+    },
+    "contentSummary": {
+      "preview": "Bonjour Lalla Zineb Naciri (Gérant / Propriétaire),\nAudit E-Réputation pour Boutique Hôtel Oasis Étoilée Dakhla (Dakhla ",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461974094_upme",
+    "timestamp": "2026-09-03T18:59:34.094Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-merzouga-1788461809155-116",
+      "venueName": "Eco-Lodge Dar Zohra Merzouga",
+      "city": "Merzouga (Centre)",
+      "contactPerson": "Si Adil Slaoui (Gérant / Propriétaire)",
+      "phone": "212677690308",
+      "email": "",
+      "unrepliedReviews": 25,
+      "annualLossMAD": 482453
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Adil Slaoui (Gérant / Propriétaire),\nAudit E-Réputation pour Eco-Lodge Dar Zohra Merzouga (Merzouga (Centre))",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461973094_id8k",
+    "timestamp": "2026-09-03T18:59:33.094Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-essaouira-1788461809155-115",
+      "venueName": "Palais Atlas View Essaouira",
+      "city": "Essaouira (Centre)",
+      "contactPerson": "Si Omar Bennis (Gérant / Propriétaire)",
+      "phone": "212662525093",
+      "email": "",
+      "unrepliedReviews": 32,
+      "annualLossMAD": 622990
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Omar Bennis (Gérant / Propriétaire),\nAudit E-Réputation pour Palais Atlas View Essaouira (Essaouira (Centre))",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461972095_tm2v",
+    "timestamp": "2026-09-03T18:59:32.095Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-agadir-1788461809155-114",
+      "venueName": "Maison d'Hôtes Saphir Bleu Agadir",
+      "city": "Agadir (Centre)",
+      "contactPerson": "Si Karim Guessous (Gérant / Propriétaire)",
+      "phone": "212661620146",
+      "email": "",
+      "unrepliedReviews": 12,
+      "annualLossMAD": 282280
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Karim Guessous (Gérant / Propriétaire),\nAudit E-Réputation pour Maison d'Hôtes Saphir Bleu Agadir (Agadir (Ce",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461971087_eq7w",
+    "timestamp": "2026-09-03T18:59:31.087Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-fès-1788461809155-112",
+      "venueName": "Palais Ambre & Cèdre Fès",
+      "city": "Fès (Centre)",
+      "contactPerson": "Lalla Meriem El Fassi (Gérant / Propriétaire)",
+      "phone": "212675389853",
+      "email": "",
+      "unrepliedReviews": 15,
+      "annualLossMAD": 333690
+    },
+    "contentSummary": {
+      "preview": "Bonjour Lalla Meriem El Fassi (Gérant / Propriétaire),\nAudit E-Réputation pour Palais Ambre & Cèdre Fès (Fès (Centre)) :",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461970090_pe46",
+    "timestamp": "2026-09-03T18:59:30.090Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-rabat-1788461809155-111",
+      "venueName": "Riad Dar Tichka Rabat",
+      "city": "Rabat (Médina)",
+      "contactPerson": "Lalla Fatima Chraïbi (Gérant / Propriétaire)",
+      "phone": "212537714563",
+      "email": "",
+      "unrepliedReviews": 23,
+      "annualLossMAD": 492242
+    },
+    "contentSummary": {
+      "preview": "Bonjour Lalla Fatima Chraïbi (Gérant / Propriétaire),\nAudit E-Réputation pour Riad Dar Tichka Rabat (Rabat (Médina)) : 2",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461969106_js4f",
+    "timestamp": "2026-09-03T18:59:29.106Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-casablanca-1788461809155-110",
+      "venueName": "Eco-Lodge Almohade Casablanca",
+      "city": "Casablanca (Racine)",
+      "contactPerson": "Si Amine Tazi (Gérant / Propriétaire)",
+      "phone": "212522781368",
+      "email": "",
+      "unrepliedReviews": 19,
+      "annualLossMAD": 419198
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Amine Tazi (Gérant / Propriétaire),\nAudit E-Réputation pour Eco-Lodge Almohade Casablanca (Casablanca (Racine",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461968089_61vx",
+    "timestamp": "2026-09-03T18:59:28.089Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-marrakech-1788461809155-109",
+      "venueName": "Eco-Lodge Oasis du Sud Marrakech",
+      "city": "Marrakech (Rahba Kedima)",
+      "contactPerson": "Si Mehdi Alami (Gérant / Propriétaire)",
+      "phone": "212672468625",
+      "email": "",
+      "unrepliedReviews": 16,
+      "annualLossMAD": 372964
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Mehdi Alami (Gérant / Propriétaire),\nAudit E-Réputation pour Eco-Lodge Oasis du Sud Marrakech (Marrakech (Rah",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461967096_aega",
+    "timestamp": "2026-09-03T18:59:27.096Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-dakhla-1788461809154-108",
+      "venueName": "Kasbah Saphir Bleu Dakhla",
+      "city": "Dakhla (Centre)",
+      "contactPerson": "Si Rachid Benjelloun (Gérant / Propriétaire)",
+      "phone": "212678452632",
+      "email": "",
+      "unrepliedReviews": 29,
+      "annualLossMAD": 589556
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Rachid Benjelloun (Gérant / Propriétaire),\nAudit E-Réputation pour Kasbah Saphir Bleu Dakhla (Dakhla (Centre)",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461966093_g52d",
+    "timestamp": "2026-09-03T18:59:26.093Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-merzouga-1788461809154-107",
+      "venueName": "Palais Al Manzel Merzouga",
+      "city": "Merzouga (Centre)",
+      "contactPerson": "Si Youssef Berrada (Gérant / Propriétaire)",
+      "phone": "212668658416",
+      "email": "",
+      "unrepliedReviews": 18,
+      "annualLossMAD": 393279
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Youssef Berrada (Gérant / Propriétaire),\nAudit E-Réputation pour Palais Al Manzel Merzouga (Merzouga (Centre)",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461965104_njaj",
+    "timestamp": "2026-09-03T18:59:25.104Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-essaouira-1788461809154-106",
+      "venueName": "Camp Desert Atlas View Essaouira",
+      "city": "Essaouira (Médina)",
+      "contactPerson": "Si Mohamed El Amrani (Gérant / Propriétaire)",
+      "phone": "212676780832",
+      "email": "",
+      "unrepliedReviews": 11,
+      "annualLossMAD": 299106
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Mohamed El Amrani (Gérant / Propriétaire),\nAudit E-Réputation pour Camp Desert Atlas View Essaouira (Essaouir",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461964096_hxso",
+    "timestamp": "2026-09-03T18:59:24.096Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-agadir-1788461809154-105",
+      "venueName": "Boutique Hôtel Chérifien Agadir",
+      "city": "Agadir (Centre)",
+      "contactPerson": "Lalla Imane Filali (Gérant / Propriétaire)",
+      "phone": "212679155102",
+      "email": "",
+      "unrepliedReviews": 8,
+      "annualLossMAD": 227826
+    },
+    "contentSummary": {
+      "preview": "Bonjour Lalla Imane Filali (Gérant / Propriétaire),\nAudit E-Réputation pour Boutique Hôtel Chérifien Agadir (Agadir (Cen",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461963097_imen",
+    "timestamp": "2026-09-03T18:59:23.097Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-tanger-1788461809153-104",
+      "venueName": "Maison d'Hôtes Merzouga Dunes Tanger",
+      "city": "Tanger (Centre)",
+      "contactPerson": "Si Hamza Idrissi (Gérant / Propriétaire)",
+      "phone": "212678762984",
+      "email": "",
+      "unrepliedReviews": 27,
+      "annualLossMAD": 517468
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Hamza Idrissi (Gérant / Propriétaire),\nAudit E-Réputation pour Maison d'Hôtes Merzouga Dunes Tanger (Tanger (",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461962095_forc",
+    "timestamp": "2026-09-03T18:59:22.095Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-fès-1788461809153-103",
+      "venueName": "Villa & Spa Bahia Fès",
+      "city": "Fès (Centre)",
+      "contactPerson": "Si Hicham Lahlou (Gérant / Propriétaire)",
+      "phone": "212670668029",
+      "email": "",
+      "unrepliedReviews": 29,
+      "annualLossMAD": 621384
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Hicham Lahlou (Gérant / Propriétaire),\nAudit E-Réputation pour Villa & Spa Bahia Fès (Fès (Centre)) : 29 avis",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461961087_bmvd",
+    "timestamp": "2026-09-03T18:59:21.087Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-rabat-1788461809153-102",
+      "venueName": "Rooftop Lounge Dar Zohra Rabat",
+      "city": "Rabat (Médina)",
+      "contactPerson": "Lalla Zineb Naciri (Gérant / Propriétaire)",
+      "phone": "212663950351",
+      "email": "",
+      "unrepliedReviews": 11,
+      "annualLossMAD": 292615
+    },
+    "contentSummary": {
+      "preview": "Bonjour Lalla Zineb Naciri (Gérant / Propriétaire),\nAudit E-Réputation pour Rooftop Lounge Dar Zohra Rabat (Rabat (Médin",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461960103_o3n7",
+    "timestamp": "2026-09-03T18:59:20.103Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-casablanca-1788461809153-101",
+      "venueName": "Camp Desert Al Kawtar Casablanca",
+      "city": "Casablanca (Racine)",
+      "contactPerson": "Si Adil Slaoui (Gérant / Propriétaire)",
+      "phone": "212671597343",
+      "email": "",
+      "unrepliedReviews": 20,
+      "annualLossMAD": 461919
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Adil Slaoui (Gérant / Propriétaire),\nAudit E-Réputation pour Camp Desert Al Kawtar Casablanca (Casablanca (Ra",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461959102_htp3",
+    "timestamp": "2026-09-03T18:59:19.102Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-marrakech-1788461809153-100",
+      "venueName": "Palais Al Manzel Marrakech",
+      "city": "Marrakech (Médina)",
+      "contactPerson": "Si Omar Bennis (Gérant / Propriétaire)",
+      "phone": "212661232719",
+      "email": "",
+      "unrepliedReviews": 12,
+      "annualLossMAD": 289479
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Omar Bennis (Gérant / Propriétaire),\nAudit E-Réputation pour Palais Al Manzel Marrakech (Marrakech (Médina)) ",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461958094_5qjg",
+    "timestamp": "2026-09-03T18:59:18.094Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-dakhla-1788461809153-99",
+      "venueName": "Kasbah Ambre & Cèdre Dakhla",
+      "city": "Dakhla (PK 25)",
+      "contactPerson": "Si Karim Guessous (Gérant / Propriétaire)",
+      "phone": "212673517404",
+      "email": "",
+      "unrepliedReviews": 17,
+      "annualLossMAD": 372361
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Karim Guessous (Gérant / Propriétaire),\nAudit E-Réputation pour Kasbah Ambre & Cèdre Dakhla (Dakhla (PK 25)) ",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461957103_nt90",
+    "timestamp": "2026-09-03T18:59:17.103Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-merzouga-1788461809152-98",
+      "venueName": "Eco-Lodge Ambre & Cèdre Merzouga",
+      "city": "Merzouga (Centre)",
+      "contactPerson": "Lalla Salma Kabbaj (Gérant / Propriétaire)",
+      "phone": "212671514253",
+      "email": "",
+      "unrepliedReviews": 13,
+      "annualLossMAD": 326816
+    },
+    "contentSummary": {
+      "preview": "Bonjour Lalla Salma Kabbaj (Gérant / Propriétaire),\nAudit E-Réputation pour Eco-Lodge Ambre & Cèdre Merzouga (Merzouga (",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461956097_i0e2",
+    "timestamp": "2026-09-03T18:59:16.097Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-essaouira-1788461809152-97",
+      "venueName": "Riad Dar Oasis du Sud Essaouira",
+      "city": "Essaouira (Centre)",
+      "contactPerson": "Lalla Meriem El Fassi (Gérant / Propriétaire)",
+      "phone": "212676862450",
+      "email": "",
+      "unrepliedReviews": 19,
+      "annualLossMAD": 420306
+    },
+    "contentSummary": {
+      "preview": "Bonjour Lalla Meriem El Fassi (Gérant / Propriétaire),\nAudit E-Réputation pour Riad Dar Oasis du Sud Essaouira (Essaouir",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461955091_ptnk",
+    "timestamp": "2026-09-03T18:59:15.091Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-agadir-1788461809152-96",
+      "venueName": "Boutique Hôtel Les Almoravides Agadir",
+      "city": "Agadir (Secteur Touristique)",
+      "contactPerson": "Lalla Fatima Chraïbi (Gérant / Propriétaire)",
+      "phone": "212528577197",
+      "email": "",
+      "unrepliedReviews": 27,
+      "annualLossMAD": 556403
+    },
+    "contentSummary": {
+      "preview": "Bonjour Lalla Fatima Chraïbi (Gérant / Propriétaire),\nAudit E-Réputation pour Boutique Hôtel Les Almoravides Agadir (Aga",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461954090_fjaz",
+    "timestamp": "2026-09-03T18:59:14.090Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-tanger-1788461809149-95",
+      "venueName": "Villa & Spa Dar Zohra Tanger",
+      "city": "Tanger (Centre)",
+      "contactPerson": "Si Amine Tazi (Gérant / Propriétaire)",
+      "phone": "212661247393",
+      "email": "",
+      "unrepliedReviews": 19,
+      "annualLossMAD": 426770
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Amine Tazi (Gérant / Propriétaire),\nAudit E-Réputation pour Villa & Spa Dar Zohra Tanger (Tanger (Centre)) : ",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461953095_ezcc",
+    "timestamp": "2026-09-03T18:59:13.095Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-fès-1788461809149-94",
+      "venueName": "Riad Dar Al Manzel Fès",
+      "city": "Fès (Talaa Seghira)",
+      "contactPerson": "Si Mehdi Alami (Gérant / Propriétaire)",
+      "phone": "212675755688",
+      "email": "",
+      "unrepliedReviews": 8,
+      "annualLossMAD": 204570
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Mehdi Alami (Gérant / Propriétaire),\nAudit E-Réputation pour Riad Dar Al Manzel Fès (Fès (Talaa Seghira)) : 8",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461952093_ztb0",
+    "timestamp": "2026-09-03T18:59:12.093Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-rabat-1788461809149-93",
+      "venueName": "Palais Dar Diafa Rabat",
+      "city": "Rabat (Agdal)",
+      "contactPerson": "Si Rachid Benjelloun (Gérant / Propriétaire)",
+      "phone": "212667339324",
+      "email": "",
+      "unrepliedReviews": 9,
+      "annualLossMAD": 222892
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Rachid Benjelloun (Gérant / Propriétaire),\nAudit E-Réputation pour Palais Dar Diafa Rabat (Rabat (Agdal)) : 9",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461951190_t0zr",
+    "timestamp": "2026-09-03T18:59:11.190Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-casablanca-1788461809149-92",
+      "venueName": "Restaurant Le Fleur de Sable Casablanca",
+      "city": "Casablanca (Centre)",
+      "contactPerson": "Si Youssef Berrada (Gérant / Propriétaire)",
+      "phone": "212671183387",
+      "email": "",
+      "unrepliedReviews": 12,
+      "annualLossMAD": 291335
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Youssef Berrada (Gérant / Propriétaire),\nAudit E-Réputation pour Restaurant Le Fleur de Sable Casablanca (Cas",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461950091_287k",
+    "timestamp": "2026-09-03T18:59:10.091Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-marrakech-1788461809149-91",
+      "venueName": "Rooftop Lounge Atlas View Marrakech",
+      "city": "Marrakech (Centre)",
+      "contactPerson": "Si Mohamed El Amrani (Gérant / Propriétaire)",
+      "phone": "212668900863",
+      "email": "",
+      "unrepliedReviews": 23,
+      "annualLossMAD": 511574
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Mohamed El Amrani (Gérant / Propriétaire),\nAudit E-Réputation pour Rooftop Lounge Atlas View Marrakech (Marra",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461949088_i9o6",
+    "timestamp": "2026-09-03T18:59:09.088Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-dakhla-1788461809149-90",
+      "venueName": "Eco-Lodge Oasis Étoilée Dakhla",
+      "city": "Dakhla (Centre)",
+      "contactPerson": "Lalla Imane Filali (Gérant / Propriétaire)",
+      "phone": "212673510065",
+      "email": "",
+      "unrepliedReviews": 8,
+      "annualLossMAD": 237861
+    },
+    "contentSummary": {
+      "preview": "Bonjour Lalla Imane Filali (Gérant / Propriétaire),\nAudit E-Réputation pour Eco-Lodge Oasis Étoilée Dakhla (Dakhla (Cent",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461948091_3ss8",
+    "timestamp": "2026-09-03T18:59:08.091Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-merzouga-1788461809149-89",
+      "venueName": "Maison d'Hôtes Saadien Merzouga",
+      "city": "Merzouga (Merzouga)",
+      "contactPerson": "Si Hamza Idrissi (Gérant / Propriétaire)",
+      "phone": "212668950572",
+      "email": "",
+      "unrepliedReviews": 8,
+      "annualLossMAD": 220997
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Hamza Idrissi (Gérant / Propriétaire),\nAudit E-Réputation pour Maison d'Hôtes Saadien Merzouga (Merzouga (Mer",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461947093_tjql",
+    "timestamp": "2026-09-03T18:59:07.093Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-essaouira-1788461809148-88",
+      "venueName": "Kasbah Atlas View Essaouira",
+      "city": "Essaouira (Centre)",
+      "contactPerson": "Si Hicham Lahlou (Gérant / Propriétaire)",
+      "phone": "212669919968",
+      "email": "",
+      "unrepliedReviews": 15,
+      "annualLossMAD": 327623
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Hicham Lahlou (Gérant / Propriétaire),\nAudit E-Réputation pour Kasbah Atlas View Essaouira (Essaouira (Centre",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461946094_wisk",
+    "timestamp": "2026-09-03T18:59:06.094Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-agadir-1788461809148-87",
+      "venueName": "Villa & Spa Al Manzel Agadir",
+      "city": "Agadir (Centre)",
+      "contactPerson": "Lalla Zineb Naciri (Gérant / Propriétaire)",
+      "phone": "212667816763",
+      "email": "",
+      "unrepliedReviews": 9,
+      "annualLossMAD": 226558
+    },
+    "contentSummary": {
+      "preview": "Bonjour Lalla Zineb Naciri (Gérant / Propriétaire),\nAudit E-Réputation pour Villa & Spa Al Manzel Agadir (Agadir (Centre",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461945107_popq",
+    "timestamp": "2026-09-03T18:59:05.107Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-tanger-1788461809148-86",
+      "venueName": "Maison d'Hôtes Zellige d'Or Tanger",
+      "city": "Tanger (Centre)",
+      "contactPerson": "Si Adil Slaoui (Gérant / Propriétaire)",
+      "phone": "212539365103",
+      "email": "",
+      "unrepliedReviews": 25,
+      "annualLossMAD": 534818
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Adil Slaoui (Gérant / Propriétaire),\nAudit E-Réputation pour Maison d'Hôtes Zellige d'Or Tanger (Tanger (Cent",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461944092_8t4s",
+    "timestamp": "2026-09-03T18:59:04.092Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-fès-1788461809148-85",
+      "venueName": "Riad Dar Oasis du Sud Fès",
+      "city": "Fès (Centre)",
+      "contactPerson": "Si Omar Bennis (Gérant / Propriétaire)",
+      "phone": "212663169065",
+      "email": "",
+      "unrepliedReviews": 13,
+      "annualLossMAD": 325118
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Omar Bennis (Gérant / Propriétaire),\nAudit E-Réputation pour Riad Dar Oasis du Sud Fès (Fès (Centre)) : 13 av",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461943100_ihdg",
+    "timestamp": "2026-09-03T18:59:03.100Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-rabat-1788461809148-84",
+      "venueName": "Boutique Hôtel Al Manzel Rabat",
+      "city": "Rabat (Centre)",
+      "contactPerson": "Si Karim Guessous (Gérant / Propriétaire)",
+      "phone": "212670301525",
+      "email": "",
+      "unrepliedReviews": 27,
+      "annualLossMAD": 543016
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Karim Guessous (Gérant / Propriétaire),\nAudit E-Réputation pour Boutique Hôtel Al Manzel Rabat (Rabat (Centre",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461942095_gbpp",
+    "timestamp": "2026-09-03T18:59:02.095Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-casablanca-1788461809148-83",
+      "venueName": "Restaurant Le Saphir Bleu Casablanca",
+      "city": "Casablanca (Centre)",
+      "contactPerson": "Lalla Salma Kabbaj (Gérant / Propriétaire)",
+      "phone": "212661593643",
+      "email": "",
+      "unrepliedReviews": 22,
+      "annualLossMAD": 442565
+    },
+    "contentSummary": {
+      "preview": "Bonjour Lalla Salma Kabbaj (Gérant / Propriétaire),\nAudit E-Réputation pour Restaurant Le Saphir Bleu Casablanca (Casabl",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461941095_mirf",
+    "timestamp": "2026-09-03T18:59:01.095Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-marrakech-1788461809148-82",
+      "venueName": "Boutique Hôtel Dar Noujoum Marrakech",
+      "city": "Marrakech (Guéliz)",
+      "contactPerson": "Lalla Meriem El Fassi (Gérant / Propriétaire)",
+      "phone": "212661733255",
+      "email": "",
+      "unrepliedReviews": 29,
+      "annualLossMAD": 594115
+    },
+    "contentSummary": {
+      "preview": "Bonjour Lalla Meriem El Fassi (Gérant / Propriétaire),\nAudit E-Réputation pour Boutique Hôtel Dar Noujoum Marrakech (Mar",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461940102_9ujv",
+    "timestamp": "2026-09-03T18:59:00.102Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-dakhla-1788461809148-81",
+      "venueName": "Maison d'Hôtes Fleur de Sable Dakhla",
+      "city": "Dakhla (Centre)",
+      "contactPerson": "Lalla Fatima Chraïbi (Gérant / Propriétaire)",
+      "phone": "212661221759",
+      "email": "",
+      "unrepliedReviews": 25,
+      "annualLossMAD": 503496
+    },
+    "contentSummary": {
+      "preview": "Bonjour Lalla Fatima Chraïbi (Gérant / Propriétaire),\nAudit E-Réputation pour Maison d'Hôtes Fleur de Sable Dakhla (Dakh",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461939110_1dxi",
+    "timestamp": "2026-09-03T18:58:59.110Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-merzouga-1788461809148-80",
+      "venueName": "Palais Bab Agnaou Merzouga",
+      "city": "Merzouga (Centre)",
+      "contactPerson": "Si Amine Tazi (Gérant / Propriétaire)",
+      "phone": "212677981876",
+      "email": "",
+      "unrepliedReviews": 11,
+      "annualLossMAD": 291514
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Amine Tazi (Gérant / Propriétaire),\nAudit E-Réputation pour Palais Bab Agnaou Merzouga (Merzouga (Centre)) : ",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461938104_gu5a",
+    "timestamp": "2026-09-03T18:58:58.104Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-essaouira-1788461809148-79",
+      "venueName": "Boutique Hôtel Merzouga Dunes Essaouira",
+      "city": "Essaouira (Centre)",
+      "contactPerson": "Si Mehdi Alami (Gérant / Propriétaire)",
+      "phone": "212662656718",
+      "email": "",
+      "unrepliedReviews": 9,
+      "annualLossMAD": 219097
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Mehdi Alami (Gérant / Propriétaire),\nAudit E-Réputation pour Boutique Hôtel Merzouga Dunes Essaouira (Essaoui",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461937092_vd0l",
+    "timestamp": "2026-09-03T18:58:57.092Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-agadir-1788461809147-78",
+      "venueName": "Rooftop Lounge Almohade Agadir",
+      "city": "Agadir (Centre)",
+      "contactPerson": "Si Rachid Benjelloun (Gérant / Propriétaire)",
+      "phone": "212673467432",
+      "email": "",
+      "unrepliedReviews": 24,
+      "annualLossMAD": 516061
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Rachid Benjelloun (Gérant / Propriétaire),\nAudit E-Réputation pour Rooftop Lounge Almohade Agadir (Agadir (Ce",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461936089_iiiu",
+    "timestamp": "2026-09-03T18:58:56.089Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-tanger-1788461809147-77",
+      "venueName": "Rooftop Lounge Oasis du Sud Tanger",
+      "city": "Tanger (Centre)",
+      "contactPerson": "Si Youssef Berrada (Gérant / Propriétaire)",
+      "phone": "212539249781",
+      "email": "",
+      "unrepliedReviews": 12,
+      "annualLossMAD": 274287
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Youssef Berrada (Gérant / Propriétaire),\nAudit E-Réputation pour Rooftop Lounge Oasis du Sud Tanger (Tanger (",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461935102_96y9",
+    "timestamp": "2026-09-03T18:58:55.102Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-fès-1788461809147-76",
+      "venueName": "Maison d'Hôtes Merzouga Dunes Fès",
+      "city": "Fès (Batha)",
+      "contactPerson": "Si Mohamed El Amrani (Gérant / Propriétaire)",
+      "phone": "212670938447",
+      "email": "",
+      "unrepliedReviews": 9,
+      "annualLossMAD": 228930
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Mohamed El Amrani (Gérant / Propriétaire),\nAudit E-Réputation pour Maison d'Hôtes Merzouga Dunes Fès (Fès (Ba",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461934092_jmbr",
+    "timestamp": "2026-09-03T18:58:54.092Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-rabat-1788461809147-75",
+      "venueName": "Riad Dar Merzouga Dunes Rabat",
+      "city": "Rabat (Centre)",
+      "contactPerson": "Lalla Imane Filali (Gérant / Propriétaire)",
+      "phone": "212663485828",
+      "email": "",
+      "unrepliedReviews": 8,
+      "annualLossMAD": 213661
+    },
+    "contentSummary": {
+      "preview": "Bonjour Lalla Imane Filali (Gérant / Propriétaire),\nAudit E-Réputation pour Riad Dar Merzouga Dunes Rabat (Rabat (Centre",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461933107_cbmq",
+    "timestamp": "2026-09-03T18:58:53.107Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-casablanca-1788461809147-74",
+      "venueName": "Riad Dar Les Almoravides Casablanca",
+      "city": "Casablanca (Centre)",
+      "contactPerson": "Si Hamza Idrissi (Gérant / Propriétaire)",
+      "phone": "212522968130",
+      "email": "",
+      "unrepliedReviews": 27,
+      "annualLossMAD": 593876
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Hamza Idrissi (Gérant / Propriétaire),\nAudit E-Réputation pour Riad Dar Les Almoravides Casablanca (Casablanc",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461932096_k7v5",
+    "timestamp": "2026-09-03T18:58:52.096Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-dakhla-1788461809147-72",
+      "venueName": "Palais Chérifien Dakhla",
+      "city": "Dakhla (Centre)",
+      "contactPerson": "Lalla Zineb Naciri (Gérant / Propriétaire)",
+      "phone": "212678345232",
+      "email": "",
+      "unrepliedReviews": 29,
+      "annualLossMAD": 569809
+    },
+    "contentSummary": {
+      "preview": "Bonjour Lalla Zineb Naciri (Gérant / Propriétaire),\nAudit E-Réputation pour Palais Chérifien Dakhla (Dakhla (Centre)) : ",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461931099_fur6",
+    "timestamp": "2026-09-03T18:58:51.099Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-merzouga-1788461809147-71",
+      "venueName": "Palais Saphir Bleu Merzouga",
+      "city": "Merzouga (Centre)",
+      "contactPerson": "Si Adil Slaoui (Gérant / Propriétaire)",
+      "phone": "212671485985",
+      "email": "",
+      "unrepliedReviews": 27,
+      "annualLossMAD": 537160
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Adil Slaoui (Gérant / Propriétaire),\nAudit E-Réputation pour Palais Saphir Bleu Merzouga (Merzouga (Centre)) ",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461930100_0xji",
+    "timestamp": "2026-09-03T18:58:50.100Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-essaouira-1788461809147-70",
+      "venueName": "Riad Dar Oasis Étoilée Essaouira",
+      "city": "Essaouira (Centre)",
+      "contactPerson": "Si Omar Bennis (Gérant / Propriétaire)",
+      "phone": "212661224124",
+      "email": "",
+      "unrepliedReviews": 8,
+      "annualLossMAD": 216709
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Omar Bennis (Gérant / Propriétaire),\nAudit E-Réputation pour Riad Dar Oasis Étoilée Essaouira (Essaouira (Cen",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461929100_yo82",
+    "timestamp": "2026-09-03T18:58:49.100Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-agadir-1788461809147-69",
+      "venueName": "Eco-Lodge Dar Diafa Agadir",
+      "city": "Agadir (Centre)",
+      "contactPerson": "Si Karim Guessous (Gérant / Propriétaire)",
+      "phone": "212673224275",
+      "email": "",
+      "unrepliedReviews": 24,
+      "annualLossMAD": 472522
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Karim Guessous (Gérant / Propriétaire),\nAudit E-Réputation pour Eco-Lodge Dar Diafa Agadir (Agadir (Centre)) ",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461928095_tr5p",
+    "timestamp": "2026-09-03T18:58:48.095Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-tanger-1788461809147-68",
+      "venueName": "Eco-Lodge Almohade Tanger",
+      "city": "Tanger (Centre)",
+      "contactPerson": "Lalla Salma Kabbaj (Gérant / Propriétaire)",
+      "phone": "212661288823",
+      "email": "",
+      "unrepliedReviews": 30,
+      "annualLossMAD": 616342
+    },
+    "contentSummary": {
+      "preview": "Bonjour Lalla Salma Kabbaj (Gérant / Propriétaire),\nAudit E-Réputation pour Eco-Lodge Almohade Tanger (Tanger (Centre)) ",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461927092_r3fb",
+    "timestamp": "2026-09-03T18:58:47.092Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-fès-1788461809146-67",
+      "venueName": "Rooftop Lounge Merzouga Dunes Fès",
+      "city": "Fès (Centre)",
+      "contactPerson": "Lalla Meriem El Fassi (Gérant / Propriétaire)",
+      "phone": "212661436943",
+      "email": "",
+      "unrepliedReviews": 10,
+      "annualLossMAD": 244423
+    },
+    "contentSummary": {
+      "preview": "Bonjour Lalla Meriem El Fassi (Gérant / Propriétaire),\nAudit E-Réputation pour Rooftop Lounge Merzouga Dunes Fès (Fès (C",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461926089_p68u",
+    "timestamp": "2026-09-03T18:58:46.089Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-rabat-1788461809146-66",
+      "venueName": "Kasbah Bahia Rabat",
+      "city": "Rabat (Médina)",
+      "contactPerson": "Lalla Fatima Chraïbi (Gérant / Propriétaire)",
+      "phone": "212661478936",
+      "email": "",
+      "unrepliedReviews": 18,
+      "annualLossMAD": 407937
+    },
+    "contentSummary": {
+      "preview": "Bonjour Lalla Fatima Chraïbi (Gérant / Propriétaire),\nAudit E-Réputation pour Kasbah Bahia Rabat (Rabat (Médina)) : 18 a",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461925092_11mz",
+    "timestamp": "2026-09-03T18:58:45.092Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-casablanca-1788461809146-65",
+      "venueName": "Restaurant Le Dar Zohra Casablanca",
+      "city": "Casablanca (Maarif)",
+      "contactPerson": "Si Amine Tazi (Gérant / Propriétaire)",
+      "phone": "212661238936",
+      "email": "",
+      "unrepliedReviews": 31,
+      "annualLossMAD": 647307
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Amine Tazi (Gérant / Propriétaire),\nAudit E-Réputation pour Restaurant Le Dar Zohra Casablanca (Casablanca (M",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461924104_mll2",
+    "timestamp": "2026-09-03T18:58:44.104Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-marrakech-1788461809146-64",
+      "venueName": "Villa & Spa Almohade Marrakech",
+      "city": "Marrakech (Hivernage)",
+      "contactPerson": "Si Mehdi Alami (Gérant / Propriétaire)",
+      "phone": "212663399636",
+      "email": "",
+      "unrepliedReviews": 22,
+      "annualLossMAD": 457736
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Mehdi Alami (Gérant / Propriétaire),\nAudit E-Réputation pour Villa & Spa Almohade Marrakech (Marrakech (Hiver",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461923093_q7kj",
+    "timestamp": "2026-09-03T18:58:43.093Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-dakhla-1788461809146-63",
+      "venueName": "Villa & Spa Saphir Bleu Dakhla",
+      "city": "Dakhla (Centre)",
+      "contactPerson": "Si Rachid Benjelloun (Gérant / Propriétaire)",
+      "phone": "212673396155",
+      "email": "",
+      "unrepliedReviews": 32,
+      "annualLossMAD": 680570
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Rachid Benjelloun (Gérant / Propriétaire),\nAudit E-Réputation pour Villa & Spa Saphir Bleu Dakhla (Dakhla (Ce",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461922107_2x4b",
+    "timestamp": "2026-09-03T18:58:42.107Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-merzouga-1788461809146-62",
+      "venueName": "Maison d'Hôtes Al Kawtar Merzouga",
+      "city": "Merzouga (Merzouga)",
+      "contactPerson": "Si Youssef Berrada (Gérant / Propriétaire)",
+      "phone": "212535222482",
+      "email": "",
+      "unrepliedReviews": 8,
+      "annualLossMAD": 189868
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Youssef Berrada (Gérant / Propriétaire),\nAudit E-Réputation pour Maison d'Hôtes Al Kawtar Merzouga (Merzouga ",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461921098_r9z7",
+    "timestamp": "2026-09-03T18:58:41.098Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-essaouira-1788461809146-61",
+      "venueName": "Kasbah Dar Zohra Essaouira",
+      "city": "Essaouira (Centre)",
+      "contactPerson": "Si Mohamed El Amrani (Gérant / Propriétaire)",
+      "phone": "212661410719",
+      "email": "",
+      "unrepliedReviews": 14,
+      "annualLossMAD": 350705
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Mohamed El Amrani (Gérant / Propriétaire),\nAudit E-Réputation pour Kasbah Dar Zohra Essaouira (Essaouira (Cen",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461920101_kb08",
+    "timestamp": "2026-09-03T18:58:40.101Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-agadir-1788461809146-60",
+      "venueName": "Camp Desert Bab Agnaou Agadir",
+      "city": "Agadir (Centre)",
+      "contactPerson": "Lalla Imane Filali (Gérant / Propriétaire)",
+      "phone": "212679130011",
+      "email": "",
+      "unrepliedReviews": 12,
+      "annualLossMAD": 268960
+    },
+    "contentSummary": {
+      "preview": "Bonjour Lalla Imane Filali (Gérant / Propriétaire),\nAudit E-Réputation pour Camp Desert Bab Agnaou Agadir (Agadir (Centr",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461919099_bykl",
+    "timestamp": "2026-09-03T18:58:39.099Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-tanger-1788461809146-59",
+      "venueName": "Restaurant Le Dar Zohra Tanger",
+      "city": "Tanger (Centre)",
+      "contactPerson": "Si Hamza Idrissi (Gérant / Propriétaire)",
+      "phone": "212661324932",
+      "email": "",
+      "unrepliedReviews": 27,
+      "annualLossMAD": 580723
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Hamza Idrissi (Gérant / Propriétaire),\nAudit E-Réputation pour Restaurant Le Dar Zohra Tanger (Tanger (Centre",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461918089_9qe6",
+    "timestamp": "2026-09-03T18:58:38.089Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-fès-1788461809146-58",
+      "venueName": "Kasbah Al Kawtar Fès",
+      "city": "Fès (Médina)",
+      "contactPerson": "Si Hicham Lahlou (Gérant / Propriétaire)",
+      "phone": "212675700530",
+      "email": "",
+      "unrepliedReviews": 15,
+      "annualLossMAD": 331034
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Hicham Lahlou (Gérant / Propriétaire),\nAudit E-Réputation pour Kasbah Al Kawtar Fès (Fès (Médina)) : 15 avis ",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461917101_1b8k",
+    "timestamp": "2026-09-03T18:58:37.101Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-rabat-1788461809146-57",
+      "venueName": "Maison d'Hôtes Jasmin Blanc Rabat",
+      "city": "Rabat (Centre)",
+      "contactPerson": "Lalla Zineb Naciri (Gérant / Propriétaire)",
+      "phone": "212537503441",
+      "email": "",
+      "unrepliedReviews": 23,
+      "annualLossMAD": 504923
+    },
+    "contentSummary": {
+      "preview": "Bonjour Lalla Zineb Naciri (Gérant / Propriétaire),\nAudit E-Réputation pour Maison d'Hôtes Jasmin Blanc Rabat (Rabat (Ce",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461916295_860d",
+    "timestamp": "2026-09-03T18:58:36.295Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-casablanca-1788461809146-56",
+      "venueName": "Eco-Lodge Atlas View Casablanca",
+      "city": "Casablanca (Centre)",
+      "contactPerson": "Si Adil Slaoui (Gérant / Propriétaire)",
+      "phone": "212661987195",
+      "email": "",
+      "unrepliedReviews": 25,
+      "annualLossMAD": 534020
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Adil Slaoui (Gérant / Propriétaire),\nAudit E-Réputation pour Eco-Lodge Atlas View Casablanca (Casablanca (Cen",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461915092_fjqw",
+    "timestamp": "2026-09-03T18:58:35.092Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-marrakech-1788461809145-55",
+      "venueName": "Eco-Lodge Saphir Bleu Marrakech",
+      "city": "Marrakech (Centre)",
+      "contactPerson": "Si Omar Bennis (Gérant / Propriétaire)",
+      "phone": "212670286574",
+      "email": "",
+      "unrepliedReviews": 10,
+      "annualLossMAD": 228577
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Omar Bennis (Gérant / Propriétaire),\nAudit E-Réputation pour Eco-Lodge Saphir Bleu Marrakech (Marrakech (Cent",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461914096_tn5h",
+    "timestamp": "2026-09-03T18:58:34.096Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-dakhla-1788461809145-54",
+      "venueName": "Boutique Hôtel Ambre & Cèdre Dakhla",
+      "city": "Dakhla (Centre)",
+      "contactPerson": "Si Karim Guessous (Gérant / Propriétaire)",
+      "phone": "212528108110",
+      "email": "",
+      "unrepliedReviews": 32,
+      "annualLossMAD": 665568
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Karim Guessous (Gérant / Propriétaire),\nAudit E-Réputation pour Boutique Hôtel Ambre & Cèdre Dakhla (Dakhla (",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461913094_2a7q",
+    "timestamp": "2026-09-03T18:58:33.094Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-merzouga-1788461809145-53",
+      "venueName": "Villa & Spa Saphir Bleu Merzouga",
+      "city": "Merzouga (Centre)",
+      "contactPerson": "Lalla Salma Kabbaj (Gérant / Propriétaire)",
+      "phone": "212535638304",
+      "email": "",
+      "unrepliedReviews": 17,
+      "annualLossMAD": 357573
+    },
+    "contentSummary": {
+      "preview": "Bonjour Lalla Salma Kabbaj (Gérant / Propriétaire),\nAudit E-Réputation pour Villa & Spa Saphir Bleu Merzouga (Merzouga (",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461912092_4pdh",
+    "timestamp": "2026-09-03T18:58:32.092Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-essaouira-1788461809145-52",
+      "venueName": "Boutique Hôtel Ambre & Cèdre Essaouira",
+      "city": "Essaouira (Médina)",
+      "contactPerson": "Lalla Meriem El Fassi (Gérant / Propriétaire)",
+      "phone": "212669727401",
+      "email": "",
+      "unrepliedReviews": 24,
+      "annualLossMAD": 520566
+    },
+    "contentSummary": {
+      "preview": "Bonjour Lalla Meriem El Fassi (Gérant / Propriétaire),\nAudit E-Réputation pour Boutique Hôtel Ambre & Cèdre Essaouira (E",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461911097_h5m9",
+    "timestamp": "2026-09-03T18:58:31.097Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-agadir-1788461809145-51",
+      "venueName": "Camp Desert Les Almoravides Agadir",
+      "city": "Agadir (Centre)",
+      "contactPerson": "Lalla Fatima Chraïbi (Gérant / Propriétaire)",
+      "phone": "212679699310",
+      "email": "",
+      "unrepliedReviews": 26,
+      "annualLossMAD": 559003
+    },
+    "contentSummary": {
+      "preview": "Bonjour Lalla Fatima Chraïbi (Gérant / Propriétaire),\nAudit E-Réputation pour Camp Desert Les Almoravides Agadir (Agadir",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461910088_r9cu",
+    "timestamp": "2026-09-03T18:58:30.088Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-tanger-1788461809145-50",
+      "venueName": "Kasbah Les Almoravides Tanger",
+      "city": "Tanger (Kasbah)",
+      "contactPerson": "Si Amine Tazi (Gérant / Propriétaire)",
+      "phone": "212672497366",
+      "email": "",
+      "unrepliedReviews": 25,
+      "annualLossMAD": 516452
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Amine Tazi (Gérant / Propriétaire),\nAudit E-Réputation pour Kasbah Les Almoravides Tanger (Tanger (Kasbah)) :",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461909088_7dgr",
+    "timestamp": "2026-09-03T18:58:29.088Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-fès-1788461809145-49",
+      "venueName": "Boutique Hôtel Fleur de Sable Fès",
+      "city": "Fès (Centre)",
+      "contactPerson": "Si Mehdi Alami (Gérant / Propriétaire)",
+      "phone": "212535145403",
+      "email": "",
+      "unrepliedReviews": 19,
+      "annualLossMAD": 409906
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Mehdi Alami (Gérant / Propriétaire),\nAudit E-Réputation pour Boutique Hôtel Fleur de Sable Fès (Fès (Centre))",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461908088_ssrc",
+    "timestamp": "2026-09-03T18:58:28.088Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-rabat-1788461809145-48",
+      "venueName": "Camp Desert Bahia Rabat",
+      "city": "Rabat (Agdal)",
+      "contactPerson": "Si Rachid Benjelloun (Gérant / Propriétaire)",
+      "phone": "212667135148",
+      "email": "",
+      "unrepliedReviews": 8,
+      "annualLossMAD": 204715
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Rachid Benjelloun (Gérant / Propriétaire),\nAudit E-Réputation pour Camp Desert Bahia Rabat (Rabat (Agdal)) : ",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461907092_960l",
+    "timestamp": "2026-09-03T18:58:27.092Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-casablanca-1788461809145-47",
+      "venueName": "Palais Dar Noujoum Casablanca",
+      "city": "Casablanca (Gauthier)",
+      "contactPerson": "Si Youssef Berrada (Gérant / Propriétaire)",
+      "phone": "212661422999",
+      "email": "",
+      "unrepliedReviews": 31,
+      "annualLossMAD": 603899
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Youssef Berrada (Gérant / Propriétaire),\nAudit E-Réputation pour Palais Dar Noujoum Casablanca (Casablanca (G",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461906091_b5nw",
+    "timestamp": "2026-09-03T18:58:26.091Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-marrakech-1788461809145-46",
+      "venueName": "Riad Dar Atlas View Marrakech",
+      "city": "Marrakech (Rahba Kedima)",
+      "contactPerson": "Si Mohamed El Amrani (Gérant / Propriétaire)",
+      "phone": "212668751895",
+      "email": "",
+      "unrepliedReviews": 18,
+      "annualLossMAD": 423190
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Mohamed El Amrani (Gérant / Propriétaire),\nAudit E-Réputation pour Riad Dar Atlas View Marrakech (Marrakech (",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461905093_r1my",
+    "timestamp": "2026-09-03T18:58:25.093Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-dakhla-1788461809145-45",
+      "venueName": "Eco-Lodge Bahia Dakhla",
+      "city": "Dakhla (Centre)",
+      "contactPerson": "Lalla Imane Filali (Gérant / Propriétaire)",
+      "phone": "212528105988",
+      "email": "",
+      "unrepliedReviews": 28,
+      "annualLossMAD": 600004
+    },
+    "contentSummary": {
+      "preview": "Bonjour Lalla Imane Filali (Gérant / Propriétaire),\nAudit E-Réputation pour Eco-Lodge Bahia Dakhla (Dakhla (Centre)) : 2",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461904088_lwgj",
+    "timestamp": "2026-09-03T18:58:24.088Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-merzouga-1788461809145-44",
+      "venueName": "Riad Dar Oasis Étoilée Merzouga",
+      "city": "Merzouga (Merzouga)",
+      "contactPerson": "Si Hamza Idrissi (Gérant / Propriétaire)",
+      "phone": "212535642175",
+      "email": "",
+      "unrepliedReviews": 8,
+      "annualLossMAD": 210710
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Hamza Idrissi (Gérant / Propriétaire),\nAudit E-Réputation pour Riad Dar Oasis Étoilée Merzouga (Merzouga (Mer",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461903094_5e5o",
+    "timestamp": "2026-09-03T18:58:23.094Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-essaouira-1788461809145-43",
+      "venueName": "Restaurant Le Zellige d'Or Essaouira",
+      "city": "Essaouira (Centre)",
+      "contactPerson": "Si Hicham Lahlou (Gérant / Propriétaire)",
+      "phone": "212524326198",
+      "email": "",
+      "unrepliedReviews": 16,
+      "annualLossMAD": 368273
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Hicham Lahlou (Gérant / Propriétaire),\nAudit E-Réputation pour Restaurant Le Zellige d'Or Essaouira (Essaouir",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461902088_ygup",
+    "timestamp": "2026-09-03T18:58:22.088Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-agadir-1788461809145-42",
+      "venueName": "Maison d'Hôtes Fleur de Sable Agadir",
+      "city": "Agadir (Centre)",
+      "contactPerson": "Lalla Zineb Naciri (Gérant / Propriétaire)",
+      "phone": "212667646798",
+      "email": "",
+      "unrepliedReviews": 8,
+      "annualLossMAD": 223712
+    },
+    "contentSummary": {
+      "preview": "Bonjour Lalla Zineb Naciri (Gérant / Propriétaire),\nAudit E-Réputation pour Maison d'Hôtes Fleur de Sable Agadir (Agadir",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461901091_nl6c",
+    "timestamp": "2026-09-03T18:58:21.091Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-tanger-1788461809145-41",
+      "venueName": "Maison d'Hôtes Saphir Bleu Tanger",
+      "city": "Tanger (Centre)",
+      "contactPerson": "Si Adil Slaoui (Gérant / Propriétaire)",
+      "phone": "212678133211",
+      "email": "",
+      "unrepliedReviews": 17,
+      "annualLossMAD": 370262
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Adil Slaoui (Gérant / Propriétaire),\nAudit E-Réputation pour Maison d'Hôtes Saphir Bleu Tanger (Tanger (Centr",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461900094_j58w",
+    "timestamp": "2026-09-03T18:58:20.094Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-fès-1788461809144-40",
+      "venueName": "Maison d'Hôtes Saadien Fès",
+      "city": "Fès (Centre)",
+      "contactPerson": "Si Omar Bennis (Gérant / Propriétaire)",
+      "phone": "212535921998",
+      "email": "",
+      "unrepliedReviews": 11,
+      "annualLossMAD": 262332
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Omar Bennis (Gérant / Propriétaire),\nAudit E-Réputation pour Maison d'Hôtes Saadien Fès (Fès (Centre)) : 11 a",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461899090_gsus",
+    "timestamp": "2026-09-03T18:58:19.090Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-rabat-1788461809144-39",
+      "venueName": "Restaurant Le Chérifien Rabat",
+      "city": "Rabat (Centre)",
+      "contactPerson": "Si Karim Guessous (Gérant / Propriétaire)",
+      "phone": "212667922915",
+      "email": "",
+      "unrepliedReviews": 18,
+      "annualLossMAD": 378129
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Karim Guessous (Gérant / Propriétaire),\nAudit E-Réputation pour Restaurant Le Chérifien Rabat (Rabat (Centre)",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461898095_6jjz",
+    "timestamp": "2026-09-03T18:58:18.095Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-casablanca-1788461809144-38",
+      "venueName": "Eco-Lodge Majorelle Casablanca",
+      "city": "Casablanca (Centre)",
+      "contactPerson": "Lalla Salma Kabbaj (Gérant / Propriétaire)",
+      "phone": "212664197367",
+      "email": "",
+      "unrepliedReviews": 31,
+      "annualLossMAD": 616171
+    },
+    "contentSummary": {
+      "preview": "Bonjour Lalla Salma Kabbaj (Gérant / Propriétaire),\nAudit E-Réputation pour Eco-Lodge Majorelle Casablanca (Casablanca (",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461897093_8bqo",
+    "timestamp": "2026-09-03T18:58:17.093Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-marrakech-1788461809144-37",
+      "venueName": "Riad Dar Touria",
+      "city": "Marrakech (Kasbah)",
+      "contactPerson": "Lalla Meriem El Fassi (Gérant / Propriétaire)",
+      "phone": "212668424124",
+      "email": "",
+      "unrepliedReviews": 23,
+      "annualLossMAD": 474257
+    },
+    "contentSummary": {
+      "preview": "Bonjour Lalla Meriem El Fassi (Gérant / Propriétaire),\nAudit E-Réputation pour Riad Dar Touria (Marrakech (Kasbah)) : 23",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461896091_opye",
+    "timestamp": "2026-09-03T18:58:16.091Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-dakhla-1788461809144-36",
+      "venueName": "Villa & Spa Majorelle Dakhla",
+      "city": "Dakhla (PK 25)",
+      "contactPerson": "Lalla Fatima Chraïbi (Gérant / Propriétaire)",
+      "phone": "212673665230",
+      "email": "",
+      "unrepliedReviews": 11,
+      "annualLossMAD": 293400
+    },
+    "contentSummary": {
+      "preview": "Bonjour Lalla Fatima Chraïbi (Gérant / Propriétaire),\nAudit E-Réputation pour Villa & Spa Majorelle Dakhla (Dakhla (PK 2",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461895092_ov0k",
+    "timestamp": "2026-09-03T18:58:15.092Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-merzouga-1788461809144-35",
+      "venueName": "Restaurant Le Majorelle Merzouga",
+      "city": "Merzouga (Centre)",
+      "contactPerson": "Si Amine Tazi (Gérant / Propriétaire)",
+      "phone": "212668653453",
+      "email": "",
+      "unrepliedReviews": 22,
+      "annualLossMAD": 473398
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Amine Tazi (Gérant / Propriétaire),\nAudit E-Réputation pour Restaurant Le Majorelle Merzouga (Merzouga (Centr",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461894091_fxln",
+    "timestamp": "2026-09-03T18:58:14.091Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-essaouira-1788461809144-34",
+      "venueName": "Villa & Spa Al Manzel Essaouira",
+      "city": "Essaouira (Centre)",
+      "contactPerson": "Si Mehdi Alami (Gérant / Propriétaire)",
+      "phone": "212676178817",
+      "email": "",
+      "unrepliedReviews": 30,
+      "annualLossMAD": 609553
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Mehdi Alami (Gérant / Propriétaire),\nAudit E-Réputation pour Villa & Spa Al Manzel Essaouira (Essaouira (Cent",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461893289_dgmx",
+    "timestamp": "2026-09-03T18:58:13.289Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-agadir-1788461809144-33",
+      "venueName": "Boutique Hôtel Dar Noujoum Agadir",
+      "city": "Agadir (Centre)",
+      "contactPerson": "Si Rachid Benjelloun (Gérant / Propriétaire)",
+      "phone": "212661617802",
+      "email": "",
+      "unrepliedReviews": 17,
+      "annualLossMAD": 382565
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Rachid Benjelloun (Gérant / Propriétaire),\nAudit E-Réputation pour Boutique Hôtel Dar Noujoum Agadir (Agadir ",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461888875_011a",
+    "timestamp": "2026-09-03T18:58:08.875Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-tanger-1788461809144-32",
+      "venueName": "Camp Desert Bab Agnaou Tanger",
+      "city": "Tanger (Centre)",
+      "contactPerson": "Si Youssef Berrada (Gérant / Propriétaire)",
+      "phone": "212678867281",
+      "email": "",
+      "unrepliedReviews": 8,
+      "annualLossMAD": 243908
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Youssef Berrada (Gérant / Propriétaire),\nAudit E-Réputation pour Camp Desert Bab Agnaou Tanger (Tanger (Centr",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461858889_q0fj",
+    "timestamp": "2026-09-03T18:57:38.889Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-fès-1788461809144-31",
+      "venueName": "Palais Dar Zohra Fès",
+      "city": "Fès (Talaa Seghira)",
+      "contactPerson": "Si Mohamed El Amrani (Gérant / Propriétaire)",
+      "phone": "212670853047",
+      "email": "",
+      "unrepliedReviews": 19,
+      "annualLossMAD": 413210
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Mohamed El Amrani (Gérant / Propriétaire),\nAudit E-Réputation pour Palais Dar Zohra Fès (Fès (Talaa Seghira))",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461853103_ybs1",
+    "timestamp": "2026-09-03T18:57:33.103Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-rabat-1788461809144-30",
+      "venueName": "Camp Desert Ambre & Cèdre Rabat",
+      "city": "Rabat (Agdal)",
+      "contactPerson": "Lalla Imane Filali (Gérant / Propriétaire)",
+      "phone": "212661204777",
+      "email": "",
+      "unrepliedReviews": 22,
+      "annualLossMAD": 435107
+    },
+    "contentSummary": {
+      "preview": "Bonjour Lalla Imane Filali (Gérant / Propriétaire),\nAudit E-Réputation pour Camp Desert Ambre & Cèdre Rabat (Rabat (Agda",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461851155_74jn",
+    "timestamp": "2026-09-03T18:57:31.155Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-casablanca-1788461809144-29",
+      "venueName": "Riad Dar Dar Zohra Casablanca",
+      "city": "Casablanca (Gauthier)",
+      "contactPerson": "Si Hamza Idrissi (Gérant / Propriétaire)",
+      "phone": "212664750932",
+      "email": "",
+      "unrepliedReviews": 23,
+      "annualLossMAD": 478115
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Hamza Idrissi (Gérant / Propriétaire),\nAudit E-Réputation pour Riad Dar Dar Zohra Casablanca (Casablanca (Gau",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461850136_auas",
+    "timestamp": "2026-09-03T18:57:30.136Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-marrakech-1788461809144-28",
+      "venueName": "Riad Cinnamon",
+      "city": "Marrakech (Majorelle)",
+      "contactPerson": "Si Hicham Lahlou (Gérant / Propriétaire)",
+      "phone": "212663951564",
+      "email": "",
+      "unrepliedReviews": 32,
+      "annualLossMAD": 654200
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Hicham Lahlou (Gérant / Propriétaire),\nAudit E-Réputation pour Riad Cinnamon (Marrakech (Majorelle)) : 32 avi",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461850091_bm5n",
+    "timestamp": "2026-09-03T18:57:30.091Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "fr_scout_1788461841824_0xl2g",
+      "venueName": "Guy Savoy (Monnaie de Paris 3★)",
+      "city": "Paris",
+      "contactPerson": "Direction Générale & Guest Relations",
+      "phone": "330142732622",
+      "email": "",
+      "unrepliedReviews": 25,
+      "annualLossMAD": 2888465
+    },
+    "contentSummary": {
+      "preview": "Bonjour Direction Générale & Guest Relations,\nAudit E-Réputation pour Guy Savoy (Monnaie de Paris 3★) (Paris) : 25 avis ",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461849575_4kk6",
+    "timestamp": "2026-09-03T18:57:29.575Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "fr_scout_1788461841824_na33y",
+      "venueName": "Le 1947 à Cheval Blanc (Yannick Alléno 3★)",
+      "city": "Courchevel / Megeve",
+      "contactPerson": "Direction Générale & Guest Relations",
+      "phone": "330479901339",
+      "email": "",
+      "unrepliedReviews": 14,
+      "annualLossMAD": 1474631
+    },
+    "contentSummary": {
+      "preview": "Bonjour Direction Générale & Guest Relations,\nAudit E-Réputation pour Le 1947 à Cheval Blanc (Yannick Alléno 3★) (Courch",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461849057_521q",
+    "timestamp": "2026-09-03T18:57:29.057Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "fr_scout_1788461841824_09g1r",
+      "venueName": "Hôtel Ritz Paris (Place Vendôme)",
+      "city": "Paris",
+      "contactPerson": "Direction Générale & Guest Relations",
+      "phone": "330142638886",
+      "email": "",
+      "unrepliedReviews": 5,
+      "annualLossMAD": 569615
+    },
+    "contentSummary": {
+      "preview": "Bonjour Direction Générale & Guest Relations,\nAudit E-Réputation pour Hôtel Ritz Paris (Place Vendôme) (Paris) : 5 avis ",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461848708_roy8",
+    "timestamp": "2026-09-03T18:57:28.708Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-dakhla-1788461809144-27",
+      "venueName": "Rooftop Lounge Tichka Dakhla",
+      "city": "Dakhla (Centre)",
+      "contactPerson": "Lalla Zineb Naciri (Gérant / Propriétaire)",
+      "phone": "212665177622",
+      "email": "",
+      "unrepliedReviews": 26,
+      "annualLossMAD": 549929
+    },
+    "contentSummary": {
+      "preview": "Bonjour Lalla Zineb Naciri (Gérant / Propriétaire),\nAudit E-Réputation pour Rooftop Lounge Tichka Dakhla (Dakhla (Centre",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461848532_xa7a",
+    "timestamp": "2026-09-03T18:57:28.532Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "fr_scout_1788461841824_52udn",
+      "venueName": "La Réserve Ramatuelle Hotel Spa and Villas",
+      "city": "Nice / Cannes",
+      "contactPerson": "Direction Générale & Guest Relations",
+      "phone": "330493353324",
+      "email": "",
+      "unrepliedReviews": 17,
+      "annualLossMAD": 1582166
+    },
+    "contentSummary": {
+      "preview": "Bonjour Direction Générale & Guest Relations,\nAudit E-Réputation pour La Réserve Ramatuelle Hotel Spa and Villas (Nice /",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461847944_it21",
+    "timestamp": "2026-09-03T18:57:27.944Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "fr_scout_1788461841824_7a99m",
+      "venueName": "David Toutain (2★ Michelin)",
+      "city": "Paris",
+      "contactPerson": "Direction Générale & Guest Relations",
+      "phone": "330142463874",
+      "email": "",
+      "unrepliedReviews": 5,
+      "annualLossMAD": 406012
+    },
+    "contentSummary": {
+      "preview": "Bonjour Direction Générale & Guest Relations,\nAudit E-Réputation pour David Toutain (2★ Michelin) (Paris) : 5 avis sans ",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461847157_41l1",
+    "timestamp": "2026-09-03T18:57:27.157Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-merzouga-1788461809144-26",
+      "venueName": "Boutique Hôtel Fleur de Sable Merzouga",
+      "city": "Merzouga (Centre)",
+      "contactPerson": "Si Adil Slaoui (Gérant / Propriétaire)",
+      "phone": "212668920663",
+      "email": "",
+      "unrepliedReviews": 24,
+      "annualLossMAD": 518854
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Adil Slaoui (Gérant / Propriétaire),\nAudit E-Réputation pour Boutique Hôtel Fleur de Sable Merzouga (Merzouga",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461846139_jsnt",
+    "timestamp": "2026-09-03T18:57:26.139Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-essaouira-1788461809144-25",
+      "venueName": "Palais Merzouga Dunes Essaouira",
+      "city": "Essaouira (Centre)",
+      "contactPerson": "Si Omar Bennis (Gérant / Propriétaire)",
+      "phone": "212524300578",
+      "email": "",
+      "unrepliedReviews": 33,
+      "annualLossMAD": 644026
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Omar Bennis (Gérant / Propriétaire),\nAudit E-Réputation pour Palais Merzouga Dunes Essaouira (Essaouira (Cent",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461845169_cpvs",
+    "timestamp": "2026-09-03T18:57:25.169Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-agadir-1788461809144-24",
+      "venueName": "Palais Saphir Bleu Agadir",
+      "city": "Agadir (Centre)",
+      "contactPerson": "Si Karim Guessous (Gérant / Propriétaire)",
+      "phone": "212679628993",
+      "email": "",
+      "unrepliedReviews": 28,
+      "annualLossMAD": 616335
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Karim Guessous (Gérant / Propriétaire),\nAudit E-Réputation pour Palais Saphir Bleu Agadir (Agadir (Centre)) :",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461844163_pbj4",
+    "timestamp": "2026-09-03T18:57:24.163Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-tanger-1788461809144-23",
+      "venueName": "Palais Bahia Tanger",
+      "city": "Tanger (Centre)",
+      "contactPerson": "Lalla Salma Kabbaj (Gérant / Propriétaire)",
+      "phone": "212665395520",
+      "email": "",
+      "unrepliedReviews": 10,
+      "annualLossMAD": 248586
+    },
+    "contentSummary": {
+      "preview": "Bonjour Lalla Salma Kabbaj (Gérant / Propriétaire),\nAudit E-Réputation pour Palais Bahia Tanger (Tanger (Centre)) : 10 a",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461843120_yb08",
+    "timestamp": "2026-09-03T18:57:23.120Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-fès-1788461809143-22",
+      "venueName": "Camp Desert Oasis du Sud Fès",
+      "city": "Fès (Centre)",
+      "contactPerson": "Lalla Meriem El Fassi (Gérant / Propriétaire)",
+      "phone": "212670120393",
+      "email": "",
+      "unrepliedReviews": 14,
+      "annualLossMAD": 353540
+    },
+    "contentSummary": {
+      "preview": "Bonjour Lalla Meriem El Fassi (Gérant / Propriétaire),\nAudit E-Réputation pour Camp Desert Oasis du Sud Fès (Fès (Centre",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461842144_tf49",
+    "timestamp": "2026-09-03T18:57:22.144Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-rabat-1788461809143-21",
+      "venueName": "Restaurant Le Saphir Bleu Rabat",
+      "city": "Rabat (Médina)",
+      "contactPerson": "Lalla Fatima Chraïbi (Gérant / Propriétaire)",
+      "phone": "212670530691",
+      "email": "",
+      "unrepliedReviews": 8,
+      "annualLossMAD": 213689
+    },
+    "contentSummary": {
+      "preview": "Bonjour Lalla Fatima Chraïbi (Gérant / Propriétaire),\nAudit E-Réputation pour Restaurant Le Saphir Bleu Rabat (Rabat (Mé",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461841141_x58b",
+    "timestamp": "2026-09-03T18:57:21.141Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-casablanca-1788461809143-20",
+      "venueName": "Boccanova Corniche",
+      "city": "Casablanca (Centre)",
+      "contactPerson": "Si Amine Tazi (Gérant / Propriétaire)",
+      "phone": "212671662338",
+      "email": "",
+      "unrepliedReviews": 8,
+      "annualLossMAD": 199490
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Amine Tazi (Gérant / Propriétaire),\nAudit E-Réputation pour Boccanova Corniche (Casablanca (Centre)) : 8 avis",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461840129_uqn8",
+    "timestamp": "2026-09-03T18:57:20.129Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-marrakech-1788461809143-19",
+      "venueName": "Café des Épices",
+      "city": "Marrakech (Kasbah)",
+      "contactPerson": "Si Mehdi Alami (Gérant / Propriétaire)",
+      "phone": "212672539960",
+      "email": "",
+      "unrepliedReviews": 18,
+      "annualLossMAD": 394507
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Mehdi Alami (Gérant / Propriétaire),\nAudit E-Réputation pour Café des Épices (Marrakech (Kasbah)) : 18 avis s",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461839126_4djf",
+    "timestamp": "2026-09-03T18:57:19.126Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-dakhla-1788461809143-18",
+      "venueName": "Eco-Lodge Fleur de Sable Dakhla",
+      "city": "Dakhla (Centre)",
+      "contactPerson": "Si Rachid Benjelloun (Gérant / Propriétaire)",
+      "phone": "212678751636",
+      "email": "",
+      "unrepliedReviews": 24,
+      "annualLossMAD": 481984
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Rachid Benjelloun (Gérant / Propriétaire),\nAudit E-Réputation pour Eco-Lodge Fleur de Sable Dakhla (Dakhla (C",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461838209_931i",
+    "timestamp": "2026-09-03T18:57:18.209Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-merzouga-1788461809143-17",
+      "venueName": "Eco-Lodge Fleur de Sable Merzouga",
+      "city": "Merzouga (Merzouga)",
+      "contactPerson": "Si Youssef Berrada (Gérant / Propriétaire)",
+      "phone": "212535226094",
+      "email": "",
+      "unrepliedReviews": 19,
+      "annualLossMAD": 402110
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Youssef Berrada (Gérant / Propriétaire),\nAudit E-Réputation pour Eco-Lodge Fleur de Sable Merzouga (Merzouga ",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461837118_327m",
+    "timestamp": "2026-09-03T18:57:17.118Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-essaouira-1788461809143-16",
+      "venueName": "Eco-Lodge Dar Diafa Essaouira",
+      "city": "Essaouira (Centre)",
+      "contactPerson": "Si Mohamed El Amrani (Gérant / Propriétaire)",
+      "phone": "212524943231",
+      "email": "",
+      "unrepliedReviews": 19,
+      "annualLossMAD": 420868
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Mohamed El Amrani (Gérant / Propriétaire),\nAudit E-Réputation pour Eco-Lodge Dar Diafa Essaouira (Essaouira (",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461836216_yezs",
+    "timestamp": "2026-09-03T18:57:16.216Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-agadir-1788461809143-15",
+      "venueName": "Boutique Hôtel Saphir Bleu Agadir",
+      "city": "Agadir (Centre)",
+      "contactPerson": "Lalla Imane Filali (Gérant / Propriétaire)",
+      "phone": "212667779380",
+      "email": "",
+      "unrepliedReviews": 31,
+      "annualLossMAD": 629152
+    },
+    "contentSummary": {
+      "preview": "Bonjour Lalla Imane Filali (Gérant / Propriétaire),\nAudit E-Réputation pour Boutique Hôtel Saphir Bleu Agadir (Agadir (C",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461835127_zarz",
+    "timestamp": "2026-09-03T18:57:15.127Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-tanger-1788461809143-14",
+      "venueName": "Riad Tanja Kasbah",
+      "city": "Tanger (Kasbah)",
+      "contactPerson": "Si Hamza Idrissi (Gérant / Propriétaire)",
+      "phone": "212678460730",
+      "email": "",
+      "unrepliedReviews": 29,
+      "annualLossMAD": 607786
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Hamza Idrissi (Gérant / Propriétaire),\nAudit E-Réputation pour Riad Tanja Kasbah (Tanger (Kasbah)) : 29 avis ",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461834108_jkx3",
+    "timestamp": "2026-09-03T18:57:14.108Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-fès-1788461809143-13",
+      "venueName": "Restaurant L'Ambre Palais Faraj",
+      "city": "Fès (Centre)",
+      "contactPerson": "Si Hicham Lahlou (Gérant / Propriétaire)",
+      "phone": "212670396410",
+      "email": "",
+      "unrepliedReviews": 9,
+      "annualLossMAD": 208054
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Hicham Lahlou (Gérant / Propriétaire),\nAudit E-Réputation pour Restaurant L'Ambre Palais Faraj (Fès (Centre))",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461833126_nung",
+    "timestamp": "2026-09-03T18:57:13.126Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-rabat-1788461809143-12",
+      "venueName": "Riad Kalaa Médina",
+      "city": "Rabat (Souissi)",
+      "contactPerson": "Lalla Zineb Naciri (Gérant / Propriétaire)",
+      "phone": "212663164049",
+      "email": "",
+      "unrepliedReviews": 10,
+      "annualLossMAD": 240705
+    },
+    "contentSummary": {
+      "preview": "Bonjour Lalla Zineb Naciri (Gérant / Propriétaire),\nAudit E-Réputation pour Riad Kalaa Médina (Rabat (Souissi)) : 10 avi",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461832127_jadg",
+    "timestamp": "2026-09-03T18:57:12.127Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-casablanca-1788461809143-11",
+      "venueName": "Boutique Hôtel Le Doge Relais & Châteaux",
+      "city": "Casablanca (Racine)",
+      "contactPerson": "Si Adil Slaoui (Gérant / Propriétaire)",
+      "phone": "212664264188",
+      "email": "",
+      "unrepliedReviews": 8,
+      "annualLossMAD": 208061
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Adil Slaoui (Gérant / Propriétaire),\nAudit E-Réputation pour Boutique Hôtel Le Doge Relais & Châteaux (Casabl",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461831139_qcb2",
+    "timestamp": "2026-09-03T18:57:11.139Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-marrakech-1788461809143-10",
+      "venueName": "Riad Joya",
+      "city": "Marrakech (Médina)",
+      "contactPerson": "Si Omar Bennis (Gérant / Propriétaire)",
+      "phone": "212662705778",
+      "email": "",
+      "unrepliedReviews": 10,
+      "annualLossMAD": 238046
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Omar Bennis (Gérant / Propriétaire),\nAudit E-Réputation pour Riad Joya (Marrakech (Médina)) : 10 avis sans ré",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461829573_nzih",
+    "timestamp": "2026-09-03T18:57:09.573Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-dakhla-1788461809143-9",
+      "venueName": "Restaurant Le Bab Agnaou Dakhla",
+      "city": "Dakhla (Centre)",
+      "contactPerson": "Si Karim Guessous (Gérant / Propriétaire)",
+      "phone": "212665825793",
+      "email": "",
+      "unrepliedReviews": 8,
+      "annualLossMAD": 218191
+    },
+    "contentSummary": {
+      "preview": "Bonjour Si Karim Guessous (Gérant / Propriétaire),\nAudit E-Réputation pour Restaurant Le Bab Agnaou Dakhla (Dakhla (Cent",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461829004_oa1v",
+    "timestamp": "2026-09-03T18:57:09.004Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-merzouga-1788461809143-8",
+      "venueName": "Palais Masrah Ouarzazate",
+      "city": "Merzouga (Centre)",
+      "contactPerson": "Lalla Salma Kabbaj (Gérant / Propriétaire)",
+      "phone": "212677365219",
+      "email": "",
+      "unrepliedReviews": 33,
+      "annualLossMAD": 632464
+    },
+    "contentSummary": {
+      "preview": "Bonjour Lalla Salma Kabbaj (Gérant / Propriétaire),\nAudit E-Réputation pour Palais Masrah Ouarzazate (Merzouga (Centre))",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  },
+  {
+    "executionId": "exec_1788461828486_f4ov",
+    "timestamp": "2026-09-03T18:57:08.486Z",
+    "eventType": "WHATSAPP_PITCH",
+    "recipient": {
+      "venueId": "scout-essaouira-1788461809143-7",
+      "venueName": "Salut Maroc Boutique Hotel",
+      "city": "Essaouira (Centre)",
+      "contactPerson": "Lalla Meriem El Fassi (Gérant / Propriétaire)",
+      "phone": "212661649279",
+      "email": "",
+      "unrepliedReviews": 8,
+      "annualLossMAD": 176935
+    },
+    "contentSummary": {
+      "preview": "Bonjour Lalla Meriem El Fassi (Gérant / Propriétaire),\nAudit E-Réputation pour Salut Maroc Boutique Hotel (Essaouira (Ce",
+      "language": "FR"
+    },
+    "delivery": {
+      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
+      "note": "Payload reçu et journalisé avec succès."
+    }
+  }
+]

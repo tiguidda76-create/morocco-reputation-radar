@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Radar, 
   ShieldCheck, 
@@ -7,12 +7,15 @@ import {
   CheckCircle2, 
   Building2, 
   Clock, 
-  Zap,
-  Globe2,
-  FileText,
-  LogOut
+  Zap, 
+  Globe2, 
+  FileText, 
+  LogOut,
+  Sliders,
+  AlertCircle
 } from 'lucide-react';
 import { AGENCY_METADATA } from '../data/mockData';
+import { getActiveDeliveryStatus } from '../services/n8nOutreachService';
 
 interface NavbarProps {
   activeTab: string;
@@ -21,6 +24,7 @@ interface NavbarProps {
   setIsAutoPilot: (val: boolean) => void;
   onOpenNewInvoice?: () => void;
   onOpenCopilot?: () => void;
+  onOpenSettings?: () => void;
   onLogout?: () => void;
 }
 
@@ -31,8 +35,23 @@ export const Navbar: React.FC<NavbarProps> = ({
   setIsAutoPilot,
   onOpenNewInvoice,
   onOpenCopilot,
+  onOpenSettings,
   onLogout
 }) => {
+  const [deliveryStatus, setDeliveryStatus] = useState(() => getActiveDeliveryStatus());
+
+  useEffect(() => {
+    const checkStatus = () => {
+      setDeliveryStatus(getActiveDeliveryStatus());
+    };
+    window.addEventListener('storage', checkStatus);
+    const interval = setInterval(checkStatus, 3000);
+    return () => {
+      window.removeEventListener('storage', checkStatus);
+      clearInterval(interval);
+    };
+  }, []);
+
   const tabs = [
     { id: 'leads', label: '1. Lead Engine & Radar', icon: Globe2, badge: '45.2K' },
     { id: 'fleet', label: '2. War Room Multi-Agents', icon: Bot, badge: '6 Agents' },
@@ -66,17 +85,43 @@ export const Navbar: React.FC<NavbarProps> = ({
             </span>
           </div>
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3">
+            {/* Real Outreach Channel Status & Settings Trigger */}
+            {onOpenSettings && (
+              <button
+                onClick={onOpenSettings}
+                className={`flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-semibold transition-all border ${
+                  deliveryStatus.isRealDeliveryAvailable
+                    ? 'bg-emerald-950/80 text-emerald-300 border-emerald-700/60 hover:bg-emerald-900/80'
+                    : 'bg-amber-950/80 text-amber-300 border-amber-700/60 hover:bg-amber-900/80'
+                }`}
+                title="Configurer vos canaux d'envoi réels (n8n, Resend, WhatsApp Meta)"
+              >
+                {deliveryStatus.isRealDeliveryAvailable ? (
+                  <>
+                    <Zap className="w-3 h-3 text-emerald-400" />
+                    <span>{deliveryStatus.hasN8n ? 'n8n Connecté' : 'API Connectée'}</span>
+                  </>
+                ) : (
+                  <>
+                    <AlertCircle className="w-3 h-3 text-amber-400" />
+                    <span>Canaux: Simulation (Relier n8n)</span>
+                  </>
+                )}
+                <Sliders className="w-3 h-3 ml-0.5 opacity-70" />
+              </button>
+            )}
+
             {/* Auto-Pilot Toggle Mode A vs Mode B */}
             <div className="flex items-center gap-2 bg-slate-900/90 border border-slate-700/80 px-2.5 py-0.5 rounded-full">
               <span className="text-[11px] font-medium text-slate-300">
                 {isAutoPilot ? (
                   <span className="text-emerald-400 font-semibold flex items-center gap-1">
-                    <Sparkles className="w-3 h-3" /> Mode B : Auto-Pilote (QC &gt; 98.4%)
+                    <Sparkles className="w-3 h-3" /> Mode B : Auto (QC &gt; 98.4%)
                   </span>
                 ) : (
                   <span className="text-amber-400 font-semibold flex items-center gap-1">
-                    <CheckCircle2 className="w-3 h-3" /> Mode A : Validation Client (HITL)
+                    <CheckCircle2 className="w-3 h-3" /> Mode A : HITL
                   </span>
                 )}
               </span>

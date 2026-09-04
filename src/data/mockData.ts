@@ -20,8 +20,7 @@ export const AGENCY_METADATA = {
   patentNumber: '45189033',
 };
 
-export { INITIAL_VENUES, generateFullMoroccoVenuesCatalog } from './moroccoVenuesCatalog';
-
+export { INITIAL_VENUES, REAL_VERIFIED_VENUES, generateFullMoroccoVenuesCatalog } from './moroccoVenuesCatalog';
 
 export const FLEET_AGENTS: AgentInfo[] = [
   {
@@ -32,11 +31,11 @@ export const FLEET_AGENTS: AgentInfo[] = [
     icon: 'Brain',
     status: 'ACTIVE',
     tasksCompleted: 14820,
-    currentTask: 'Prioritizing critical negative reviews in Marrakech-Médina cluster',
+    currentTask: 'Surveillance des avis critiques des établissements réels',
     avgLatencyMs: 240,
     tokenCount: 482000,
     accuracy: 99.8,
-    description: 'Calculates urgency weights based on star rating, reviewer follower weight, sentiment severity, and client SLA triggers.'
+    description: 'Calcul des pondérations d\'urgence selon la sévérité du sentiment et les délais SLA.'
   },
   {
     id: 'agent-auditor',
@@ -46,11 +45,11 @@ export const FLEET_AGENTS: AgentInfo[] = [
     icon: 'Search',
     status: 'PROCESSING',
     tasksCompleted: 42190,
-    currentTask: 'Scraping unreplied Booking.com & TripAdvisor reviews for 32 Riads in Fès',
+    currentTask: 'Audit en direct des avis sans réponse Google Maps, Booking & TripAdvisor',
     avgLatencyMs: 620,
     tokenCount: 1240000,
     accuracy: 99.4,
-    description: 'Multi-threaded extraction across Google Maps, Booking.com, TripAdvisor, Airbnb, and Yelp with stealth anti-blocking.'
+    description: 'Extraction multi-plateformes avec détection des pertes financières.'
   },
   {
     id: 'agent-pitcher',
@@ -58,80 +57,66 @@ export const FLEET_AGENTS: AgentInfo[] = [
     role: 'Multilingual Dynamic Sales Copy Generator',
     framework: 'CrewAI',
     icon: 'MessageSquare',
-    status: 'ONLINE',
-    tasksCompleted: 8940,
-    currentTask: 'Generating personalized WhatsApp ROI pitches in Moroccan Darija and French',
+    status: 'ACTIVE',
+    tasksCompleted: 8930,
+    currentTask: 'Génération de propositions personnalisées WhatsApp & Email',
     avgLatencyMs: 380,
     tokenCount: 890000,
     accuracy: 98.9,
-    description: 'Synthesizes scraped unreplied review losses into high-converting 1-click pitches with calculated annual revenue leakage.'
+    description: 'Rédaction en Darija et Français avec calculs chiffrés réels.'
   },
   {
-    id: 'agent-responder',
+    id: 'agent-rescuer',
     name: 'Reply Rescue Agent',
-    role: 'SEO-Rich Tone-Calibrated Review Responder',
-    framework: 'LangGraph',
+    role: 'Hospitality-Calibrated Autonomous Copywriter',
+    framework: 'CrewAI',
     icon: 'ShieldCheck',
     status: 'ACTIVE',
-    tasksCompleted: 28450,
-    currentTask: 'Drafting 5-star & 1-star calibrated responses with local Moroccan SEO keywords',
-    avgLatencyMs: 410,
-    tokenCount: 2450000,
-    accuracy: 99.6,
-    description: 'Constructs empathetic, culturally accurate, SEO-injected answers incorporating Moroccan warmth and direct manager escalation.'
+    tasksCompleted: 31200,
+    currentTask: 'Sauvetage d\'avis négatifs sous SLA < 2h',
+    avgLatencyMs: 450,
+    tokenCount: 2100000,
+    accuracy: 99.1,
+    description: 'Rédaction empathique multi-langues avec mots-clés SEO d\'hospitalité marocaine.'
   },
   {
     id: 'agent-qc',
     name: 'QC Reviewer Agent',
-    role: 'Tone Compliance, Brand Voice & Safety Auditor',
+    role: 'Multi-Dimensional Safety & Brand Voice Gatekeeper',
     framework: 'LangGraph',
-    icon: 'CheckCircle2',
+    icon: 'Award',
     status: 'ACTIVE',
-    tasksCompleted: 28450,
-    currentTask: 'Evaluating empathy scores and safety guardrails (Threshold > 98.4%)',
+    tasksCompleted: 28400,
+    currentTask: 'Validation de conformité juridique et de ton',
     avgLatencyMs: 190,
-    tokenCount: 710000,
+    tokenCount: 650000,
     accuracy: 99.9,
-    description: 'Enforces strict brand guidelines, legal disclaimer safety under Moroccan Law, and filters out hallucinations.'
+    description: 'Contrôle qualité strict (Empathie > 98%, Zéro engagement contractuel non autorisé).'
   },
   {
-    id: 'agent-dispatcher',
-    name: 'Mass Regional Dispatcher',
-    role: 'Bulk Regional Campaign & Publishing Orchestrator',
-    framework: 'CrewAI',
-    icon: 'Megaphone',
-    status: 'ACTIVE',
-    tasksCompleted: 6120,
-    currentTask: 'Actif • Monitoring des webhooks WhatsApp & quotas API (Tanger & Casablanca)',
-    avgLatencyMs: 310,
-    tokenCount: 380000,
-    accuracy: 99.7,
-    description: 'Schedules and throttles mass outreach and published replies respecting rate limits of APIs and WhatsApp webhooks.'
-  },
-  {
-    id: 'agent-closer',
-    name: 'Inbound Negotiator & Billing',
-    role: 'Deal Closer, Stripe/RIB Invoicing & Delegation Router',
+    id: 'agent-legal',
+    name: 'Legal Takedown Agent',
+    role: 'Moroccan Penal Code Art. 447 Defamation Investigator',
     framework: 'LangGraph',
-    icon: 'Handshake',
-    status: 'ONLINE',
-    tasksCompleted: 3410,
-    currentTask: 'Generating BMCE Bank Pro Forma Invoices and manager delegation guides',
-    avgLatencyMs: 280,
-    tokenCount: 490000,
+    icon: 'Scale',
+    status: 'IDLE',
+    tasksCompleted: 1420,
+    currentTask: 'Vérification de conformité Art. 447 et CNDP',
+    avgLatencyMs: 820,
+    tokenCount: 420000,
     accuracy: 100.0,
-    description: 'Handles onboarding delegation verification (Google/Booking/TripAdvisor) and issues official Moroccan tax-compliant invoices.'
+    description: 'Constitution de dossiers de mise en demeure et requêtes de suppression légale.'
   }
 ];
 
-export const INITIAL_LOGS: AgentLog[] = [
+export const MOCK_AGENT_LOGS: AgentLog[] = [
   {
     id: 'log-1',
     timestamp: 'En direct',
     agentId: 'agent-planner',
     agentName: 'Planner Agent',
-    state: 'PLANNING',
-    message: 'Triggered audit cycle for Moroccan hospitality cluster. Scanned unreplied 1-star reviews on Google Maps & Booking.',
+    state: 'DISPATCHING',
+    message: 'Radar actif : surveillance des établissements réels du Maroc.',
     level: 'info'
   },
   {
@@ -140,44 +125,17 @@ export const INITIAL_LOGS: AgentLog[] = [
     agentId: 'agent-auditor',
     agentName: 'Auditor Agent',
     state: 'SCRAPING',
-    message: 'Extracted Google Maps reviews for "Riad Kniza Marrakech" & "Restaurant Le Comptoir Darna".',
-    level: 'warning'
+    message: 'Analyse des flux d\'avis sur Google Maps, Booking et TripAdvisor.',
+    level: 'info'
   },
   {
     id: 'log-3',
     timestamp: 'En direct',
-    agentId: 'agent-responder',
+    agentId: 'agent-rescuer',
     agentName: 'Reply Rescue Agent',
     state: 'DRAFTING',
-    message: 'Generated Palace Luxury response draft (FR/Darija). Injected SEO keywords: ["hospitalité marocaine", "riad authentique", "médina"].',
+    message: 'Prêt pour la rédaction de sauvetage d\'avis réels en Darija et Français.',
     level: 'info'
-  },
-  {
-    id: 'log-4',
-    timestamp: 'En direct',
-    agentId: 'agent-qc',
-    agentName: 'QC Reviewer Agent',
-    state: 'QC_CHECK',
-    message: 'QC Validation passed with Score: 99.4% (Empathy: 99%, Brand Voice: 100%, Legal Safety: 100%). Routed to Mode A Client Gate.',
-    level: 'success'
-  },
-  {
-    id: 'log-5',
-    timestamp: 'En direct',
-    agentId: 'agent-pitcher',
-    agentName: 'Outreach Pitcher',
-    state: 'DRAFTING',
-    message: 'Formulated 1-Click WhatsApp Pitch in Darija showing calculated annual revenue leakage.',
-    level: 'info'
-  },
-  {
-    id: 'log-6',
-    timestamp: 'En direct',
-    agentId: 'agent-closer',
-    agentName: 'Inbound Negotiator & Billing',
-    state: 'EXECUTED',
-    message: 'Prepared official BMCE Bank Pro Forma Invoices with ICE 1161674000043 and RIB 007450001399370030009822.',
-    level: 'success'
   }
 ];
 
@@ -249,114 +207,6 @@ export const PRICING_PLANS: PricingPlan[] = [
   }
 ];
 
-export const INITIAL_DEFAMATION_CASES: DefamationCase[] = [
-  {
-    id: 'def-01',
-    venueName: 'Riad Kniza Marrakech Médina',
-    city: 'Marrakech',
-    platform: 'google',
-    author: 'Compte Anonyme "TouristHunter99"',
-    dateFlagged: 'Aujourd\'hui',
-    rating: 1,
-    commentSnippet: 'Arnaqueurs professionnels ! Ils nous ont volé notre caution en liquide et la direction refuse de répondre. Évitez à tout prix cet endroit illégal.',
-    legalGrounds: 'Article 447-2 du Code Pénal Marocain (Diffamation & Allégation calomnieuse publique sans preuve).',
-    status: 'IN_PROGRESS',
-    resolutionAction: 'Signalement Prioritaire Google Legal Takedown + Mise en demeure avocat envoyée.',
-    riskMAD: 120000,
-  },
-  {
-    id: 'def-02',
-    venueName: 'Restaurant Le Comptoir Darna',
-    city: 'Marrakech',
-    platform: 'tripadvisor',
-    author: 'Profil Faux Concurrent "RestoMarrakechExcellence"',
-    dateFlagged: 'Hier',
-    rating: 1,
-    commentSnippet: 'Intoxication alimentaire grave suite au tajine agneau ! Tout le personnel est incompétent et sans hygiène.',
-    legalGrounds: 'Atteinte à l\'image commerciale, dénigrement déloyal concurrentiel et diffusion de fausses allégations préjudiciables.',
-    status: 'ESCALATED_CNDP',
-    resolutionAction: 'Saisine Tripadvisor Trust & Safety avec certificat sanitaire de conformité de l\'établissement.',
-    riskMAD: 250000,
-  }
-];
+export const INITIAL_DEFAMATION_CASES: DefamationCase[] = [];
 
-export const SAMPLE_SIMULATOR_REVIEWS: ReviewItem[] = [
-  {
-    id: 'rev-sim-1',
-    venueId: 'venue-2',
-    venueName: 'Riad Kniza Marrakech Médina',
-    platform: 'google',
-    author: 'Céline & Julien Fontaine',
-    authorCountry: 'France 🇫🇷',
-    date: 'Aujourd\'hui à 10:15',
-    rating: 2,
-    title: 'Bruit de pompe à eau et attente petit déjeuner',
-    comment: 'Le patio avec les orangers est magnifique, mais notre chambre au rez-de-chaussée subissait le bruit incessant de la filtration de piscine toute la nuit. Le petit déjeuner servi à 9h a mis plus de 35 minutes.',
-    sentiment: 'Negative',
-    status: 'PENDING_APPROVAL',
-    clientApprovalStatus: 'PENDING',
-    aiDraft: {
-      language: 'FR',
-      tone: 'Hospitalité & Empathie Marocaine',
-      content: 'Chers Julien et Céline, Merci pour votre franchise. Nous sommes sincèrement navrés pour cette gêne technique sur la filtration du patio. Notre artisan est intervenu ce matin pour insonoriser le caisson. Quant à notre petit-déjeuner fassi traditionnel (msemen chauds, jus d\'orange pressé minute et thé à la menthe), nous avons recadré l\'équipe pour que le service soit irréprochable. Nous serions honorés de vous surclasser en suite terrasse lors de votre prochain passage. Bien chaleureusement, Si Mohamed & l\'équipe du Riad Kniza.',
-      seoKeywords: ['riad de charme médina Marrakech', 'séjour romantique Marrakech', 'petit déjeuner marocain traditionnel', 'suite terrasse Bab Doukkala'],
-      qcScore: 99.1,
-      empathyScore: 99,
-      brandVoiceScore: 99,
-      legalSafetyScore: 100,
-      generatedAt: new Date().toISOString().replace('T', ' ').slice(0, 16),
-    }
-  },
-  {
-    id: 'rev-sim-2',
-    venueId: 'venue-1',
-    venueName: 'La Mamounia Palace Marrakech',
-    platform: 'booking',
-    author: 'Sir Edward Sterling',
-    authorCountry: 'Royaume-Uni 🇬🇧',
-    date: 'Aujourd\'hui à 09:30',
-    rating: 1,
-    title: 'Check-in delay at the Pavilion',
-    comment: 'We waited 45 minutes for our suite key upon arrival despite guaranteed 3 PM check-in. The concierge seemed overwhelmed and offered no tea while waiting. Expected royal treatment given the rate.',
-    sentiment: 'Negative',
-    status: 'PENDING_APPROVAL',
-    clientApprovalStatus: 'PENDING',
-    aiDraft: {
-      language: 'EN',
-      tone: 'Royal Palace',
-      content: 'Dear Sir Edward, We offer our deepest and most sincere apologies for falling short of the legendary palace hospitality you rightfully expected at La Mamounia. Waiting 45 minutes for your suite is unacceptable by our standards. We have personally briefed our Head Concierge and General Management team. Kindly allow us to invite you for a signature tea ceremony in our Menzeh gardens on your next visit. With highest regards, La Mamounia Guest Experience Directorate.',
-      seoKeywords: ['palace hospitality Marrakech', 'La Mamounia gardens', 'VIP relations', 'luxury suite check-in'],
-      qcScore: 99.4,
-      empathyScore: 99,
-      brandVoiceScore: 100,
-      legalSafetyScore: 100,
-      generatedAt: new Date().toISOString().replace('T', ' ').slice(0, 16),
-    }
-  },
-  {
-    id: 'rev-sim-3',
-    venueId: 'venue-3',
-    venueName: 'Restaurant Le Comptoir Darna',
-    platform: 'tripadvisor',
-    author: 'Hamza El Fassi',
-    authorCountry: 'Maroc 🇲🇦',
-    date: 'Hier à 22:40',
-    rating: 2,
-    title: 'Service lourd et table mal placée',
-    comment: 'Khedma t3tlat bzzaf f la commande dyal l-dîner w t-plassina 7da l-passage dyal l-cuisine. Cadre zwin walakin le service khassou re-cadrage.',
-    sentiment: 'Negative',
-    status: 'PENDING_APPROVAL',
-    clientApprovalStatus: 'PENDING',
-    aiDraft: {
-      language: 'DARIJA',
-      tone: 'Hospitalité & Empathie Marocaine',
-      content: 'Salam Si Hamza, Smhlina bzzaf 3la had tajriba li machi f lmostawa dyal Comptoir Darna. L-retard f le service w l-emplacement dyal la table machi ma9bouline 3ndna. Drna réunion m3a l-chef de salle bach n-dbtou l-accueil. Marhba bik f ay wa9t n-3wdou lik une table VIP f l-premier rang 3la 7ssabna. Tassel bina direct. Choukran 3la saraha dyalk!',
-      seoKeywords: ['Comptoir Darna Hivernage', 'restaurant spectacle Marrakech', 'dîner festif Marrakech', 'gastronomie marocaine'],
-      qcScore: 98.9,
-      empathyScore: 100,
-      brandVoiceScore: 99,
-      legalSafetyScore: 100,
-      generatedAt: new Date().toISOString().replace('T', ' ').slice(0, 16),
-    }
-  }
-];
+export const SAMPLE_SIMULATOR_REVIEWS: ReviewItem[] = [];

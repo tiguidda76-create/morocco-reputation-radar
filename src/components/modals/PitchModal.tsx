@@ -8,16 +8,19 @@ import {
   Mail, 
   Sparkles, 
   PhoneCall, 
-  TrendingDown,
-  Building,
-  ExternalLink,
-  CheckCircle2,
-  RefreshCw,
-  Zap
+  Building, 
+  ExternalLink, 
+  CheckCircle2, 
+  RefreshCw, 
+  Zap,
+  Sliders,
+  AlertCircle
 } from 'lucide-react';
 import { Venue, OutreachStage } from '../../types';
 import { AGENCY_METADATA } from '../../data/mockData';
-import { sendWhatsAppMessage, isMetaWhatsAppConfigured } from '../../services/whatsappService';
+import { sendWhatsAppMessage } from '../../services/whatsappService';
+import { dispatchAuditEmail } from '../../services/emailDeliveryService';
+import { getActiveDeliveryStatus } from '../../services/n8nOutreachService';
 
 interface PitchModalProps {
   venue: Venue | null;
@@ -25,6 +28,7 @@ interface PitchModalProps {
   onClose: () => void;
   onUpdateStage?: (venueId: string, stage: OutreachStage) => void;
   onOpenShareableAudit?: (venue: Venue) => void;
+  onOpenSettings?: () => void;
 }
 
 export const PitchModal: React.FC<PitchModalProps> = ({ 
@@ -32,24 +36,24 @@ export const PitchModal: React.FC<PitchModalProps> = ({
   isOpen, 
   onClose,
   onUpdateStage,
-  onOpenShareableAudit
+  onOpenShareableAudit,
+  onOpenSettings
 }) => {
   const [lang, setLang] = useState<'DARIJA' | 'FR' | 'EN'>('FR');
   const [copied, setCopied] = useState(false);
-  const [isSendingMeta, setIsSendingMeta] = useState(false);
-  const [metaSendSuccess, setMetaSendSuccess] = useState<string | null>(null);
-  const [metaSendError, setMetaSendError] = useState<string | null>(null);
+  const [isSendingAuto, setIsSendingAuto] = useState(false);
+  const [sendSuccessMessage, setSendSuccessMessage] = useState<string | null>(null);
+  const [sendErrorMessage, setSendErrorMessage] = useState<string | null>(null);
 
   if (!isOpen || !venue) return null;
 
-  const isMetaReady = isMetaWhatsAppConfigured();
+  const deliveryStatus = getActiveDeliveryStatus();
 
   // Format clean phone for WhatsApp link
   const rawPhone = venue.phone.replace(/[^0-9]/g, '');
   const cleanPhone = rawPhone.startsWith('0') ? '212' + rawPhone.slice(1) : rawPhone;
-  const auditPublicUrl = `${window.location.origin}/audit/${venue.id}`;
 
-  // Dynamic customized pitches with Audit Link
+  // Dynamic customized pitches (Strictly WhatsApp & Email Direct - No public app links)
   const pitches = {
     DARIJA: `Salam Si/Lalla ${venue.contactPerson || 'Gérant'} 👋,
 
@@ -59,51 +63,43 @@ Khedemna audit rapide 3la l-profil dyal "${venue.name}" f ${venue.city} :
 🔴 L9ina 9rib ${venue.unrepliedReviews} avis bla jawb (khousoussan f Google Maps & Booking).
 📉 Had l-retard kay-dya3 lik ta9riban ${venue.annualLossMAD.toLocaleString()} MAD f l-3am dyal les réservations directes l-competiteurs.
 
-📊 Chof l-audit dial l-etablissement dyalk f had l-lien :
-👉 ${auditPublicUrl}
-
 Kan-werriw l-les Riads w Palaces kifach n-jawbou f a9al men 2 d-swaye3 b l-Français, Darija, Anglais w Espagnol b n-nabra dyal l-diyafa l-maghribia 🇲🇦 w l-mots clés SEO (bla ma t-3tina aucun mot de passe).
 
-N-9der n-werik un exemple gratuit f WhatsApp ?
-📞 Tél : 0632155430 | Hassan Tiguidda`,
+N-9der n-sayfet lik un exemple de réponse gratuit w l-rapport complet f had l-WhatsApp ?
+📞 Tél/WhatsApp : 0632155430 | Hassan Tiguidda
+✉️ Email : tiguidda76@gmail.com`,
 
     FR: `Bonjour ${venue.contactPerson || 'Madame, Monsieur la Direction'},
 
 Je suis Hassan Tiguidda, fondateur de l'Agence Morocco Radar (E-Réputation IA pour l'hôtellerie marocaine).
 
-Nous venons de réaliser un audit de réputation sur "${venue.name}" à ${venue.city} :
+Nous venons de réaliser un audit confidentiel de réputation pour "${venue.name}" à ${venue.city} :
 ⚠️ ${venue.unrepliedReviews} avis récents sont actuellement sans réponse (temps moyen constaté : ${venue.avgResponseTimeHours}h).
 📉 Manque à gagner estimé : ~${venue.annualLossMAD.toLocaleString()} MAD/an en réservations directes perdues au profit d'établissements concurrents.
 
-📊 Consultez votre rapport d'audit chiffré complet ici :
-👉 ${auditPublicUrl}
+Notre cellule spécialisée prend en charge vos avis en moins de 2h sur 5 plateformes (Google, Booking, TripAdvisor, Airbnb, Yelp) avec la chaleur de l'hospitalité marocaine et un score QC > 98.4% (par simple accès gestionnaire invité, 0 mot de passe requis).
 
-Notre flotte IA répond en moins de 2h sur 5 plateformes (Google, Booking, TripAdvisor, Airbnb, Yelp) avec la chaleur de l'hospitalité marocaine et un score QC > 98.4% (par simple accès gestionnaire invité, 0 mot de passe requis).
-
-Seriez-vous disponible pour un court échange de 5 min ou pour recevoir un exemple de réponse gratuit pour votre établissement ?
+Puis-je vous transmettre un exemple de réponse gratuit ainsi que votre synthèse d'audit directement par retour de ce message ou par email ?
 
 Bien cordialement,
 Hassan Tiguidda — Morocco Radar
-Tél/WhatsApp : 0632155430 | Email : ${AGENCY_METADATA.email}`,
+Tél/WhatsApp : 0632155430 | Email : tiguidda76@gmail.com`,
 
     EN: `Hello ${venue.contactPerson || 'General Manager'},
 
 I am Hassan Tiguidda, director of Morocco Radar (AI Reputation & Sales Engine for Moroccan Luxury Hospitality).
 
-We just conducted a 5-platform reputation audit for "${venue.name}" in ${venue.city}:
+We just conducted a confidential 5-platform reputation audit for "${venue.name}" in ${venue.city}:
 ⚠️ ${venue.unrepliedReviews} reviews remain unreplied with an average lag of ${venue.avgResponseTimeHours} hours.
 📉 Estimated revenue leakage: ~${venue.annualLossMAD.toLocaleString()} MAD/year in lost direct bookings.
 
-📊 Access your full live reputation audit here:
-👉 ${auditPublicUrl}
+Our specialized team crafts empathetic, SEO-rich responses in French, Darija, English, and Spanish in < 2 hours with >98.4% QC accuracy (simple guest delegation, zero password sharing).
 
-Our autonomous AI fleet rescues and crafts empathetic, SEO-rich responses in French, Darija, English, and Spanish in < 2 hours with >98.4% QC accuracy (simple guest delegation, zero password sharing).
-
-May I send you a free sample response tailored to your venue via WhatsApp?
+May I send you a free tailored response sample and your full confidential summary directly via WhatsApp or Email?
 
 Warm regards,
 Hassan Tiguidda — Morocco Radar Agency
-Phone/WhatsApp: +212 632 155 430 | Email: ${AGENCY_METADATA.email}`
+Phone/WhatsApp: +212 632 155 430 | Email: tiguidda76@gmail.com`
   };
 
   const currentPitch = pitches[lang];
@@ -115,23 +111,32 @@ Phone/WhatsApp: +212 632 155 430 | Email: ${AGENCY_METADATA.email}`
   };
 
   const whatsappUrl = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(currentPitch)}`;
-  const mailtoUrl = `mailto:${venue.email}?subject=${encodeURIComponent(`Audit E-Réputation & Fuite de Réservations : ${venue.name}`)}&body=${encodeURIComponent(currentPitch)}`;
 
-  const handleSendViaMetaApi = async () => {
-    setIsSendingMeta(true);
-    setMetaSendSuccess(null);
-    setMetaSendError(null);
+  // Automatic Real Dispatch via n8n / Meta
+  const handleSendAutomatic = async () => {
+    setIsSendingAuto(true);
+    setSendSuccessMessage(null);
+    setSendErrorMessage(null);
 
-    const result = await sendWhatsAppMessage(venue.phone, currentPitch);
-    setIsSendingMeta(false);
+    const result = await sendWhatsAppMessage(venue.phone, currentPitch, {
+      venueId: venue.id,
+      venueName: venue.name,
+      city: venue.city,
+      contactPerson: venue.contactPerson,
+      unrepliedReviews: venue.unrepliedReviews,
+      annualLossMAD: venue.annualLossMAD,
+      language: lang
+    });
 
-    if (result.success && result.mode === 'META_CLOUD_API') {
-      setMetaSendSuccess(`Message WhatsApp délivré avec succès via Meta API (ID: ${result.messageId})`);
+    setIsSendingAuto(false);
+
+    if (result.success && (result.mode === 'N8N_WEBHOOK' || result.mode === 'META_CLOUD_API')) {
+      setSendSuccessMessage(`Message délivré en temps réel via ${result.mode === 'N8N_WEBHOOK' ? 'n8n Automation' : 'Meta Cloud API'} (ID: ${result.messageId})`);
       if (onUpdateStage) {
         onUpdateStage(venue.id, 'PITCH_ENVOYE');
       }
     } else if (!result.success) {
-      setMetaSendError(result.error || 'Erreur lors de l\'envoi Meta API');
+      setSendErrorMessage(result.error || 'Erreur lors de l\'envoi réseau');
     }
   };
 
@@ -148,16 +153,17 @@ Phone/WhatsApp: +212 632 155 430 | Email: ${AGENCY_METADATA.email}`
             <div>
               <div className="flex items-center gap-2">
                 <h3 className="text-base font-bold text-white font-display">
-                  Générateur de Pitch WhatsApp &amp; Meta Cloud API
+                  Générateur de Pitch &amp; Outreach Réel
                 </h3>
-                {isMetaReady ? (
+                {deliveryStatus.isRealDeliveryAvailable ? (
                   <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-emerald-950 text-emerald-400 border border-emerald-800 flex items-center gap-1">
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                    Meta API Connectée
+                    {deliveryStatus.hasN8n ? 'n8n Connecté' : 'Meta API Connectée'}
                   </span>
                 ) : (
-                  <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-400 border border-slate-700">
-                    Mode Web Intent
+                  <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-950/70 text-amber-400 border border-amber-800/80 flex items-center gap-1">
+                    <AlertCircle className="w-3 h-3" />
+                    Mode Manuel / Simulation
                   </span>
                 )}
               </div>
@@ -190,16 +196,31 @@ Phone/WhatsApp: +212 632 155 430 | Email: ${AGENCY_METADATA.email}`
           </div>
 
           {/* Success / Error Alerts */}
-          {metaSendSuccess && (
+          {sendSuccessMessage && (
             <div className="p-3 bg-emerald-950/60 border border-emerald-500/50 rounded-xl text-xs text-emerald-300 flex items-center gap-2 font-mono">
               <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-              <span>{metaSendSuccess}</span>
+              <span>{sendSuccessMessage}</span>
             </div>
           )}
 
-          {metaSendError && (
+          {sendErrorMessage && (
             <div className="p-3 bg-rose-950/60 border border-rose-500/50 rounded-xl text-xs text-rose-300 flex items-center gap-2">
-              <span>⚠️ {metaSendError}</span>
+              <span>⚠️ {sendErrorMessage}</span>
+            </div>
+          )}
+
+          {/* Integration Status Helper Note */}
+          {!deliveryStatus.isRealDeliveryAvailable && onOpenSettings && (
+            <div className="p-3 bg-amber-950/30 border border-amber-500/30 rounded-xl text-xs text-amber-300 flex items-center justify-between gap-2">
+              <span>⚡ Vous n'avez pas encore relié votre webhook n8n ou vos clés API.</span>
+              <button
+                type="button"
+                onClick={onOpenSettings}
+                className="px-2.5 py-1 bg-amber-500/20 hover:bg-amber-500/30 text-amber-200 border border-amber-500/40 rounded-lg font-semibold flex items-center gap-1 shrink-0"
+              >
+                <Sliders className="w-3 h-3" />
+                <span>Configurer n8n</span>
+              </button>
             </div>
           )}
 
@@ -254,24 +275,13 @@ Phone/WhatsApp: +212 632 155 430 | Email: ${AGENCY_METADATA.email}`
             </button>
           </div>
 
-          {/* Quick link to shareable audit */}
-          {onOpenShareableAudit && (
-            <div className="flex items-center justify-between p-3 rounded-xl bg-slate-950/80 border border-slate-800 text-xs">
-              <span className="text-slate-400 flex items-center gap-1.5">
-                <ExternalLink className="w-3.5 h-3.5 text-emerald-400" />
-                Lien public intégré dans le pitch : <code className="text-emerald-300 font-mono text-[10px]">/audit/{venue.id}</code>
-              </span>
-              <button
-                onClick={() => {
-                  onClose();
-                  onOpenShareableAudit(venue);
-                }}
-                className="text-emerald-400 hover:text-emerald-300 font-semibold underline text-xs transition-colors"
-              >
-                Prévisualiser le Rapport Partageable ➔
-              </button>
-            </div>
-          )}
+          {/* Confidentiality Notice */}
+          <div className="flex items-center justify-between p-3 rounded-xl bg-slate-950/80 border border-slate-800 text-xs">
+            <span className="text-slate-400 flex items-center gap-1.5">
+              <span className="text-emerald-400">🔒</span>
+              <strong className="text-slate-200">Confidentialité Agence :</strong> Aucun lien vers votre application n'est transmis. Échanges 100% directs par WhatsApp ou Email.
+            </span>
+          </div>
 
         </div>
 
@@ -279,45 +289,26 @@ Phone/WhatsApp: +212 632 155 430 | Email: ${AGENCY_METADATA.email}`
         <div className="px-6 py-4 bg-slate-950 border-t border-slate-800 flex flex-wrap items-center justify-between gap-3">
           <div className="text-xs text-slate-400 flex items-center gap-1">
             <PhoneCall className="w-3.5 h-3.5 text-emerald-400" />
-            Numéro : <span className="text-slate-200 font-mono">{cleanPhone}</span>
+            Numéro : <span className="text-slate-200 font-mono">+{cleanPhone}</span>
           </div>
 
           <div className="flex items-center gap-2">
-            {venue.email ? (
-              <a
-                href={mailtoUrl}
-                target="_blank"
-                rel="noreferrer"
-                onClick={() => {
-                  if (onUpdateStage) {
-                    onUpdateStage(venue.id, 'PITCH_ENVOYE');
-                  }
-                }}
-                className="flex items-center gap-1.5 px-3.5 py-2 bg-sky-600 hover:bg-sky-500 text-white rounded-lg text-xs font-bold transition-all shadow-md shadow-sky-950/40"
-              >
-                <Mail className="w-3.5 h-3.5 text-white" />
-                <span>📧 Envoyer Email VIP</span>
-              </a>
-            ) : (
-              <span className="text-[10px] text-slate-500 italic">Pas d'email renseigné</span>
-            )}
-
-            {/* Direct Meta Cloud API Send Button (If configured) */}
-            {isMetaReady && (
+            {/* Automatic Network Dispatch Button (If n8n or Meta is configured) */}
+            {deliveryStatus.isRealDeliveryAvailable && (
               <button
-                onClick={handleSendViaMetaApi}
-                disabled={isSendingMeta}
-                className="flex items-center gap-1.5 px-4 py-2 bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400 text-slate-950 rounded-lg text-xs font-bold transition-all shadow-md disabled:opacity-50"
+                onClick={handleSendAutomatic}
+                disabled={isSendingAuto}
+                className="flex items-center gap-1.5 px-4 py-2 bg-gradient-to-r from-emerald-600 to-amber-600 hover:from-emerald-500 hover:to-amber-500 text-slate-950 rounded-lg text-xs font-bold transition-all shadow-md disabled:opacity-50"
               >
-                {isSendingMeta ? (
+                {isSendingAuto ? (
                   <>
                     <RefreshCw className="w-3.5 h-3.5 animate-spin" />
-                    <span>Envoi Meta API...</span>
+                    <span>Envoi Réseau en cours...</span>
                   </>
                 ) : (
                   <>
                     <Zap className="w-3.5 h-3.5" />
-                    <span>Envoyer via Meta API (Réseau)</span>
+                    <span>Envoyer via {deliveryStatus.hasN8n ? 'n8n Webhook' : 'Meta API'}</span>
                   </>
                 )}
               </button>
@@ -336,7 +327,7 @@ Phone/WhatsApp: +212 632 155 430 | Email: ${AGENCY_METADATA.email}`
               className="flex items-center gap-1.5 px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-xs font-bold transition-colors shadow-lg shadow-emerald-950/50"
             >
               <MessageCircle className="w-4 h-4" />
-              <span>{isMetaReady ? 'Ouvrir WhatsApp Web' : 'Ouvrir WhatsApp & Marquer Envoyé'}</span>
+              <span>Ouvrir WhatsApp Web Direct</span>
             </a>
           </div>
         </div>

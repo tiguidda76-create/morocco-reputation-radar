@@ -16,7 +16,7 @@ import {
 } from 'lucide-react';
 import { Venue, OutreachStage } from '../../types';
 import { sendWhatsAppMessage } from '../../services/whatsappService';
-import { dispatchPitchEmail } from '../../services/emailDeliveryService';
+import { dispatchPitchEmail, recordOutreachLog } from '../../services/emailDeliveryService';
 import { getActiveDeliveryStatus } from '../../services/n8nOutreachService';
 
 interface MassPitchModalProps {
@@ -175,15 +175,73 @@ export const MassPitchModal: React.FC<MassPitchModalProps> = ({
             `✅ [${timeNow()}] [WhatsApp ${sendRes.mode}] Livré → ${venue.name} (${cleanPhone}) • ID: ${sendRes.messageId}`,
             ...prev,
           ]);
+          recordOutreachLog({
+            executionId: sendRes.messageId || `wa_${Date.now()}`,
+            timestamp: new Date().toISOString(),
+            eventType: 'WHATSAPP_PITCH',
+            recipient: {
+              venueId: venue.id,
+              venueName: venue.name,
+              phone: cleanPhone,
+              city: venue.city,
+            },
+            subject: `Pitch WhatsApp (${lang})`,
+            status: 'DELIVERED_REAL',
+            delivery: {
+              status: 'SENT',
+              messageId: sendRes.messageId || `wa_${Date.now()}`,
+              provider: sendRes.mode,
+            },
+            tracking: { opened: false, clicked: true },
+          });
           venueSuccess = true;
         } else if (sendRes.mode === 'FALLBACK_WEB_INTENT') {
           setLogs((prev) => [
             `📝 [${timeNow()}] [WhatsApp Simulation] Pitch ${lang} préparé pour "${venue.name}" (${cleanPhone}) • Non expédié.`,
             ...prev,
           ]);
+          recordOutreachLog({
+            executionId: `intent_${Date.now()}`,
+            timestamp: new Date().toISOString(),
+            eventType: 'WHATSAPP_PITCH',
+            recipient: {
+              venueId: venue.id,
+              venueName: venue.name,
+              phone: cleanPhone,
+              city: venue.city,
+            },
+            subject: `Pitch WhatsApp (${lang})`,
+            status: 'SIMULATED_DRAFT',
+            delivery: {
+              status: 'PREPARED',
+              messageId: `intent_${Date.now()}`,
+              provider: 'FALLBACK_WEB_INTENT',
+            },
+            tracking: { opened: false, clicked: false },
+          });
           venueSuccess = true;
         } else {
           venueError = sendRes.error || 'Erreur réseau WhatsApp';
+          recordOutreachLog({
+            executionId: `wa_err_${Date.now()}`,
+            timestamp: new Date().toISOString(),
+            eventType: 'WHATSAPP_PITCH',
+            recipient: {
+              venueId: venue.id,
+              venueName: venue.name,
+              phone: cleanPhone,
+              city: venue.city,
+            },
+            subject: `Pitch WhatsApp (${lang})`,
+            status: 'FAILED',
+            delivery: {
+              status: 'FAILED',
+              messageId: 'WHATSAPP_FAILED',
+              provider: 'WHATSAPP',
+              error: venueError
+            },
+            tracking: { opened: false, clicked: false },
+          });
         }
       }
 

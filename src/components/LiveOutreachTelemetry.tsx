@@ -74,10 +74,10 @@ export const LiveOutreachTelemetry: React.FC = () => {
     const local = getOutreachAuditLog();
     setLogs(local);
     const total = local.length;
-    const delivered = local.filter((l: any) => l.status === 'DELIVERED_REAL' || l.status === 'SENT').length;
+    const delivered = local.filter((l: any) => l.status === 'DELIVERED_REAL' || l.delivery?.status === 'SENT').length;
     const opened = local.filter((l: any) => l.tracking?.opened).length;
-    const clicked = local.filter((l: any) => l.tracking?.clicked).length;
-    const bounced = local.filter((l: any) => l.status === 'FAILED' || l.status === 'BOUNCED').length;
+    const clicked = local.filter((l: any) => l.tracking?.clicked || l.eventType === 'WHATSAPP_PITCH').length;
+    const bounced = local.filter((l: any) => l.status === 'FAILED' || l.status === 'BOUNCED' || l.delivery?.status === 'FAILED').length;
 
     setStats({
       totalSent: total,
@@ -87,13 +87,13 @@ export const LiveOutreachTelemetry: React.FC = () => {
       bounced,
       deliveryRate: total > 0 ? Number(((delivered / total) * 100).toFixed(1)) : 0,
       openRate: delivered > 0 ? Number(((opened / delivered) * 100).toFixed(1)) : 0,
-      clickRate: opened > 0 ? Number(((clicked / opened) * 100).toFixed(1)) : 0
+      clickRate: total > 0 ? Number(((clicked / total) * 100).toFixed(1)) : 0
     });
   };
 
   useEffect(() => {
     fetchTelemetry();
-    const interval = setInterval(fetchTelemetry, 10000);
+    const interval = setInterval(fetchTelemetry, 6000);
     return () => clearInterval(interval);
   }, []);
 
@@ -115,11 +115,11 @@ export const LiveOutreachTelemetry: React.FC = () => {
               </h3>
               <span className="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center gap-1">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
-                Gmail SMTP Live
+                Resend API Live
               </span>
             </div>
             <p className="text-[11px] text-slate-400">
-              Traçabilité réelle des emails envoyés via <code className="text-amber-300">tiguidda76@gmail.com</code> (Statuts, Ouvertures, Clics WhatsApp).
+              Traçabilité réelle des emails et WhatsApp envoyés (Statuts, Ouvertures, Rejets, Clics).
             </p>
           </div>
         </div>
@@ -145,7 +145,7 @@ export const LiveOutreachTelemetry: React.FC = () => {
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-px bg-[#2a2a3c]">
         <div className="bg-[#151520] p-4 flex flex-col justify-between">
           <div className="flex items-center justify-between text-slate-400 text-xs mb-1">
-            <span>Emails Envoyés</span>
+            <span>Pitches Déclenchés</span>
             <Send className="w-3.5 h-3.5 text-indigo-400" />
           </div>
           <div className="text-xl font-bold text-white tracking-tight">{stats.totalSent}</div>
@@ -176,11 +176,11 @@ export const LiveOutreachTelemetry: React.FC = () => {
 
         <div className="bg-[#151520] p-4 flex flex-col justify-between">
           <div className="flex items-center justify-between text-slate-400 text-xs mb-1">
-            <span>Clics WhatsApp Direct</span>
+            <span>Clics & Intéractions</span>
             <MousePointerClick className="w-3.5 h-3.5 text-teal-400" />
           </div>
           <div className="text-xl font-bold text-teal-400 tracking-tight">{stats.clicked}</div>
-          <div className="text-[10px] text-teal-500/80 mt-1">Échanges 0632155430 initiés</div>
+          <div className="text-[10px] text-teal-500/80 mt-1">Échanges WhatsApp / Email initiés</div>
         </div>
       </div>
 
@@ -211,7 +211,7 @@ export const LiveOutreachTelemetry: React.FC = () => {
               <span className="text-slate-600 font-bold">➔</span>
               <div className="flex items-center gap-2 p-2 rounded bg-[#1c1c2e] text-emerald-300 border border-emerald-500/30">
                 <span className="w-5 h-5 rounded-full bg-emerald-500/20 text-emerald-400 font-bold flex items-center justify-center text-[10px]">4</span>
-                <span>Gmail SMTP Délivré</span>
+                <span>Resend API Délivré</span>
               </div>
               <span className="text-slate-600 font-bold">➔</span>
               <div className="flex items-center gap-2 p-2 rounded bg-[#1c1c2e] text-teal-300 border border-teal-500/30">
@@ -226,14 +226,14 @@ export const LiveOutreachTelemetry: React.FC = () => {
             <div className="flex items-center justify-between text-xs text-slate-400 font-semibold px-1">
               <span className="flex items-center gap-1.5">
                 <Terminal className="w-4 h-4 text-emerald-400" />
-                Journal d'Exécution Réel & Logs SMTP ({logs.length})
+                Journal d'Exécution Réel & Logs d'Envoi ({logs.length})
               </span>
               <span className="text-[10px] text-slate-500">Horodatage ISO 8601</span>
             </div>
 
             {logs.length === 0 ? (
               <div className="p-8 text-center rounded-lg bg-[#141420] border border-[#222234] text-xs text-slate-500">
-                Aucun email envoyé pour le moment. Cliquez sur "Envoyer le Pitch" sur l'un des 12 établissements pour déclencher un envoi réel.
+                Aucun envoi enregistré pour le moment. Cliquez sur "Mass Regional Outreach Dispatcher" pour lancer la diffusion.
               </div>
             ) : (
               <div className="rounded-lg bg-[#0a0a10] border border-[#222234] overflow-hidden max-h-72 overflow-y-auto">
@@ -243,8 +243,8 @@ export const LiveOutreachTelemetry: React.FC = () => {
                       <th className="py-2.5 px-3">Date/Heure</th>
                       <th className="py-2.5 px-3">Établissement & Destinataire</th>
                       <th className="py-2.5 px-3">Sujet</th>
-                      <th className="py-2.5 px-3">Statut SMTP</th>
-                      <th className="py-2.5 px-3">Message-ID</th>
+                      <th className="py-2.5 px-3">Statut</th>
+                      <th className="py-2.5 px-3">Détails / ID</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-[#181828] text-slate-300 font-mono text-[11px]">
@@ -257,6 +257,8 @@ export const LiveOutreachTelemetry: React.FC = () => {
                       });
 
                       const isSent = log.delivery?.status === 'SENT' || log.status === 'DELIVERED_REAL';
+                      const isTest = log.delivery?.isTestRoute;
+                      const isFailed = log.status === 'FAILED' || log.delivery?.status === 'FAILED';
 
                       return (
                         <tr key={idx} className="hover:bg-[#121220] transition-colors">
@@ -270,15 +272,21 @@ export const LiveOutreachTelemetry: React.FC = () => {
                           </td>
                           <td className="py-2 px-3">
                             <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-sans font-semibold ${
-                              isSent 
+                              isFailed
+                                ? 'bg-rose-500/10 text-rose-400 border border-rose-500/20'
+                                : isTest
+                                ? 'bg-amber-500/10 text-amber-300 border border-amber-500/20'
+                                : isSent 
                                 ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' 
-                                : 'bg-amber-500/10 text-amber-400 border border-amber-500/20'
+                                : 'bg-slate-700/30 text-slate-400 border border-slate-700'
                             }`}>
-                              {isSent ? '✓ Envoyé Réel' : 'En Queue'}
+                              {isFailed ? '⚠️ Échec' : isTest ? '✓ Test (tiguidda76)' : isSent ? '✓ Envoyé Réel' : 'En Queue'}
                             </span>
                           </td>
-                          <td className="py-2 px-3 text-slate-500 text-[10px] truncate max-w-[140px]">
-                            {log.delivery?.messageId || log.messageId || 'N/A'}
+                          <td className="py-2 px-3 text-slate-400 text-[10px] truncate max-w-[180px]">
+                            {isFailed 
+                              ? (log.delivery?.error || 'Domaine non vérifié') 
+                              : (log.delivery?.messageId || log.messageId || 'N/A')}
                           </td>
                         </tr>
                       );

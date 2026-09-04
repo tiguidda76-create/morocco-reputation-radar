@@ -203,22 +203,25 @@ export async function dispatchPitchEmail(
   const subject = subjectMap[lang];
   const htmlContent = buildPitchEmailHtml(venue, lang);
 
-  // --- Channel: Resend API (browser-compatible REST) ---
+  // --- Channel: Serverless Resend API Proxy (zero browser CORS) ---
   if (resendApiKey && resendApiKey.trim().startsWith('re_')) {
     try {
-      // First attempt: with configured fromEmail and recipient
-      let response = await fetch('https://api.resend.com/emails', {
+      const response = await fetch('/api/send-email', {
         method: 'POST',
         headers: {
-          Authorization: `Bearer ${resendApiKey.trim()}`,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          from: `Hassan Tiguidda — Morocco Radar <${fromEmail}>`,
-          to: [recipient],
+          from: fromEmail,
+          to: recipient,
           subject,
           html: htmlContent,
           reply_to: 'tiguidda76@gmail.com',
+          venue: {
+            id: venue.id,
+            name: venue.name,
+            city: venue.city,
+          },
           tags: [
             { name: 'venue_id', value: venue.id },
             { name: 'city', value: venue.city },
@@ -227,48 +230,13 @@ export async function dispatchPitchEmail(
         }),
       });
 
-      let data = await response.json();
-      let usedTestRoute = false;
+      const data = await response.json();
+      const usedTestRoute = Boolean(data.isTestRoute);
 
-      // If rejected due to unverified domain or unverified destination (Resend sandbox limit),
-      // seamlessly fallback to the verified test route (onboarding@resend.dev -> tiguidda76@gmail.com)
-      if (!response.ok && (data?.message?.includes('not verified') || data?.message?.includes('testing emails to your own email'))) {
-        console.warn(`[Resend Auto-Fallback] Domaine ${fromEmail} ou destinataire restreint par Resend. Bascule automatique vers onboarding@resend.dev -> tiguidda76@gmail.com`);
-        const fallbackSubject = `[TEST RADAR → ${venue.name}] ${subject}`;
-        const fallbackRes = await fetch('https://api.resend.com/emails', {
-          method: 'POST',
-          headers: {
-            Authorization: `Bearer ${resendApiKey.trim()}`,
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            from: `Hassan Tiguidda — Morocco Radar <onboarding@resend.dev>`,
-            to: ['tiguidda76@gmail.com'],
-            subject: fallbackSubject,
-            html: `
-              <div style="background:#fef3c7;border:1px solid #f59e0b;padding:12px 16px;border-radius:8px;margin-bottom:16px;font-family:sans-serif;font-size:12px;color:#92400e;">
-                <strong>⚠️ Note d'acheminement Test :</strong> Cet email est destiné à <strong>${venue.name}</strong> (&lt;${recipient}&gt;). Il vous est acheminé directement car le domaine <code>${fromEmail}</code> est en cours de validation DNS sur Resend.
-              </div>
-              ${htmlContent}
-            `,
-            reply_to: 'tiguidda76@gmail.com',
-            tags: [
-              { name: 'venue_id', value: venue.id },
-              { name: 'original_recipient', value: recipient.replace(/[^a-zA-Z0-9_-]/g, '_') },
-              { name: 'test_route', value: 'true' }
-            ],
-          }),
-        });
-
-        if (fallbackRes.ok) {
-          response = fallbackRes;
-          data = await fallbackRes.json();
-          usedTestRoute = true;
-        }
-      }
-
-      if (response.ok) {
+      if (response.ok && data.success) {
         const messageId = data.id || `resend_${Date.now()}`;
+        const finalRecipient = data.recipient || (usedTestRoute ? `tiguidda76@gmail.com (Test pour ${venue.name})` : recipient);
+        
         recordOutreachLog({
           executionId: messageId,
           timestamp: dispatchedAt,
@@ -276,7 +244,7 @@ export async function dispatchPitchEmail(
           recipient: {
             venueId: venue.id,
             venueName: venue.name,
-            email: usedTestRoute ? `tiguidda76@gmail.com (Test pour ${venue.name})` : recipient,
+            email: finalRecipient,
             city: venue.city,
           },
           subject: usedTestRoute ? `[TEST RADAR → ${venue.name}] ${subject}` : subject,
@@ -292,7 +260,7 @@ export async function dispatchPitchEmail(
 
         return {
           success: true,
-          recipient: usedTestRoute ? `tiguidda76@gmail.com (Test pour ${venue.name})` : recipient,
+          recipient: finalRecipient,
           subject,
           messageId,
           deliveryMode: 'RESEND_API',
@@ -300,8 +268,7 @@ export async function dispatchPitchEmail(
           rawResponse: data,
         };
       } else {
-        // Resend returned an error — log it explicitly in outreach log
-        const errorMsg = data?.message || `Resend HTTP ${response.status}`;
+        const errorMsg = data?.error || `Erreur Resend HTTP ${response.status}`;
         recordOutreachLog({
           executionId: `err_${venue.id}_${Date.now()}`,
           timestamp: dispatchedAt,
@@ -318,7 +285,7 @@ export async function dispatchPitchEmail(
             status: 'FAILED',
             messageId: 'REJECTED_BY_RESEND',
             provider: 'RESEND_API',
-            error: errorMsg
+            error: errorMsg,
           },
           tracking: { opened: false, clicked: false },
         });
@@ -334,7 +301,7 @@ export async function dispatchPitchEmail(
         };
       }
     } catch (err: any) {
-      const networkError = `Réseau Resend: ${err.message || 'Erreur inconnue'}`;
+      const networkError = `Erreur réseau: ${err.message || 'Échec de transmission'}`;
       recordOutreachLog({
         executionId: `net_err_${venue.id}_${Date.now()}`,
         timestamp: dispatchedAt,
@@ -351,7 +318,7 @@ export async function dispatchPitchEmail(
           status: 'FAILED',
           messageId: 'NETWORK_ERROR',
           provider: 'RESEND_API',
-          error: networkError
+          error: networkError,
         },
         tracking: { opened: false, clicked: false },
       });
@@ -507,20 +474,24 @@ export async function dispatchAuditEmail(
     }
   }
 
-  // 3. Channel C: Direct Resend API
-  if (config.resendApiKey && config.resendApiKey.startsWith('re_')) {
+  // 3. Channel C: Resend API via /api/send-email proxy
+  if ((config.resendApiKey && config.resendApiKey.startsWith('re_')) || Boolean(import.meta.env.VITE_RESEND_API_KEY)) {
     try {
-      const response = await fetch('https://api.resend.com/emails', {
+      const response = await fetch('/api/send-email', {
         method: 'POST',
         headers: {
-          Authorization: `Bearer ${config.resendApiKey}`,
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          from: `${config.senderName} <${config.senderEmail}>`,
-          to: [recipient],
+          from: config.senderEmail || 'onboarding@resend.dev',
+          to: recipient,
           subject,
-          html: htmlContent
+          html: htmlContent,
+          venue: {
+            id: report.extraction.venueId,
+            name: report.extraction.venueName,
+            city: report.extraction.city
+          }
         })
       });
 
@@ -528,7 +499,7 @@ export async function dispatchAuditEmail(
         const data = await response.json();
         return {
           success: true,
-          recipient,
+          recipient: data.recipient || recipient,
           subject,
           messageId: data.id || `resend_${Date.now()}`,
           deliveryMode: 'RESEND_API',
@@ -537,7 +508,7 @@ export async function dispatchAuditEmail(
         };
       }
     } catch (err: any) {
-      console.warn('Resend API dispatch failed:', err);
+      console.warn('Resend API dispatch failed via /api/send-email:', err);
     }
   }
 

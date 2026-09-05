@@ -189,7 +189,7 @@ export const REAL_VERIFIED_VENUES: Venue[] = [
     city: 'Rabat (Souissi)',
     address: 'Avenue Mehdi Ben Barka, Souissi, Rabat',
     phone: '0661849102',
-    email: 'contact@villadiyafa.com',
+    email: '',
     contactPerson: 'Si Mehdi Chraïbi (Directeur Hébergement)',
     overallScore: 4.8,
     totalReviews: 1120,

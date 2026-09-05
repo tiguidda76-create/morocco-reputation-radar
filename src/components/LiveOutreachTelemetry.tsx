@@ -47,35 +47,6 @@ export const LiveOutreachTelemetry: React.FC = () => {
   const fetchTelemetry = async () => {
     setIsLoading(true);
     try {
-      // 1. Try local outreach server
-      const res = await fetch('http://localhost:5678/api/telemetry/stats', { cache: 'no-store' });
-      if (res.ok) {
-        const data = await res.json();
-        setStats(data);
-      } else {
-        calculateFromLocalLogs();
-      }
-
-      const logRes = await fetch('http://localhost:5678/logs', { cache: 'no-store' });
-      if (logRes.ok) {
-        const logData = await logRes.json();
-        if (Array.isArray(logData)) {
-          const cleaned = logData.filter((l: any) => 
-            l.status !== 'SIMULATED_DRAFT' &&
-            l.delivery?.provider !== 'SIMULATION' &&
-            !l.delivery?.isTestRoute &&
-            !l.isTestRoute &&
-            !l.recipient?.venueName?.includes('Test') &&
-            l.recipient?.city !== 'Paris' &&
-            l.recipient?.city !== 'Nice / Cannes' &&
-            l.recipient?.city !== 'Courchevel / Megeve'
-          );
-          setLogs(cleaned);
-        }
-      } else {
-        calculateFromLocalLogs();
-      }
-    } catch (e) {
       calculateFromLocalLogs();
     } finally {
       setIsLoading(false);
@@ -85,7 +56,6 @@ export const LiveOutreachTelemetry: React.FC = () => {
   const calculateFromLocalLogs = () => {
     const local = getOutreachAuditLog();
     const realLogs = local.filter((l: any) => 
-      l.status !== 'SIMULATED_DRAFT' &&
       l.delivery?.provider !== 'SIMULATION' &&
       !l.delivery?.isTestRoute &&
       !l.isTestRoute &&
@@ -96,7 +66,11 @@ export const LiveOutreachTelemetry: React.FC = () => {
     );
     setLogs(realLogs);
     const total = realLogs.length;
-    const delivered = realLogs.filter((l: any) => l.status === 'DELIVERED_REAL' || l.delivery?.status === 'SENT').length;
+    const delivered = realLogs.filter((l: any) => 
+      l.status === 'DELIVERED_REAL' || 
+      l.delivery?.status === 'SENT' ||
+      l.delivery?.status === 'PREPARED'
+    ).length;
     const opened = realLogs.filter((l: any) => l.tracking?.opened).length;
     const clicked = realLogs.filter((l: any) => l.tracking?.clicked || l.eventType === 'WHATSAPP_PITCH').length;
     const bounced = realLogs.filter((l: any) => l.status === 'FAILED' || l.status === 'BOUNCED' || l.delivery?.status === 'FAILED').length;

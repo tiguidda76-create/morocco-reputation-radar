@@ -2,6 +2,9 @@ import { defineConfig, loadEnv } from 'vite';
 import react from '@vitejs/plugin-react';
 import tailwindcss from '@tailwindcss/vite';
 import nodemailer from 'nodemailer';
+import dns from 'dns';
+
+const dnsPromises = dns.promises;
 
 // https://vite.dev/config/
 export default defineConfig(({ mode }) => {
@@ -43,7 +46,28 @@ export default defineConfig(({ mode }) => {
               try {
                 const body = JSON.parse(rawBody || '{}');
                 const { from, to, subject, html, reply_to, tags, venue } = body;
-                const recipient = Array.isArray(to) ? to[0] : (to || 'tiguidda76@gmail.com');
+                const recipient = (Array.isArray(to) ? to[0] : (to || 'tiguidda76@gmail.com')).trim();
+
+                // Bouclier Anti-Bounce DNS Pre-flight
+                const domain = recipient.split('@')[1];
+                if (!domain || !domain.includes('.')) {
+                  res.statusCode = 400;
+                  res.end(JSON.stringify({ success: false, error: `Adresse email invalide ("${recipient}"). Envoi annulé.` }));
+                  return;
+                }
+
+                try {
+                  const mxRecords = await dnsPromises.resolveMx(domain.trim());
+                  if (!mxRecords || mxRecords.length === 0) {
+                    res.statusCode = 400;
+                    res.end(JSON.stringify({ success: false, error: `Le domaine "${domain}" ne possède aucun serveur email actif (MX introuvable). Envoi bloqué pour éviter un rejet.` }));
+                    return;
+                  }
+                } catch (dnsErr: any) {
+                  res.statusCode = 400;
+                  res.end(JSON.stringify({ success: false, error: `Le domaine "${domain}" est introuvable sur Internet (NXDOMAIN). Envoi bloqué automatiquement.` }));
+                  return;
+                }
 
                 const senderUser = process.env.GMAIL_USER || env.GMAIL_USER || 'tiguidda76@gmail.com';
                 const senderPass = process.env.GMAIL_APP_PASSWORD || env.GMAIL_APP_PASSWORD || 'bfgznhusgoyrlpml';

@@ -285,8 +285,8 @@ export const runAutonomousLeadScout = async (
         : 'HEALTHY';
 
     const managerName = `${MANAGER_FIRST_NAMES[leadIndex % MANAGER_FIRST_NAMES.length]} ${MANAGER_LAST_NAMES[leadIndex % MANAGER_LAST_NAMES.length]}`;
-    const slug = venueName.toLowerCase().replace(/[^a-z0-9]/g, '');
-    const email = `contact@${slug}.ma`;
+    // Zero fabricated domains: Scouted venues rely on verified direct WhatsApp phone number
+    const email = '';
 
     const newVenue: Venue = {
       id: `scout-${currentCityKey.toLowerCase()}-${Date.now()}-${leadIndex + 1}`,

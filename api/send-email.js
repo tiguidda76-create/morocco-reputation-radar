@@ -1,4 +1,7 @@
 import nodemailer from 'nodemailer';
+import dns from 'dns';
+
+const dnsPromises = dns.promises;
 
 function sanitizeTagValue(val) {
   if (!val) return 'default';
@@ -24,7 +27,36 @@ export default async function handler(req, res) {
   }
 
   const { from, to, subject, html, reply_to, tags, venue } = req.body || {};
-  const recipient = Array.isArray(to) ? to[0] : (to || 'tiguidda76@gmail.com');
+  const recipient = (Array.isArray(to) ? to[0] : (to || 'tiguidda76@gmail.com')).trim();
+
+  // =========================================================================
+  // BOUCLIER ANTI-BOUNCE DNS : Vérifie que le domaine destinataire existe
+  // et possède un serveur MX avant tout envoi pour protéger le compte Gmail.
+  // =========================================================================
+  const domain = recipient.split('@')[1];
+  if (!domain || !domain.includes('.')) {
+    return res.status(400).json({
+      success: false,
+      error: `Adresse email invalide ("${recipient}"). Envoi annulé.`,
+    });
+  }
+
+  try {
+    const mxRecords = await dnsPromises.resolveMx(domain.trim());
+    if (!mxRecords || mxRecords.length === 0) {
+      console.warn(`[Anti-Bounce Blocked] Le domaine ${domain} n'a pas de serveur MX actif.`);
+      return res.status(400).json({
+        success: false,
+        error: `Le domaine "${domain}" ne possède aucun serveur email actif (enregistrement MX introuvable). Envoi bloqué pour éviter un rejet (bounce).`,
+      });
+    }
+  } catch (dnsErr) {
+    console.warn(`[Anti-Bounce Blocked] Domaine introuvable ${domain}:`, dnsErr.code);
+    return res.status(400).json({
+      success: false,
+      error: `Le domaine "${domain}" est introuvable sur Internet (NXDOMAIN). Envoi bloqué automatiquement pour protéger la réputation de votre boîte Gmail.`,
+    });
+  }
 
   const senderUser = process.env.GMAIL_USER || 'tiguidda76@gmail.com';
   const senderPass = process.env.GMAIL_APP_PASSWORD || 'bfgznhusgoyrlpml';

@@ -255,26 +255,36 @@ export const MassPitchModal: React.FC<MassPitchModalProps> = ({
 
       // --- Email dispatch ---
       if (sendEmail) {
-        const emailRes = await dispatchPitchEmail(venue, lang);
-        if (emailRes.success && (emailRes.deliveryMode === 'GMAIL_SMTP' || emailRes.deliveryMode === 'RESEND_API')) {
-          const providerName = emailRes.deliveryMode === 'GMAIL_SMTP' ? 'Gmail SMTP Pro (Direct)' : 'Resend API';
+        if (!venue.email || !venue.email.includes('@')) {
           setLogs((prev) => [
-            `✅ [${timeNow()}] [${providerName}] Livré → ${venue.name} <${emailRes.recipient}> • ID: ${emailRes.messageId}`,
+            `ℹ️ [${timeNow()}] [Email Ignoré] "${venue.name}" n'a pas d'email vérifié → Privilégier WhatsApp (${cleanPhone})`,
             ...prev,
           ]);
-          venueSuccess = true;
-        } else if (emailRes.success && emailRes.deliveryMode === 'SIMULATED_DRAFT') {
-          setLogs((prev) => [
-            `📝 [${timeNow()}] [Email Brouillon] Pitch préparé pour "${venue.name}" <${emailRes.recipient}>`,
-            ...prev,
-          ]);
-          venueSuccess = true;
+          if (!sendWhatsApp) {
+            venueError = `Établissement sans email vérifié. Contact direct par WhatsApp (${cleanPhone}).`;
+          }
         } else {
-          venueError = emailRes.error || 'Erreur acheminement email';
-          setLogs((prev) => [
-            `❌ [${timeNow()}] [Email ÉCHEC] ${venue.name}: ${venueError}`,
-            ...prev,
-          ]);
+          const emailRes = await dispatchPitchEmail(venue, lang);
+          if (emailRes.success && (emailRes.deliveryMode === 'GMAIL_SMTP' || emailRes.deliveryMode === 'RESEND_API')) {
+            const providerName = emailRes.deliveryMode === 'GMAIL_SMTP' ? 'Gmail SMTP Pro (Direct)' : 'Resend API';
+            setLogs((prev) => [
+              `✅ [${timeNow()}] [${providerName}] Livré → ${venue.name} <${emailRes.recipient}> • ID: ${emailRes.messageId}`,
+              ...prev,
+            ]);
+            venueSuccess = true;
+          } else if (emailRes.success && emailRes.deliveryMode === 'SIMULATED_DRAFT') {
+            setLogs((prev) => [
+              `📝 [${timeNow()}] [Email Brouillon] Pitch préparé pour "${venue.name}" <${emailRes.recipient}>`,
+              ...prev,
+            ]);
+            venueSuccess = true;
+          } else {
+            venueError = emailRes.error || 'Erreur acheminement email';
+            setLogs((prev) => [
+              `❌ [${timeNow()}] [Email ÉCHEC] ${venue.name}: ${venueError}`,
+              ...prev,
+            ]);
+          }
         }
       }
 
@@ -305,10 +315,10 @@ export const MassPitchModal: React.FC<MassPitchModalProps> = ({
 
   // Channel banner label
   const channelBadge = channel === 'EMAIL'
-    ? (hasEmailChannel ? { text: '✉️ Email Réel (Resend)', cls: 'bg-emerald-950 text-emerald-400 border-emerald-800' } : { text: '📝 Email Brouillon', cls: 'bg-amber-950 text-amber-400 border-amber-800' })
+    ? { text: '✉️ Gmail SMTP Pro (Direct)', cls: 'bg-emerald-950 text-emerald-400 border-emerald-800' }
     : channel === 'WHATSAPP'
     ? (deliveryStatus.isRealDeliveryAvailable ? { text: '💬 WhatsApp Réel', cls: 'bg-emerald-950 text-emerald-400 border-emerald-800' } : { text: '📱 WhatsApp Brouillon', cls: 'bg-amber-950 text-amber-400 border-amber-800' })
-    : { text: '📱+✉️ WhatsApp + Email', cls: 'bg-indigo-950 text-indigo-400 border-indigo-800' };
+    : { text: '⚡ WhatsApp + Email Direct', cls: 'bg-indigo-950 text-indigo-400 border-indigo-800' };
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/85 backdrop-blur-md overflow-y-auto">
@@ -367,7 +377,7 @@ export const MassPitchModal: React.FC<MassPitchModalProps> = ({
             <div className="p-3.5 bg-slate-950 rounded-xl border border-slate-800">
               <span className="text-[10px] text-emerald-400 uppercase font-bold tracking-wider block">Canal Actif</span>
               <div className="text-xs font-bold text-emerald-400 font-mono mt-2 truncate">
-                {channel === 'WHATSAPP' ? (deliveryStatus.hasN8n ? '⚡ n8n Webhook' : deliveryStatus.hasMeta ? '💬 Meta API' : '📱 WhatsApp Brouillon') : channel === 'EMAIL' ? (hasEmailChannel ? '✉️ Resend API' : '📝 Email Brouillon') : '📱+✉️ Les Deux'}
+                {channel === 'WHATSAPP' ? (deliveryStatus.hasN8n ? '⚡ n8n Webhook' : deliveryStatus.hasMeta ? '💬 Meta API' : '📱 WhatsApp Direct') : channel === 'EMAIL' ? '✉️ Gmail SMTP Pro (Direct)' : '⚡ Email Pro + WhatsApp'}
               </div>
             </div>
           </div>

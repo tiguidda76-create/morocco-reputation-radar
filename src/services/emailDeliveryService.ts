@@ -192,8 +192,21 @@ export async function dispatchPitchEmail(
 ): Promise<EmailDispatchResult> {
   const resendApiKey = (import.meta.env.VITE_RESEND_API_KEY as string) || '';
   const fromEmail = (import.meta.env.VITE_RESEND_FROM_EMAIL as string) || 'onboarding@resend.dev';
-  const recipient = venue.email || AGENCY_METADATA.email;
   const dispatchedAt = new Date().toISOString();
+
+  // Defensive check: If venue has no verified email, do not attempt SMTP delivery
+  if (!venue.email || !venue.email.includes('@') || !venue.email.includes('.')) {
+    return {
+      success: false,
+      recipient: venue.email || 'Non renseigné',
+      subject: `[Audit Confidentiel] Fuite estimée -${venue.annualLossMAD.toLocaleString()} MAD/an — ${venue.name}`,
+      deliveryMode: 'SIMULATED_DRAFT',
+      dispatchedAt,
+      error: `Aucun email vérifié pour "${venue.name}". Privilégiez le canal direct WhatsApp (${venue.phone}).`,
+    };
+  }
+
+  const recipient = venue.email.trim();
 
   const subjectMap = {
     FR: `[Audit Confidentiel] Fuite estimée -${venue.annualLossMAD.toLocaleString()} MAD/an — ${venue.name}`,

@@ -39,8 +39,15 @@ export function App() {
       if (saved) {
         const parsed = JSON.parse(saved);
         if (Array.isArray(parsed) && parsed.length > 0) {
-          // Strict deduplication by ID
-          const unique = Array.from(new Map(parsed.map((v: Venue) => [v.id, v])).values());
+          // Strict deduplication by ID and sanitize scouted venues without real emails
+          const cleaned = parsed.map((v: Venue) => {
+            // Scouted leads use verified direct WhatsApp and must not have synthetic emails that bounce
+            if (v.id.startsWith('scout-')) {
+              return { ...v, email: '' };
+            }
+            return v;
+          });
+          const unique = Array.from(new Map(cleaned.map((v: Venue) => [v.id, v])).values());
           return unique;
         }
       }

@@ -203,107 +203,74 @@ export async function dispatchPitchEmail(
   const subject = subjectMap[lang];
   const htmlContent = buildPitchEmailHtml(venue, lang);
 
-  // --- Channel: Serverless Resend API Proxy (zero browser CORS) ---
-  if (resendApiKey && resendApiKey.trim().startsWith('re_')) {
-    try {
-      const response = await fetch('/api/send-email', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
+  // --- Channel: Serverless Email Proxy (Gmail SMTP / Resend API) ---
+  try {
+    const response = await fetch('/api/send-email', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        from: fromEmail,
+        to: recipient,
+        subject,
+        html: htmlContent,
+        reply_to: 'tiguidda76@gmail.com',
+        venue: {
+          id: venue.id,
+          name: venue.name,
+          city: venue.city,
         },
-        body: JSON.stringify({
-          from: fromEmail,
-          to: recipient,
-          subject,
-          html: htmlContent,
-          reply_to: 'tiguidda76@gmail.com',
-          venue: {
-            id: venue.id,
-            name: venue.name,
-            city: venue.city,
-          },
-          tags: [
-            { name: 'venue_id', value: String(venue.id || '').replace(/[^a-zA-Z0-9_-]/g, '_').slice(0, 64) },
-            { name: 'city', value: (venue.city || 'Maroc').normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-zA-Z0-9_-]/g, '_').slice(0, 64) },
-            { name: 'lang', value: lang },
-          ],
-        }),
+        tags: [
+          { name: 'venue_id', value: String(venue.id || '').replace(/[^a-zA-Z0-9_-]/g, '_').slice(0, 64) },
+          { name: 'city', value: (venue.city || 'Maroc').normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-zA-Z0-9_-]/g, '_').slice(0, 64) },
+          { name: 'lang', value: lang },
+        ],
+      }),
+    });
+
+    const data = await response.json();
+    const usedTestRoute = Boolean(data.isTestRoute);
+    const provider = (data.provider || 'GMAIL_SMTP') as 'GMAIL_SMTP' | 'RESEND_API';
+
+    if (response.ok && data.success) {
+      const messageId = data.id || `msg_${Date.now()}`;
+      const finalRecipient = data.recipient || (usedTestRoute ? `tiguidda76@gmail.com (Test pour ${venue.name})` : recipient);
+      
+      recordOutreachLog({
+        executionId: messageId,
+        timestamp: dispatchedAt,
+        eventType: 'EMAIL_PITCH',
+        recipient: {
+          venueId: venue.id,
+          venueName: venue.name,
+          email: finalRecipient,
+          city: venue.city,
+        },
+        subject: usedTestRoute ? `[TEST RADAR → ${venue.name}] ${subject}` : subject,
+        status: 'DELIVERED_REAL',
+        delivery: {
+          status: 'SENT',
+          messageId,
+          provider: provider,
+          isTestRoute: usedTestRoute,
+        },
+        tracking: { opened: false, clicked: false },
       });
 
-      const data = await response.json();
-      const usedTestRoute = Boolean(data.isTestRoute);
-
-      if (response.ok && data.success) {
-        const messageId = data.id || `resend_${Date.now()}`;
-        const finalRecipient = data.recipient || (usedTestRoute ? `tiguidda76@gmail.com (Test pour ${venue.name})` : recipient);
-        
-        recordOutreachLog({
-          executionId: messageId,
-          timestamp: dispatchedAt,
-          eventType: 'EMAIL_PITCH',
-          recipient: {
-            venueId: venue.id,
-            venueName: venue.name,
-            email: finalRecipient,
-            city: venue.city,
-          },
-          subject: usedTestRoute ? `[TEST RADAR → ${venue.name}] ${subject}` : subject,
-          status: 'DELIVERED_REAL',
-          delivery: {
-            status: 'SENT',
-            messageId,
-            provider: 'RESEND_API',
-            isTestRoute: usedTestRoute,
-          },
-          tracking: { opened: false, clicked: false },
-        });
-
-        return {
-          success: true,
-          recipient: finalRecipient,
-          subject,
-          messageId,
-          deliveryMode: 'RESEND_API',
-          dispatchedAt,
-          rawResponse: data,
-        };
-      } else {
-        const errorMsg = data?.error || `Erreur Resend HTTP ${response.status}`;
-        recordOutreachLog({
-          executionId: `err_${venue.id}_${Date.now()}`,
-          timestamp: dispatchedAt,
-          eventType: 'EMAIL_PITCH',
-          recipient: {
-            venueId: venue.id,
-            venueName: venue.name,
-            email: recipient,
-            city: venue.city,
-          },
-          subject,
-          status: 'FAILED',
-          delivery: {
-            status: 'FAILED',
-            messageId: 'REJECTED_BY_RESEND',
-            provider: 'RESEND_API',
-            error: errorMsg,
-          },
-          tracking: { opened: false, clicked: false },
-        });
-
-        return {
-          success: false,
-          recipient,
-          subject,
-          deliveryMode: 'RESEND_API',
-          dispatchedAt,
-          error: errorMsg,
-          rawResponse: data,
-        };
-      }
-    } catch (err: any) {
-      const networkError = `Erreur réseau: ${err.message || 'Échec de transmission'}`;
+      return {
+        success: true,
+        recipient: finalRecipient,
+        subject,
+        messageId,
+        deliveryMode: provider === 'GMAIL_SMTP' ? 'GMAIL_SMTP' : 'RESEND_API',
+        dispatchedAt,
+        rawResponse: data,
+      };
+    } else {
+      const errorMsg = data?.error || `Erreur envoi HTTP ${response.status}`;
       recordOutreachLog({
-        executionId: `net_err_${venue.id}_${Date.now()}`,
+        executionId: `err_${venue.id}_${Date.now()}`,
         timestamp: dispatchedAt,
         eventType: 'EMAIL_PITCH',
         recipient: {
@@ -316,9 +283,9 @@ export async function dispatchPitchEmail(
         status: 'FAILED',
         delivery: {
           status: 'FAILED',
-          messageId: 'NETWORK_ERROR',
-          provider: 'RESEND_API',
-          error: networkError,
+          messageId: 'REJECTED_BY_GATEWAY',
+          provider: provider,
+          error: errorMsg,
         },
         tracking: { opened: false, clicked: false },
       });
@@ -327,11 +294,43 @@ export async function dispatchPitchEmail(
         success: false,
         recipient,
         subject,
-        deliveryMode: 'RESEND_API',
+        deliveryMode: provider === 'GMAIL_SMTP' ? 'GMAIL_SMTP' : 'RESEND_API',
         dispatchedAt,
-        error: networkError,
+        error: errorMsg,
+        rawResponse: data,
       };
     }
+  } catch (err: any) {
+    const networkError = `Erreur réseau: ${err.message || 'Échec de transmission'}`;
+    recordOutreachLog({
+      executionId: `net_err_${venue.id}_${Date.now()}`,
+      timestamp: dispatchedAt,
+      eventType: 'EMAIL_PITCH',
+      recipient: {
+        venueId: venue.id,
+        venueName: venue.name,
+        email: recipient,
+        city: venue.city,
+      },
+      subject,
+      status: 'FAILED',
+      delivery: {
+        status: 'FAILED',
+        messageId: 'NETWORK_ERROR',
+        provider: 'GMAIL_SMTP',
+        error: networkError,
+      },
+      tracking: { opened: false, clicked: false },
+    });
+
+    return {
+      success: false,
+      recipient,
+      subject,
+      deliveryMode: 'GMAIL_SMTP',
+      dispatchedAt,
+      error: networkError,
+    };
   }
 
   // --- Fallback: Simulation / Draft Mode ---

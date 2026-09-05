@@ -1,3 +1,5 @@
+import nodemailer from 'nodemailer';
+
 function sanitizeTagValue(val) {
   if (!val) return 'default';
   return String(val)
@@ -21,101 +23,144 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method Not Allowed' });
   }
 
-  const apiKey = process.env.VITE_RESEND_API_KEY || process.env.RESEND_API_KEY || '';
-  if (!apiKey || !apiKey.trim().startsWith('re_')) {
-    return res.status(500).json({
-      success: false,
-      error: 'VITE_RESEND_API_KEY manquant ou invalide sur le serveur Vercel'
-    });
-  }
-
   const { from, to, subject, html, reply_to, tags, venue } = req.body || {};
   const recipient = Array.isArray(to) ? to[0] : (to || 'tiguidda76@gmail.com');
-  const fromAddress = from || process.env.VITE_RESEND_FROM_EMAIL || 'onboarding@resend.dev';
 
-  // Sanitize all tags strictly to ASCII letters, numbers, _, -
-  const safeTags = (Array.isArray(tags) ? tags : [])
-    .filter(t => t && t.name && t.value)
-    .map(t => ({
-      name: sanitizeTagValue(t.name),
-      value: sanitizeTagValue(t.value)
-    }))
-    .filter(t => t.name.length > 0 && t.value.length > 0);
+  const senderUser = process.env.GMAIL_USER || 'tiguidda76@gmail.com';
+  const senderPass = process.env.GMAIL_APP_PASSWORD || 'bfgznhusgoyrlpml';
 
-  try {
-    // Attempt 1: Send with configured parameters
-    let response = await fetch('https://api.resend.com/emails', {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${apiKey.trim()}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        from: fromAddress.includes('<') ? fromAddress : `Hassan Tiguidda — Morocco Radar <${fromAddress}>`,
-        to: [recipient],
-        subject,
-        html,
-        reply_to: reply_to || 'tiguidda76@gmail.com',
-        tags: safeTags,
-      }),
-    });
+  // =========================================================================
+  // MOTEUR 1 (GRATUIT & RECOMMANDÉ) : RELAIS GMAIL SMTP DIRECT
+  // Envoie directement au vrai destinataire sans avoir besoin d'acheter de domaine
+  // =========================================================================
+  if (senderUser && senderPass) {
+    try {
+      const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          user: senderUser.trim(),
+          pass: senderPass.trim(),
+        },
+      });
 
-    let data = await response.json();
-    let isTestRoute = false;
+      const senderDisplayName = 'Cabinet d\'Audit Radar — Hassan Tiguidda';
+      const info = await transporter.sendMail({
+        from: `"${senderDisplayName}" <${senderUser.trim()}>`,
+        to: recipient,
+        replyTo: reply_to || senderUser.trim(),
+        subject: subject,
+        html: html,
+      });
 
-    // Auto-fallback: if unverified domain or unverified recipient in sandbox
-    if (!response.ok && (data?.message?.includes('not verified') || data?.message?.includes('testing emails to your own email'))) {
-      console.warn(`[Vercel Serverless Resend Fallback] Bascule vers onboarding@resend.dev -> tiguidda76@gmail.com`);
-      const fallbackSubject = `[TEST RADAR → ${venue?.name || 'Prospect'}] ${subject}`;
-      const fallbackRes = await fetch('https://api.resend.com/emails', {
+      console.log(`[Gmail SMTP Direct Success] Envoyé à ${recipient}, MessageID: ${info.messageId}`);
+
+      return res.status(200).json({
+        success: true,
+        id: info.messageId,
+        provider: 'GMAIL_SMTP',
+        recipient: recipient,
+        isTestRoute: false,
+      });
+    } catch (smtpErr) {
+      console.error('[Gmail SMTP Direct Error]', smtpErr);
+      // En cas de panne SMTP inattendue, tente le fallback Resend si configuré
+    }
+  }
+
+  // =========================================================================
+  // MOTEUR 2 (FALLBACK) : RESEND API (SI CLÉ PRÉSENTE)
+  // =========================================================================
+  const apiKey = process.env.VITE_RESEND_API_KEY || process.env.RESEND_API_KEY || '';
+  if (apiKey && apiKey.trim().startsWith('re_')) {
+    const fromAddress = from || process.env.VITE_RESEND_FROM_EMAIL || 'onboarding@resend.dev';
+    const safeTags = (Array.isArray(tags) ? tags : [])
+      .filter(t => t && t.name && t.value)
+      .map(t => ({
+        name: sanitizeTagValue(t.name),
+        value: sanitizeTagValue(t.value)
+      }))
+      .filter(t => t.name.length > 0 && t.value.length > 0);
+
+    try {
+      let response = await fetch('https://api.resend.com/emails', {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${apiKey.trim()}`,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          from: 'Hassan Tiguidda — Morocco Radar <onboarding@resend.dev>',
-          to: ['tiguidda76@gmail.com'],
-          subject: fallbackSubject,
-          html: `
-            <div style="background:#fef3c7;border:1px solid #f59e0b;padding:12px 16px;border-radius:8px;margin-bottom:16px;font-family:sans-serif;font-size:12px;color:#92400e;">
-              <strong>⚠️ Note d'acheminement Test :</strong> Cet email est destiné à <strong>${venue?.name || 'Établissement'}</strong> (&lt;${recipient}&gt;). Il vous est acheminé directement car le domaine de production est en cours de validation DNS sur Resend.
-            </div>
-            ${html}
-          `,
-          reply_to: 'tiguidda76@gmail.com',
-          tags: [
-            ...safeTags,
-            { name: 'test_route', value: 'true' }
-          ],
+          from: fromAddress.includes('<') ? fromAddress : `Hassan Tiguidda — Morocco Radar <${fromAddress}>`,
+          to: [recipient],
+          subject,
+          html,
+          reply_to: reply_to || 'tiguidda76@gmail.com',
+          tags: safeTags,
         }),
       });
 
-      if (fallbackRes.ok) {
-        response = fallbackRes;
-        data = await fallbackRes.json();
-        isTestRoute = true;
-      }
-    }
+      let data = await response.json();
+      let isTestRoute = false;
 
-    if (response.ok) {
-      return res.status(200).json({
-        success: true,
-        id: data.id,
-        isTestRoute,
-        recipient: isTestRoute ? `tiguidda76@gmail.com (Test pour ${venue?.name || 'Prospect'})` : recipient
-      });
-    } else {
-      return res.status(response.status).json({
+      // Auto-fallback: if unverified domain or unverified recipient in sandbox
+      if (!response.ok && (data?.message?.includes('not verified') || data?.message?.includes('testing emails to your own email'))) {
+        console.warn(`[Vercel Serverless Resend Fallback] Bascule vers onboarding@resend.dev -> tiguidda76@gmail.com`);
+        const fallbackSubject = `[TEST RADAR → ${venue?.name || 'Prospect'}] ${subject}`;
+        const fallbackRes = await fetch('https://api.resend.com/emails', {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${apiKey.trim()}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            from: 'Hassan Tiguidda — Morocco Radar <onboarding@resend.dev>',
+            to: ['tiguidda76@gmail.com'],
+            subject: fallbackSubject,
+            html: `
+              <div style="background:#fef3c7;border:1px solid #f59e0b;padding:12px 16px;border-radius:8px;margin-bottom:16px;font-family:sans-serif;font-size:12px;color:#92400e;">
+                <strong>⚠️ Note d'acheminement Test :</strong> Cet email est destiné à <strong>${venue?.name || 'Établissement'}</strong> (&lt;${recipient}&gt;).
+              </div>
+              ${html}
+            `,
+            reply_to: 'tiguidda76@gmail.com',
+            tags: [
+              ...safeTags,
+              { name: 'test_route', value: 'true' }
+            ],
+          }),
+        });
+
+        if (fallbackRes.ok) {
+          response = fallbackRes;
+          data = await fallbackRes.json();
+          isTestRoute = true;
+        }
+      }
+
+      if (response.ok) {
+        return res.status(200).json({
+          success: true,
+          id: data.id,
+          provider: 'RESEND_API',
+          isTestRoute,
+          recipient: isTestRoute ? `tiguidda76@gmail.com (Test pour ${venue?.name || 'Prospect'})` : recipient
+        });
+      } else {
+        return res.status(response.status).json({
+          success: false,
+          error: data?.message || `Erreur Resend HTTP ${response.status}`,
+          raw: data
+        });
+      }
+    } catch (resendErr) {
+      return res.status(500).json({
         success: false,
-        error: data?.message || `Erreur Resend HTTP ${response.status}`,
-        raw: data
+        error: `Erreur Resend: ${resendErr.message || resendErr}`
       });
     }
-  } catch (err) {
-    return res.status(500).json({
-      success: false,
-      error: `Erreur serveur d'envoi: ${err.message || err}`
-    });
   }
+
+  return res.status(500).json({
+    success: false,
+    error: 'Aucun moteur d\'envoi valide configuré (Gmail SMTP ou Resend)'
+  });
 }

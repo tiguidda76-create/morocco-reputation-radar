@@ -13,7 +13,8 @@ import {
   ChevronDown, 
   ChevronUp,
   MessageSquare,
-  Sparkles
+  Sparkles,
+  Trash2
 } from 'lucide-react';
 import { getOutreachAuditLog } from '../services/emailDeliveryService';
 
@@ -112,6 +113,14 @@ export const LiveOutreachTelemetry: React.FC = () => {
     });
   };
 
+  const handleClearLogs = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (window.confirm('Voulez-vous purger l\'historique des envois (effacer les anciens logs de test et de rebonds) ?')) {
+      localStorage.removeItem('mrr_outreach_audit_logs_v1');
+      calculateFromLocalLogs();
+    }
+  };
+
   useEffect(() => {
     fetchTelemetry();
     const interval = setInterval(fetchTelemetry, 6000);
@@ -136,7 +145,7 @@ export const LiveOutreachTelemetry: React.FC = () => {
               </h3>
               <span className="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center gap-1">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
-                Resend API Live
+                Gmail SMTP Pro &amp; WhatsApp Live
               </span>
             </div>
             <p className="text-[11px] text-slate-400">
@@ -145,7 +154,17 @@ export const LiveOutreachTelemetry: React.FC = () => {
           </div>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2">
+          {logs.length > 0 && (
+            <button
+              onClick={handleClearLogs}
+              title="Purger l'historique des envois"
+              className="p-2 rounded-lg bg-rose-950/40 hover:bg-rose-900/60 border border-rose-800/40 text-rose-300 text-xs flex items-center gap-1.5 transition-colors"
+            >
+              <Trash2 className="w-3.5 h-3.5" />
+              <span className="hidden sm:inline">Purger</span>
+            </button>
+          )}
           <button
             onClick={(e) => {
               e.stopPropagation();

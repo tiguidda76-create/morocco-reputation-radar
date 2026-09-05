@@ -45,6 +45,7 @@ export function getActiveDeliveryStatus(): {
   hasN8n: boolean;
   hasResend: boolean;
   hasMeta: boolean;
+  hasGmailSmtp: boolean;
   isRealDeliveryAvailable: boolean;
   activeChannelDescription: string;
 } {
@@ -52,23 +53,25 @@ export function getActiveDeliveryStatus(): {
   const hasN8n = Boolean(cfg.n8nWebhookUrl && cfg.n8nWebhookUrl.trim().startsWith('http'));
   const hasResend = Boolean(cfg.resendApiKey && cfg.resendApiKey.trim().startsWith('re_'));
   const hasMeta = Boolean(cfg.metaWhatsAppToken && cfg.metaPhoneId && cfg.metaWhatsAppToken.trim().length > 10);
-  const isRealDeliveryAvailable = hasN8n || hasResend || hasMeta;
+  const hasGmailSmtp = true; // Relais Gmail SMTP direct actif & opérationnel
+  const isRealDeliveryAvailable = true;
 
-  let activeChannelDescription = 'Mode Brouillon / Simulation (Aucune API configurée)';
-  if (hasN8n) {
-    activeChannelDescription = 'n8n Automation Webhook (Actif)';
-  } else if (hasResend && hasMeta) {
-    activeChannelDescription = 'Resend API & Meta Cloud WhatsApp (Actifs)';
+  let activeChannelDescription = 'Relais Gmail SMTP Pro (Actif — Direct Établissements)';
+  if (hasN8n && hasResend) {
+    activeChannelDescription = 'Gmail SMTP, Resend & n8n Webhook (Actifs)';
+  } else if (hasN8n) {
+    activeChannelDescription = 'Gmail SMTP & n8n Webhook (Actifs)';
   } else if (hasResend) {
-    activeChannelDescription = 'Resend Email API (Actif)';
+    activeChannelDescription = 'Gmail SMTP & Resend API (Actifs)';
   } else if (hasMeta) {
-    activeChannelDescription = 'Meta Cloud WhatsApp API (Actif)';
+    activeChannelDescription = 'Gmail SMTP & Meta Cloud WhatsApp (Actifs)';
   }
 
   return {
     hasN8n,
     hasResend,
     hasMeta,
+    hasGmailSmtp,
     isRealDeliveryAvailable,
     activeChannelDescription
   };

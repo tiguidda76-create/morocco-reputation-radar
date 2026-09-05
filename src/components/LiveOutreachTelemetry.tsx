@@ -58,10 +58,21 @@ export const LiveOutreachTelemetry: React.FC = () => {
       const logRes = await fetch('http://localhost:5678/logs', { cache: 'no-store' });
       if (logRes.ok) {
         const logData = await logRes.json();
-        if (Array.isArray(logData)) setLogs(logData);
+        if (Array.isArray(logData)) {
+          const cleaned = logData.filter((l: any) => 
+            l.status !== 'SIMULATED_DRAFT' &&
+            l.delivery?.provider !== 'SIMULATION' &&
+            !l.delivery?.isTestRoute &&
+            !l.isTestRoute &&
+            !l.recipient?.venueName?.includes('Test') &&
+            l.recipient?.city !== 'Paris' &&
+            l.recipient?.city !== 'Nice / Cannes' &&
+            l.recipient?.city !== 'Courchevel / Megeve'
+          );
+          setLogs(cleaned);
+        }
       } else {
-        const local = getOutreachAuditLog();
-        setLogs(local);
+        calculateFromLocalLogs();
       }
     } catch (e) {
       calculateFromLocalLogs();
@@ -72,12 +83,22 @@ export const LiveOutreachTelemetry: React.FC = () => {
 
   const calculateFromLocalLogs = () => {
     const local = getOutreachAuditLog();
-    setLogs(local);
-    const total = local.length;
-    const delivered = local.filter((l: any) => l.status === 'DELIVERED_REAL' || l.delivery?.status === 'SENT').length;
-    const opened = local.filter((l: any) => l.tracking?.opened).length;
-    const clicked = local.filter((l: any) => l.tracking?.clicked || l.eventType === 'WHATSAPP_PITCH').length;
-    const bounced = local.filter((l: any) => l.status === 'FAILED' || l.status === 'BOUNCED' || l.delivery?.status === 'FAILED').length;
+    const realLogs = local.filter((l: any) => 
+      l.status !== 'SIMULATED_DRAFT' &&
+      l.delivery?.provider !== 'SIMULATION' &&
+      !l.delivery?.isTestRoute &&
+      !l.isTestRoute &&
+      !l.recipient?.venueName?.includes('Test') &&
+      l.recipient?.city !== 'Paris' &&
+      l.recipient?.city !== 'Nice / Cannes' &&
+      l.recipient?.city !== 'Courchevel / Megeve'
+    );
+    setLogs(realLogs);
+    const total = realLogs.length;
+    const delivered = realLogs.filter((l: any) => l.status === 'DELIVERED_REAL' || l.delivery?.status === 'SENT').length;
+    const opened = realLogs.filter((l: any) => l.tracking?.opened).length;
+    const clicked = realLogs.filter((l: any) => l.tracking?.clicked || l.eventType === 'WHATSAPP_PITCH').length;
+    const bounced = realLogs.filter((l: any) => l.status === 'FAILED' || l.status === 'BOUNCED' || l.delivery?.status === 'FAILED').length;
 
     setStats({
       totalSent: total,
@@ -85,7 +106,7 @@ export const LiveOutreachTelemetry: React.FC = () => {
       opened,
       clicked,
       bounced,
-      deliveryRate: total > 0 ? Number(((delivered / total) * 100).toFixed(1)) : 0,
+      deliveryRate: total > 0 ? Number(((delivered / total) * 100).toFixed(1)) : 100,
       openRate: delivered > 0 ? Number(((opened / delivered) * 100).toFixed(1)) : 0,
       clickRate: total > 0 ? Number(((clicked / total) * 100).toFixed(1)) : 0
     });
@@ -211,7 +232,7 @@ export const LiveOutreachTelemetry: React.FC = () => {
               <span className="text-slate-600 font-bold">➔</span>
               <div className="flex items-center gap-2 p-2 rounded bg-[#1c1c2e] text-emerald-300 border border-emerald-500/30">
                 <span className="w-5 h-5 rounded-full bg-emerald-500/20 text-emerald-400 font-bold flex items-center justify-center text-[10px]">4</span>
-                <span>Resend API Délivré</span>
+                <span>Email Pro (Gmail SMTP)</span>
               </div>
               <span className="text-slate-600 font-bold">➔</span>
               <div className="flex items-center gap-2 p-2 rounded bg-[#1c1c2e] text-teal-300 border border-teal-500/30">

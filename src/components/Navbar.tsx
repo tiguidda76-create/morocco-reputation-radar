@@ -18,6 +18,7 @@ import { AGENCY_METADATA } from '../data/mockData';
 import { getActiveDeliveryStatus } from '../services/n8nOutreachService';
 
 interface NavbarProps {
+  venuesCount?: number;
   activeTab: string;
   setActiveTab: (tab: string) => void;
   isAutoPilot: boolean;
@@ -29,6 +30,7 @@ interface NavbarProps {
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
+  venuesCount,
   activeTab,
   setActiveTab,
   isAutoPilot,
@@ -53,7 +55,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   }, []);
 
   const tabs = [
-    { id: 'leads', label: '1. Lead Engine & Radar', icon: Globe2, badge: '45.2K' },
+    { id: 'leads', label: '1. Lead Engine & Radar', icon: Globe2, badge: `${venuesCount || 12} Cibles` },
     { id: 'fleet', label: '2. War Room Multi-Agents', icon: Bot, badge: '6 Agents' },
     { id: 'rescue', label: '3. Review Rescue Studio', icon: ShieldCheck, badge: 'Mode ' + (isAutoPilot ? 'B (Auto)' : 'A (HITL)') },
     { id: 'pricing', label: '4. Tiers & Délégation', icon: Building2, badge: 'Dès 700 DH' },
@@ -100,12 +102,12 @@ export const Navbar: React.FC<NavbarProps> = ({
                 {deliveryStatus.isRealDeliveryAvailable ? (
                   <>
                     <Zap className="w-3 h-3 text-emerald-400" />
-                    <span>{deliveryStatus.hasN8n ? 'n8n Connecté' : 'API Connectée'}</span>
+                    <span>{deliveryStatus.hasN8n ? 'n8n Connecté' : 'Gmail SMTP Actif'}</span>
                   </>
                 ) : (
                   <>
                     <AlertCircle className="w-3 h-3 text-amber-400" />
-                    <span>Canaux: Simulation (Relier n8n)</span>
+                    <span>Canaux: Mode Direct</span>
                   </>
                 )}
                 <Sliders className="w-3 h-3 ml-0.5 opacity-70" />

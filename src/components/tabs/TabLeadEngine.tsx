@@ -188,15 +188,44 @@ ICE : 1161674000043`;
     return `mailto:${venue.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   };
 
-  // Regional Heatmap Distribution
-  const regionalStats = [
-    { name: 'Marrakech-Safi', count: 18450, unreplied: 610, lossMAD: '1.42M', hub: 'Marrakech / Essaouira', color: 'border-emerald-500/50 bg-emerald-950/30' },
-    { name: 'Casablanca-Settat', count: 12200, unreplied: 430, lossMAD: '980K', hub: 'Casablanca / El Jadida', color: 'border-sky-500/50 bg-sky-950/30' },
-    { name: 'Tanger-Tétouan', count: 5120, unreplied: 145, lossMAD: '410K', hub: 'Tanger / Chefchaouen', color: 'border-amber-500/50 bg-amber-950/30' },
-    { name: 'Fès-Meknès', count: 4230, unreplied: 130, lossMAD: '380K', hub: 'Fès Médina / Ifrane', color: 'border-emerald-500/50 bg-emerald-950/30' },
-    { name: 'Souss-Massa', count: 3820, unreplied: 75, lossMAD: '310K', hub: 'Agadir / Taghazout', color: 'border-sky-500/50 bg-sky-950/30' },
-    { name: 'Drâa-Tafilalet', count: 1390, unreplied: 30, lossMAD: '340K', hub: 'Merzouga / Ouarzazate', color: 'border-amber-500/50 bg-amber-950/30' },
-  ];
+  // Regional Heatmap Distribution (Calculé en temps réel depuis le catalogue des établissements réels)
+  const regionalStats = useMemo(() => {
+    const regionConfigs: { name: MoroccanRegion; hub: string; color: string }[] = [
+      { name: 'Marrakech-Safi', hub: 'Marrakech / Essaouira', color: 'border-emerald-500/50 bg-emerald-950/30' },
+      { name: 'Casablanca-Settat', hub: 'Casablanca / El Hank', color: 'border-sky-500/50 bg-sky-950/30' },
+      { name: 'Fès-Meknès', hub: 'Fès Médina / Batha', color: 'border-emerald-500/50 bg-emerald-950/30' },
+      { name: 'Tanger-Tétouan-Al Hoceïma', hub: 'Tanger Kasbah / Détroit', color: 'border-amber-500/50 bg-amber-950/30' },
+      { name: 'Rabat-Salé-Kénitra', hub: 'Rabat Souissi / Capitale', color: 'border-purple-500/50 bg-purple-950/30' },
+      { name: 'Souss-Massa', hub: 'Agadir / Taghazout Bay', color: 'border-sky-500/50 bg-sky-950/30' },
+      { name: 'Drâa-Tafilalet', hub: 'Merzouga / Dunes Erg Chebbi', color: 'border-amber-500/50 bg-amber-950/30' },
+      { name: 'Dakhla-Oued Ed-Dahab', hub: 'Dakhla Lagune PK 25', color: 'border-teal-500/50 bg-teal-950/30' },
+      { name: 'L\'Oriental', hub: 'Oujda / Saïdia', color: 'border-emerald-500/50 bg-emerald-950/30' },
+      { name: 'Béni Mellal-Khénifra', hub: 'Béni Mellal / Bin El Ouidane', color: 'border-sky-500/50 bg-sky-950/30' },
+      { name: 'Guelmim-Oued Noun', hub: 'Guelmim / Plage Blanche', color: 'border-amber-500/50 bg-amber-950/30' },
+      { name: 'Laâyoune-Sakia El Hamra', hub: 'Laâyoune Plage', color: 'border-teal-500/50 bg-teal-950/30' },
+    ];
+
+    return regionConfigs
+      .map((cfg) => {
+        const matchingVenues = venues.filter((v) => v.region === cfg.name);
+        const count = matchingVenues.length;
+        const unreplied = matchingVenues.reduce((sum, v) => sum + (v.unrepliedReviews || 0), 0);
+        const totalLossMAD = matchingVenues.reduce((sum, v) => sum + (v.annualLossMAD || 0), 0);
+        const lossFormatted = totalLossMAD >= 1000000
+          ? `${(totalLossMAD / 1000000).toFixed(2)}M`
+          : `${(totalLossMAD / 1000).toFixed(0)}K`;
+
+        return {
+          name: cfg.name,
+          count,
+          unreplied,
+          lossMAD: lossFormatted,
+          hub: cfg.hub,
+          color: cfg.color,
+        };
+      })
+      .filter((stat) => stat.count > 0);
+  }, [venues]);
 
   // Filtering & Smart Priority Sorting
   const filteredVenues = useMemo(() => {

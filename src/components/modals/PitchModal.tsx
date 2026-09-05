@@ -19,7 +19,7 @@ import {
 import { Venue, OutreachStage } from '../../types';
 import { AGENCY_METADATA } from '../../data/mockData';
 import { sendWhatsAppMessage } from '../../services/whatsappService';
-import { dispatchAuditEmail } from '../../services/emailDeliveryService';
+import { dispatchAuditEmail, dispatchPitchEmail } from '../../services/emailDeliveryService';
 import { getActiveDeliveryStatus } from '../../services/n8nOutreachService';
 
 interface PitchModalProps {
@@ -140,6 +140,30 @@ Phone/WhatsApp: +212 632 155 430 | Email: tiguidda76@gmail.com`
     }
   };
 
+  const [isSendingEmail, setIsSendingEmail] = useState(false);
+
+  const handleSendEmailPitch = async () => {
+    if (!venue) return;
+    setIsSendingEmail(true);
+    setSendErrorMessage(null);
+    setSendSuccessMessage(null);
+    try {
+      const emailRes = await dispatchPitchEmail(venue, lang);
+      if (emailRes.success) {
+        setSendSuccessMessage(`Email envoyé avec succès à ${emailRes.recipient} via Gmail SMTP Pro`);
+        if (onUpdateStage) {
+          onUpdateStage(venue.id, 'PITCH_ENVOYE');
+        }
+      } else {
+        setSendErrorMessage(emailRes.error || 'Échec de transmission de l\'email');
+      }
+    } catch (e: any) {
+      setSendErrorMessage(e.message || 'Erreur réseau');
+    } finally {
+      setIsSendingEmail(false);
+    }
+  };
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md overflow-y-auto">
       <div className="relative w-full max-w-2xl bg-slate-900 border border-slate-700/80 rounded-2xl shadow-2xl overflow-hidden my-8 flex flex-col">
@@ -158,12 +182,11 @@ Phone/WhatsApp: +212 632 155 430 | Email: tiguidda76@gmail.com`
                 {deliveryStatus.isRealDeliveryAvailable ? (
                   <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-emerald-950 text-emerald-400 border border-emerald-800 flex items-center gap-1">
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                    {deliveryStatus.hasN8n ? 'n8n Connecté' : 'Meta API Connectée'}
+                    {deliveryStatus.hasN8n ? 'n8n Connecté' : 'Gmail SMTP & WhatsApp Actifs'}
                   </span>
                 ) : (
-                  <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-950/70 text-amber-400 border border-amber-800/80 flex items-center gap-1">
-                    <AlertCircle className="w-3 h-3" />
-                    Mode Manuel / Simulation
+                  <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-950/70 text-emerald-400 border border-emerald-800/80 flex items-center gap-1">
+                    Mode Direct (Gmail SMTP)
                   </span>
                 )}
               </div>
@@ -313,6 +336,26 @@ Phone/WhatsApp: +212 632 155 430 | Email: tiguidda76@gmail.com`
                 )}
               </button>
             )}
+
+            {/* Direct 1-Click Email Dispatch (Gmail SMTP) */}
+            <button
+              onClick={handleSendEmailPitch}
+              disabled={isSendingEmail}
+              className="flex items-center gap-1.5 px-4 py-2 bg-sky-600 hover:bg-sky-500 text-white rounded-lg text-xs font-bold transition-all shadow-md disabled:opacity-50"
+              title={`Envoyer le pitch directement par email à ${venue.email || 'la direction'}`}
+            >
+              {isSendingEmail ? (
+                <>
+                  <RefreshCw className="w-3.5 h-3.5 animate-spin" />
+                  <span>Envoi Email...</span>
+                </>
+              ) : (
+                <>
+                  <Mail className="w-3.5 h-3.5" />
+                  <span>Envoyer Email Direct (Gmail SMTP)</span>
+                </>
+              )}
+            </button>
 
             {/* Fallback Web Intent WhatsApp Button */}
             <a

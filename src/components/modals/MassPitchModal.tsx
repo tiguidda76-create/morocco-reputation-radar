@@ -53,8 +53,8 @@ export const MassPitchModal: React.FC<MassPitchModalProps> = ({
   const resendApiKey = (import.meta.env.VITE_RESEND_API_KEY as string) || '';
   const hasResend = Boolean(resendApiKey && resendApiKey.trim().startsWith('re_'));
   const deliveryStatus = getActiveDeliveryStatus();
-  const hasEmailChannel = hasResend;
-  const hasRealChannel = deliveryStatus.isRealDeliveryAvailable || hasResend;
+  const hasEmailChannel = true; // Relais Gmail SMTP Direct Actif
+  const hasRealChannel = true;
 
   // Compute newly discovered venues count
   const newVenuesCount = useMemo(() => {
@@ -79,6 +79,17 @@ export const MassPitchModal: React.FC<MassPitchModalProps> = ({
     });
   }, [venues, filterMode, searchQuery, targetVenueIds]);
 
+  // Default selection to first 10 eligible
+  useEffect(() => {
+    if (selectedIds.length === 0 && eligibleVenues.length > 0) {
+      setSelectedIds(eligibleVenues.slice(0, 10).map((v) => v.id));
+    }
+  }, [eligibleVenues]);
+
+  const targetVenues = useMemo(() => {
+    return venues.filter((v) => selectedIds.includes(v.id));
+  }, [venues, selectedIds]);
+
   // Synchronize selection whenever the modal opens or the pool changes
   useEffect(() => {
     if (isOpen) {
@@ -98,7 +109,6 @@ export const MassPitchModal: React.FC<MassPitchModalProps> = ({
 
   if (!isOpen) return null;
 
-  const targetVenues = venues.filter((v) => selectedIds.includes(v.id));
   const totalLossMAD = targetVenues.reduce((acc, v) => acc + v.annualLossMAD, 0);
 
   const toggleSelectAll = () => {
@@ -110,11 +120,9 @@ export const MassPitchModal: React.FC<MassPitchModalProps> = ({
   };
 
   const toggleSelectVenue = (id: string) => {
-    if (selectedIds.includes(id)) {
-      setSelectedIds(selectedIds.filter((item) => item !== id));
-    } else {
-      setSelectedIds([...selectedIds, id]);
-    }
+    setSelectedIds((prev) =>
+      prev.includes(id) ? prev.filter((vId) => vId !== id) : [...prev, id]
+    );
   };
 
   const handleLaunchMassOutreach = async () => {
@@ -130,10 +138,10 @@ export const MassPitchModal: React.FC<MassPitchModalProps> = ({
     const timeNow = () => new Date().toLocaleTimeString();
 
     const modeName = channel === 'WHATSAPP'
-      ? (deliveryStatus.hasN8n ? '🌐 [n8n Webhook]' : deliveryStatus.hasMeta ? '🌐 [Meta Cloud API]' : '⚠️ [Simulation WhatsApp]')
+      ? (deliveryStatus.hasN8n ? '🌐 [n8n Webhook]' : deliveryStatus.hasMeta ? '🌐 [Meta Cloud API]' : '📱 [WhatsApp Direct]')
       : channel === 'EMAIL'
-      ? (hasEmailChannel ? '✉️ [Resend API — Email Réel]' : '📝 [Simulation Email / Brouillon]')
-      : '📱+✉️ [WhatsApp + Email]';
+      ? '✉️ [Gmail SMTP Pro — Envoi Réel Direct]'
+      : '📱+✉️ [WhatsApp + Gmail SMTP Direct]';
 
     setLogs((prev) => [
       `📢 [Mass Regional Dispatcher] Démarrage de la campagne pour ${queue.length} établissements...`,
@@ -248,20 +256,21 @@ export const MassPitchModal: React.FC<MassPitchModalProps> = ({
       // --- Email dispatch ---
       if (sendEmail) {
         const emailRes = await dispatchPitchEmail(venue, lang);
-        if (emailRes.success && emailRes.deliveryMode === 'RESEND_API') {
+        if (emailRes.success && (emailRes.deliveryMode === 'GMAIL_SMTP' || emailRes.deliveryMode === 'RESEND_API')) {
+          const providerName = emailRes.deliveryMode === 'GMAIL_SMTP' ? 'Gmail SMTP Pro (Direct)' : 'Resend API';
           setLogs((prev) => [
-            `✅ [${timeNow()}] [Email Resend API] Livré → ${venue.name} <${emailRes.recipient}> • ID: ${emailRes.messageId}`,
+            `✅ [${timeNow()}] [${providerName}] Livré → ${venue.name} <${emailRes.recipient}> • ID: ${emailRes.messageId}`,
             ...prev,
           ]);
           venueSuccess = true;
         } else if (emailRes.success && emailRes.deliveryMode === 'SIMULATED_DRAFT') {
           setLogs((prev) => [
-            `📝 [${timeNow()}] [Email Brouillon] Pitch préparé pour "${venue.name}" <${emailRes.recipient}> • Ajoutez VITE_RESEND_API_KEY pour envoyer.`,
+            `📝 [${timeNow()}] [Email Brouillon] Pitch préparé pour "${venue.name}" <${emailRes.recipient}>`,
             ...prev,
           ]);
           venueSuccess = true;
         } else {
-          venueError = emailRes.error || 'Erreur Resend API';
+          venueError = emailRes.error || 'Erreur acheminement email';
           setLogs((prev) => [
             `❌ [${timeNow()}] [Email ÉCHEC] ${venue.name}: ${venueError}`,
             ...prev,

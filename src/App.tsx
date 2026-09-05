@@ -196,6 +196,7 @@ export function App() {
       
       {/* Top Sticky Navigation Bar */}
       <Navbar
+        venuesCount={venues.length}
         activeTab={activeTab}
         setActiveTab={setActiveTab}
         isAutoPilot={isAutoPilot}

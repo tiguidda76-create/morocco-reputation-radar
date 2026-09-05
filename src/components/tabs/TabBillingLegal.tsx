@@ -29,16 +29,29 @@ export const TabBillingLegal: React.FC<TabBillingLegalProps> = ({
   initialPlan,
 }) => {
   const [docType, setDocType] = useState<'PRO_FORMA' | 'INVOICE'>('PRO_FORMA');
-  const [selectedVenueId, setSelectedVenueId] = useState<string>(venues[1]?.id || 'custom');
+  const [selectedVenueId, setSelectedVenueId] = useState<string>(venues[0]?.id || 'custom');
   
-  // Custom client form state
-  const [customClient, setCustomClient] = useState({
-    name: 'Riad Kasbah & Spa',
-    ice: '002891823000084',
-    address: 'Derb Asmat, Kasbah, Marrakech',
-    city: 'Marrakech',
-    email: 'contact@riadkasbah.ma',
-    phone: '0632155430',
+  // Custom client form state initialized with real establishment
+  const [customClient, setCustomClient] = useState(() => {
+    const v = venues[0];
+    if (v) {
+      return {
+        name: v.name,
+        ice: '003189452000091',
+        address: v.address,
+        city: v.city,
+        email: v.email,
+        phone: v.phone,
+      };
+    }
+    return {
+      name: 'La Mamounia Palace Marrakech',
+      ice: '002891823000084',
+      address: 'Avenue Bab Jdid, Marrakech',
+      city: 'Marrakech',
+      email: 'direction@mamounia.com',
+      phone: '0661284920',
+    };
   });
 
   const [selectedPlanId, setSelectedPlanId] = useState<'starter' | 'professional' | 'vip'>(

@@ -1,28 +1,5 @@
 [
   {
-    "executionId": "exec_1788469024224_a2mc",
-    "timestamp": "2026-09-03T20:57:04.224Z",
-    "eventType": "WHATSAPP_PITCH",
-    "recipient": {
-      "venueId": "fr_scout_1788469013612_ml2uq",
-      "venueName": "Restaurant Plénitude (Arnaud Donckele 3★)",
-      "city": "Paris",
-      "contactPerson": "Direction Générale & Guest Relations",
-      "phone": "330142525648",
-      "email": "",
-      "unrepliedReviews": 16,
-      "annualLossMAD": 1334846
-    },
-    "contentSummary": {
-      "preview": "Bonjour Direction Générale & Guest Relations,\nAudit E-Réputation confidentiel pour \"Restaurant Plénitude (Arnaud Donckel",
-      "language": "FR"
-    },
-    "delivery": {
-      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
-      "note": "Payload reçu et journalisé avec succès."
-    }
-  },
-  {
     "executionId": "exec_1788462035590_je3u",
     "timestamp": "2026-09-03T19:00:35.590Z",
     "eventType": "WHATSAPP_PITCH",
@@ -4002,75 +3979,6 @@
     }
   },
   {
-    "executionId": "exec_1788461850091_bm5n",
-    "timestamp": "2026-09-03T18:57:30.091Z",
-    "eventType": "WHATSAPP_PITCH",
-    "recipient": {
-      "venueId": "fr_scout_1788461841824_0xl2g",
-      "venueName": "Guy Savoy (Monnaie de Paris 3★)",
-      "city": "Paris",
-      "contactPerson": "Direction Générale & Guest Relations",
-      "phone": "330142732622",
-      "email": "",
-      "unrepliedReviews": 25,
-      "annualLossMAD": 2888465
-    },
-    "contentSummary": {
-      "preview": "Bonjour Direction Générale & Guest Relations,\nAudit E-Réputation pour Guy Savoy (Monnaie de Paris 3★) (Paris) : 25 avis ",
-      "language": "FR"
-    },
-    "delivery": {
-      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
-      "note": "Payload reçu et journalisé avec succès."
-    }
-  },
-  {
-    "executionId": "exec_1788461849575_4kk6",
-    "timestamp": "2026-09-03T18:57:29.575Z",
-    "eventType": "WHATSAPP_PITCH",
-    "recipient": {
-      "venueId": "fr_scout_1788461841824_na33y",
-      "venueName": "Le 1947 à Cheval Blanc (Yannick Alléno 3★)",
-      "city": "Courchevel / Megeve",
-      "contactPerson": "Direction Générale & Guest Relations",
-      "phone": "330479901339",
-      "email": "",
-      "unrepliedReviews": 14,
-      "annualLossMAD": 1474631
-    },
-    "contentSummary": {
-      "preview": "Bonjour Direction Générale & Guest Relations,\nAudit E-Réputation pour Le 1947 à Cheval Blanc (Yannick Alléno 3★) (Courch",
-      "language": "FR"
-    },
-    "delivery": {
-      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
-      "note": "Payload reçu et journalisé avec succès."
-    }
-  },
-  {
-    "executionId": "exec_1788461849057_521q",
-    "timestamp": "2026-09-03T18:57:29.057Z",
-    "eventType": "WHATSAPP_PITCH",
-    "recipient": {
-      "venueId": "fr_scout_1788461841824_09g1r",
-      "venueName": "Hôtel Ritz Paris (Place Vendôme)",
-      "city": "Paris",
-      "contactPerson": "Direction Générale & Guest Relations",
-      "phone": "330142638886",
-      "email": "",
-      "unrepliedReviews": 5,
-      "annualLossMAD": 569615
-    },
-    "contentSummary": {
-      "preview": "Bonjour Direction Générale & Guest Relations,\nAudit E-Réputation pour Hôtel Ritz Paris (Place Vendôme) (Paris) : 5 avis ",
-      "language": "FR"
-    },
-    "delivery": {
-      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
-      "note": "Payload reçu et journalisé avec succès."
-    }
-  },
-  {
     "executionId": "exec_1788461848708_roy8",
     "timestamp": "2026-09-03T18:57:28.708Z",
     "eventType": "WHATSAPP_PITCH",
@@ -4086,52 +3994,6 @@
     },
     "contentSummary": {
       "preview": "Bonjour Lalla Zineb Naciri (Gérant / Propriétaire),\nAudit E-Réputation pour Rooftop Lounge Tichka Dakhla (Dakhla (Centre",
-      "language": "FR"
-    },
-    "delivery": {
-      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
-      "note": "Payload reçu et journalisé avec succès."
-    }
-  },
-  {
-    "executionId": "exec_1788461848532_xa7a",
-    "timestamp": "2026-09-03T18:57:28.532Z",
-    "eventType": "WHATSAPP_PITCH",
-    "recipient": {
-      "venueId": "fr_scout_1788461841824_52udn",
-      "venueName": "La Réserve Ramatuelle Hotel Spa and Villas",
-      "city": "Nice / Cannes",
-      "contactPerson": "Direction Générale & Guest Relations",
-      "phone": "330493353324",
-      "email": "",
-      "unrepliedReviews": 17,
-      "annualLossMAD": 1582166
-    },
-    "contentSummary": {
-      "preview": "Bonjour Direction Générale & Guest Relations,\nAudit E-Réputation pour La Réserve Ramatuelle Hotel Spa and Villas (Nice /",
-      "language": "FR"
-    },
-    "delivery": {
-      "status": "DISPATCHED_TO_WEBHOOK_QUEUE",
-      "note": "Payload reçu et journalisé avec succès."
-    }
-  },
-  {
-    "executionId": "exec_1788461847944_it21",
-    "timestamp": "2026-09-03T18:57:27.944Z",
-    "eventType": "WHATSAPP_PITCH",
-    "recipient": {
-      "venueId": "fr_scout_1788461841824_7a99m",
-      "venueName": "David Toutain (2★ Michelin)",
-      "city": "Paris",
-      "contactPerson": "Direction Générale & Guest Relations",
-      "phone": "330142463874",
-      "email": "",
-      "unrepliedReviews": 5,
-      "annualLossMAD": 406012
-    },
-    "contentSummary": {
-      "preview": "Bonjour Direction Générale & Guest Relations,\nAudit E-Réputation pour David Toutain (2★ Michelin) (Paris) : 5 avis sans ",
       "language": "FR"
     },
     "delivery": {

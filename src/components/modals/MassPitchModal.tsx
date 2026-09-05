@@ -170,6 +170,8 @@ export const MassPitchModal: React.FC<MassPitchModalProps> = ({
 
       const pitchText = lang === 'DARIJA'
         ? `Salam Si/Lalla ${venue.contactPerson || 'Gérant'} 👋,\nM3ak Hassan Tiguidda men Agence Morocco Radar.\nAudit confidentiel pour ${venue.name} (${venue.city}) : ${venue.unrepliedReviews} avis non répondus (${venue.annualLossMAD.toLocaleString()} MAD/an de perte estimée).\nN-qder n-sayfet lik un exemple de réponse gratuit f had l-WhatsApp ?\n📞 Tél : 0632155430 | Email : tiguidda76@gmail.com`
+        : lang === 'EN'
+        ? `Hello ${venue.contactPerson || 'General Management'},\nReputation Audit for ${venue.name} (${venue.city}): ${venue.unrepliedReviews} unreplied reviews (~${venue.annualLossMAD.toLocaleString()} MAD/yr revenue loss).\nMay I send you a free tailored reply sample and audit summary via WhatsApp?\n📞 Phone/WhatsApp: +212 632 155 430 | Email: tiguidda76@gmail.com`
         : `Bonjour ${venue.contactPerson || 'la Direction'},\nAudit E-Réputation pour ${venue.name} (${venue.city}) : ${venue.unrepliedReviews} avis sans réponse (~${venue.annualLossMAD.toLocaleString()} MAD/an de perte estimée).\nPuis-je vous transmettre un exemple de réponse gratuit et votre synthèse par retour de ce message ?\n📞 Tél/WhatsApp : 0632155430 | Email : tiguidda76@gmail.com`;
 
       // Routage Multi-Canal Intelligent :
@@ -504,28 +506,28 @@ export const MassPitchModal: React.FC<MassPitchModalProps> = ({
                 <span className="text-xs text-slate-400 font-medium hidden sm:inline">Template :</span>
                 <div className="flex bg-slate-900 p-1 rounded-xl border border-slate-800 text-xs">
                   <button
-                    onClick={() => setLang('DARIJA')}
-                    disabled={isDispatching}
-                    className={`px-2.5 py-1 rounded-lg font-semibold transition-colors ${
-                      lang === 'DARIJA' ? 'bg-amber-600 text-slate-950 shadow' : 'text-slate-400 hover:text-white'
-                    }`}
-                  >
-                    🇲🇦 Darija
-                  </button>
-                  <button
                     onClick={() => setLang('FR')}
                     disabled={isDispatching}
                     className={`px-2.5 py-1 rounded-lg font-semibold transition-colors ${
-                      lang === 'FR' ? 'bg-amber-600 text-slate-950 shadow' : 'text-slate-400 hover:text-white'
+                      lang === 'FR' ? 'bg-emerald-600 text-white shadow' : 'text-slate-400 hover:text-white'
                     }`}
                   >
-                    🇫🇷 Français
+                    🇫🇷 Français (Par défaut)
+                  </button>
+                  <button
+                    onClick={() => setLang('DARIJA')}
+                    disabled={isDispatching}
+                    className={`px-2.5 py-1 rounded-lg font-medium transition-colors ${
+                      lang === 'DARIJA' ? 'bg-amber-600 text-slate-950 shadow' : 'text-slate-400 hover:text-white'
+                    }`}
+                  >
+                    🇲🇦 Darija (Cas particuliers)
                   </button>
                   <button
                     onClick={() => setLang('EN')}
                     disabled={isDispatching}
-                    className={`px-2.5 py-1 rounded-lg font-semibold transition-colors ${
-                      lang === 'EN' ? 'bg-amber-600 text-slate-950 shadow' : 'text-slate-400 hover:text-white'
+                    className={`px-2.5 py-1 rounded-lg font-medium transition-colors ${
+                      lang === 'EN' ? 'bg-sky-600 text-white shadow' : 'text-slate-400 hover:text-white'
                     }`}
                   >
                     🇬🇧 English

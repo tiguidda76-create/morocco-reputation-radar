@@ -255,20 +255,20 @@ Phone/WhatsApp: +212 632 155 430 | Email: tiguidda76@gmail.com`
             </span>
             <div className="flex bg-slate-950 p-1 rounded-lg border border-slate-800">
               <button
+                onClick={() => setLang('FR')}
+                className={`px-3 py-1 text-xs font-semibold rounded-md transition-colors ${
+                  lang === 'FR' ? 'bg-emerald-600 text-white shadow' : 'text-slate-400 hover:text-white'
+                }`}
+              >
+                🇫🇷 Français (Par défaut)
+              </button>
+              <button
                 onClick={() => setLang('DARIJA')}
                 className={`px-3 py-1 text-xs font-medium rounded-md transition-colors ${
                   lang === 'DARIJA' ? 'bg-emerald-600 text-white shadow' : 'text-slate-400 hover:text-white'
                 }`}
               >
-                🇲🇦 Darija Marocaine
-              </button>
-              <button
-                onClick={() => setLang('FR')}
-                className={`px-3 py-1 text-xs font-medium rounded-md transition-colors ${
-                  lang === 'FR' ? 'bg-emerald-600 text-white shadow' : 'text-slate-400 hover:text-white'
-                }`}
-              >
-                🇫🇷 Français
+                🇲🇦 Darija (Cas particuliers)
               </button>
               <button
                 onClick={() => setLang('EN')}

@@ -243,7 +243,7 @@ Intègre subtilement l'hospitalité marocaine et des excuses sincères sans jama
   // =========================================================================
   // NODE 5: PITCHER AGENT (@Outreach-Pitcher)
   // =========================================================================
-  const whatsappPitchText = `Salam ${manager},
+  const whatsappPitchText = `Bonjour ${manager},
 
 Je suis Hassan Tiguidda de l'agence MOROCCO RADAR à Marrakech.
 

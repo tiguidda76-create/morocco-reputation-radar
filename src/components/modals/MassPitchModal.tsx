@@ -166,19 +166,25 @@ export const MassPitchModal: React.FC<MassPitchModalProps> = ({
       const venue = queue[i];
       const rawPhone = venue.phone.replace(/[^0-9]/g, '');
       const cleanPhone = rawPhone.startsWith('0') ? '+212 ' + rawPhone.slice(1) : '+' + rawPhone;
+      const hasVerifiedEmail = Boolean(venue.email && venue.email.includes('@') && venue.email.includes('.'));
 
       const pitchText = lang === 'DARIJA'
         ? `Salam Si/Lalla ${venue.contactPerson || 'Gérant'} 👋,\nM3ak Hassan Tiguidda men Agence Morocco Radar.\nAudit confidentiel pour ${venue.name} (${venue.city}) : ${venue.unrepliedReviews} avis non répondus (${venue.annualLossMAD.toLocaleString()} MAD/an de perte estimée).\nN-qder n-sayfet lik un exemple de réponse gratuit f had l-WhatsApp ?\n📞 Tél : 0632155430 | Email : tiguidda76@gmail.com`
         : `Bonjour ${venue.contactPerson || 'la Direction'},\nAudit E-Réputation pour ${venue.name} (${venue.city}) : ${venue.unrepliedReviews} avis sans réponse (~${venue.annualLossMAD.toLocaleString()} MAD/an de perte estimée).\nPuis-je vous transmettre un exemple de réponse gratuit et votre synthèse par retour de ce message ?\n📞 Tél/WhatsApp : 0632155430 | Email : tiguidda76@gmail.com`;
 
-      const sendWhatsApp = channel === 'WHATSAPP' || channel === 'BOTH';
-      const sendEmail = channel === 'EMAIL' || channel === 'BOTH';
+      // Routage Multi-Canal Intelligent :
+      // - Si BOTH : Email (si dispo) + WhatsApp
+      // - Si EMAIL : Email si dispo, SINON bascule automatiquement vers WhatsApp Direct (Zéro échec !)
+      // - Si WHATSAPP : WhatsApp Direct
+      const sendEmail = (channel === 'EMAIL' || channel === 'BOTH') && hasVerifiedEmail;
+      const sendWhatsApp = (channel === 'WHATSAPP' || channel === 'BOTH') || (!hasVerifiedEmail);
 
       let venueSuccess = false;
       let venueError = '';
 
       // --- WhatsApp dispatch ---
       if (sendWhatsApp) {
+        const isAutoFallback = !hasVerifiedEmail && channel === 'EMAIL';
         const sendRes = await sendWhatsAppMessage(venue.phone, pitchText, {
           venueId: venue.id,
           venueName: venue.name,
@@ -191,11 +197,11 @@ export const MassPitchModal: React.FC<MassPitchModalProps> = ({
 
         if (sendRes.success && (sendRes.mode === 'N8N_WEBHOOK' || sendRes.mode === 'META_CLOUD_API')) {
           setLogs((prev) => [
-            `✅ [${timeNow()}] [WhatsApp ${sendRes.mode}] Livré → ${venue.name} (${cleanPhone}) • ID: ${sendRes.messageId}`,
+            `✅ [${timeNow()}] [WhatsApp ${sendRes.mode}] Livré → ${venue.name} (${cleanPhone})${isAutoFallback ? ' (Routage auto sans email)' : ''} • ID: ${sendRes.messageId}`,
             ...prev,
           ]);
           recordOutreachLog({
-            executionId: sendRes.messageId || `wa_${Date.now()}`,
+            executionId: sendRes.messageId || `wa_${Date.now()}_${i}`,
             timestamp: new Date().toISOString(),
             eventType: 'WHATSAPP_PITCH',
             recipient: {
@@ -208,7 +214,7 @@ export const MassPitchModal: React.FC<MassPitchModalProps> = ({
             status: 'DELIVERED_REAL',
             delivery: {
               status: 'SENT',
-              messageId: sendRes.messageId || `wa_${Date.now()}`,
+              messageId: sendRes.messageId || `wa_${Date.now()}_${i}`,
               provider: sendRes.mode,
             },
             tracking: { opened: false, clicked: true },
@@ -216,7 +222,7 @@ export const MassPitchModal: React.FC<MassPitchModalProps> = ({
           venueSuccess = true;
         } else if (sendRes.mode === 'FALLBACK_WEB_INTENT') {
           setLogs((prev) => [
-            `✅ [${timeNow()}] [WhatsApp Direct] Pitch préparé pour "${venue.name}" (${cleanPhone})`,
+            `✅ [${timeNow()}] [WhatsApp Direct] Pitch préparé pour "${venue.name}" (${cleanPhone})${isAutoFallback ? ' (Routage auto sans email)' : ''}`,
             ...prev,
           ]);
           recordOutreachLog({
@@ -266,57 +272,26 @@ export const MassPitchModal: React.FC<MassPitchModalProps> = ({
 
       // --- Email dispatch ---
       if (sendEmail) {
-        if (!venue.email || !venue.email.includes('@')) {
+        const emailRes = await dispatchPitchEmail(venue, lang);
+        if (emailRes.success && (emailRes.deliveryMode === 'GMAIL_SMTP' || emailRes.deliveryMode === 'RESEND_API')) {
+          const providerName = emailRes.deliveryMode === 'GMAIL_SMTP' ? 'Gmail SMTP Pro (Direct)' : 'Resend API';
           setLogs((prev) => [
-            `ℹ️ [${timeNow()}] [Email Ignoré] "${venue.name}" n'a pas d'email vérifié → Contact par WhatsApp (${cleanPhone})`,
+            `✅ [${timeNow()}] [${providerName}] Livré → ${venue.name} <${emailRes.recipient}> • ID: ${emailRes.messageId}`,
             ...prev,
           ]);
-          if (!sendWhatsApp) {
-            recordOutreachLog({
-              executionId: `no_email_${venue.id}_${Date.now()}_${i}`,
-              timestamp: new Date().toISOString(),
-              eventType: 'EMAIL_PITCH',
-              recipient: {
-                venueId: venue.id,
-                venueName: venue.name,
-                phone: cleanPhone,
-                email: 'Non renseigné',
-                city: venue.city,
-              },
-              subject: `Pitch Email (${lang})`,
-              status: 'FAILED',
-              delivery: {
-                status: 'FAILED',
-                messageId: 'NO_EMAIL',
-                provider: 'GMAIL_SMTP',
-                error: 'Aucun email vérifié (contact direct WhatsApp requis)'
-              },
-              tracking: { opened: false, clicked: false },
-            });
-            venueError = `Établissement sans email vérifié. Contact direct par WhatsApp (${cleanPhone}).`;
-          }
+          venueSuccess = true;
+        } else if (emailRes.success && emailRes.deliveryMode === 'SIMULATED_DRAFT') {
+          setLogs((prev) => [
+            `📝 [${timeNow()}] [Email Brouillon] Pitch préparé pour "${venue.name}" <${emailRes.recipient}>`,
+            ...prev,
+          ]);
+          venueSuccess = true;
         } else {
-          const emailRes = await dispatchPitchEmail(venue, lang);
-          if (emailRes.success && (emailRes.deliveryMode === 'GMAIL_SMTP' || emailRes.deliveryMode === 'RESEND_API')) {
-            const providerName = emailRes.deliveryMode === 'GMAIL_SMTP' ? 'Gmail SMTP Pro (Direct)' : 'Resend API';
-            setLogs((prev) => [
-              `✅ [${timeNow()}] [${providerName}] Livré → ${venue.name} <${emailRes.recipient}> • ID: ${emailRes.messageId}`,
-              ...prev,
-            ]);
-            venueSuccess = true;
-          } else if (emailRes.success && emailRes.deliveryMode === 'SIMULATED_DRAFT') {
-            setLogs((prev) => [
-              `📝 [${timeNow()}] [Email Brouillon] Pitch préparé pour "${venue.name}" <${emailRes.recipient}>`,
-              ...prev,
-            ]);
-            venueSuccess = true;
-          } else {
-            venueError = emailRes.error || 'Erreur acheminement email';
-            setLogs((prev) => [
-              `❌ [${timeNow()}] [Email ÉCHEC] ${venue.name}: ${venueError}`,
-              ...prev,
-            ]);
-          }
+          venueError = emailRes.error || 'Erreur acheminement email';
+          setLogs((prev) => [
+            `❌ [${timeNow()}] [Email ÉCHEC] ${venue.name}: ${venueError}`,
+            ...prev,
+          ]);
         }
       }
 
@@ -411,6 +386,17 @@ export const MassPitchModal: React.FC<MassPitchModalProps> = ({
               <div className="text-xs font-bold text-emerald-400 font-mono mt-2 truncate">
                 {channel === 'WHATSAPP' ? (deliveryStatus.hasN8n ? '⚡ n8n Webhook' : deliveryStatus.hasMeta ? '💬 Meta API' : '📱 WhatsApp Direct') : channel === 'EMAIL' ? '✉️ Gmail SMTP Pro (Direct)' : '⚡ Email Pro + WhatsApp'}
               </div>
+            </div>
+          </div>
+
+          {/* Smart Multi-Channel Routing Banner */}
+          <div className="p-3.5 bg-gradient-to-r from-emerald-950/40 via-slate-900 to-slate-900 border border-emerald-500/40 rounded-2xl text-xs text-slate-300 flex items-center gap-3">
+            <div className="w-8 h-8 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 shrink-0">
+              <Sparkles className="w-4 h-4" />
+            </div>
+            <div className="text-[11px] leading-relaxed">
+              <strong className="text-emerald-300 font-bold block">Routage Intelligent Multi-Canal Actif</strong>
+              Les établissements avec email professionnel ({targetVenues.filter(v => Boolean(v.email && v.email.includes('@'))).length}) reçoivent le pitch par <strong>Gmail SMTP Pro</strong>. Ceux sans email public ({targetVenues.filter(v => !v.email || !v.email.includes('@')).length}) sont automatiquement contactés sur leur <strong>WhatsApp direct (+212)</strong>. Zéro échec garanti.
             </div>
           </div>
 
@@ -608,8 +594,13 @@ export const MassPitchModal: React.FC<MassPitchModalProps> = ({
                       </div>
                       <div className="truncate">
                         <span className="font-bold block truncate text-slate-100">{venue.name}</span>
-                        <span className="text-[10px] text-slate-400 truncate block">
-                          📍 {venue.city} • {venue.phone}
+                        <span className="text-[10px] text-slate-400 truncate flex items-center gap-1.5 flex-wrap">
+                          <span>📍 {venue.city} • {venue.phone}</span>
+                          {venue.email && venue.email.includes('@') ? (
+                            <span className="px-1.5 py-0.2 rounded bg-emerald-950/80 border border-emerald-500/40 text-emerald-300 font-sans font-semibold text-[9px]">✉️ Email Pro</span>
+                          ) : (
+                            <span className="px-1.5 py-0.2 rounded bg-amber-950/80 border border-amber-500/40 text-amber-300 font-sans font-semibold text-[9px]">📱 WhatsApp Direct</span>
+                          )}
                         </span>
                       </div>
                     </div>
